@@ -37,6 +37,7 @@
       </v-btn>
     </v-app-bar> -->
 
+    <loading-spinner :visible="isLoading" />
     <layout-header />
     <v-main>
       <v-fade-transition mode="out-in">
@@ -49,12 +50,31 @@
 <script>
 import { defineComponent } from "@vue/composition-api";
 
+import { mapActions } from "vuex";
+
 import LayoutHeader from "./components/layout/layout_header/LayoutHeader";
+import LoadingSpinner from "./components/ui/LoadingSpinner";
 
 export default defineComponent({
   name: "App",
-  components: { LayoutHeader },
-  setup() {},
+  components: { LoadingSpinner, LayoutHeader },
+  created() {
+    console.log(this.$store.getters);
+  },
+  mounted() {
+    this.timeout = setTimeout(() => {
+      this.setLoadingSpinner({ visible: false });
+    }, 500);
+  },
+  computed: {
+    isLoading() {
+      return this.$store.getters.getLoadingSpinner.visible;
+    },
+  },
+
+  methods: {
+    ...mapActions(["setLoadingSpinner"]),
+  },
 });
 </script>
 
@@ -64,15 +84,24 @@ export default defineComponent({
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   // text-align: center;
-  color: #2c3e50;
+  // color: #2c3e50;
   // background: #708515;
-  background: rgb(90, 120, 15);
+  // background: rgb(90, 120, 15);
+  // background: linear-gradient(
+  //   240deg,
+  //   rgba(90, 120, 15, 1) 10%,
+  //   rgba(128, 149, 37, 1) 35%,
+  //   rgba(128, 149, 37, 1) 65%,
+  //   rgba(90, 120, 15, 1) 90%
+  // );
+
+  background: rgb(74, 104, 15);
   background: linear-gradient(
     240deg,
-    rgba(90, 120, 15, 1) 10%,
+    rgba(74, 104, 15, 1) 10%,
     rgba(128, 149, 37, 1) 35%,
     rgba(128, 149, 37, 1) 65%,
-    rgba(90, 120, 15, 1) 90%
+    rgba(74, 104, 15, 1) 90%
   );
 
   padding-left: 2rem;
@@ -83,7 +112,7 @@ export default defineComponent({
 html {
   -ms-overflow-style: none; /* for Internet Explorer, Edge */
   scrollbar-width: none; /* for Firefox */
-  overflow-y: scroll;
+  overflow-y: hidden;
   zoom: 140%;
 }
 

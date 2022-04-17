@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-row>
+    <v-row no-gutters>
       <v-col>
         <v-img :src="logo" width="200"></v-img>
       </v-col>
@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import logo from "../../../assets/Logos/White/PNG/Logo_Solid_Horizontal_W-01.png";
+import logo from "../../../assets/Logos/White/SVG/Logo_Solid_Horizontal_W.svg";
 export default {
   data() {
     return {

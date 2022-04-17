@@ -2,8 +2,8 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 
 import HomeView from "@/views/HomeView";
-import DepositView from "@/views/DepositView";
-import CourierView from "@/views/CourierView";
+import DepositView from "@/views/deposit/DepositView";
+import CourierSignIn from "@/components/global/CourierSignIn";
 
 Vue.use(VueRouter);
 
@@ -23,8 +23,8 @@ const routes = [
     children: [
       {
         path: "",
-        name: "Courier",
-        component: CourierView,
+        name: "CourierSignIn",
+        component: CourierSignIn,
       },
     ],
   },

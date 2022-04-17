@@ -1,13 +1,13 @@
 <template>
   <v-container>
-    <v-row>
+    <v-row no-gutters>
       <v-col>
         <v-card
           v-ripple
           @click="$router.push('/deposit').catch(() => {})"
           class="option rounded-lg"
         >
-          <v-img aspect-ratio="1" :src="CheckIn" height="200" contain></v-img>
+          <v-img aspect-ratio="1" :src="CheckIn" height="350" contain></v-img>
           <v-card-text style="position: absolute">
             <v-fab-transition>
               <v-btn color="greenLight" dark absolute top right fab x-large>
@@ -17,7 +17,7 @@
           </v-card-text>
 
           <v-card-title class="secondary fontLight--text">
-            Deposit Parcel</v-card-title
+            Check In Parcel</v-card-title
           >
           <v-card-text class="secondary fontLight--text"
             >Courier area for depositing parcels.</v-card-text
@@ -30,7 +30,7 @@
           @click="$router.push('/withdraw').catch(() => {})"
           class="option rounded-lg"
         >
-          <v-img aspect-ratio="1" :src="CheckOut" height="200" contain></v-img>
+          <v-img aspect-ratio="1" :src="CheckOut" height="350" contain></v-img>
           <v-card-text style="position: absolute">
             <v-fab-transition>
               <v-btn color="greenLight" dark absolute top right fab x-large>
@@ -40,10 +40,61 @@
           </v-card-text>
 
           <v-card-title class="secondary fontLight--text">
-            Withdraw Parcel
+            Check out Parcel
           </v-card-title>
           <v-card-text class="secondary fontLight--text"
             >Client area for withdrawing parcels.</v-card-text
+          >
+        </v-card>
+      </v-col>
+      <v-col>
+        <v-card
+          v-ripple
+          @click="$router.push('/withdraw').catch(() => {})"
+          class="option rounded-lg"
+        >
+          <v-img aspect-ratio="1" :src="PadLock" height="350" contain></v-img>
+          <v-card-text style="position: absolute">
+            <v-fab-transition>
+              <v-btn color="greenLight" dark absolute top right fab x-large>
+                <v-icon x-large>mdi-locker</v-icon>
+              </v-btn>
+            </v-fab-transition>
+          </v-card-text>
+
+          <v-card-title class="secondary fontLight--text">
+            Locker Status
+          </v-card-title>
+          <v-card-text class="secondary fontLight--text"
+            >Check the current status of each locker.</v-card-text
+          >
+        </v-card>
+      </v-col>
+      <v-col>
+        <v-card
+          v-ripple
+          @click="$router.push('/withdraw').catch(() => {})"
+          class="option rounded-lg"
+        >
+          <v-img
+            aspect-ratio="1"
+            :src="Transaction"
+            height="350"
+            contain
+          ></v-img>
+          <v-card-text style="position: absolute">
+            <v-fab-transition>
+              <v-btn color="greenLight" dark absolute top right fab x-large>
+                <v-icon x-large>mdi-text-box</v-icon>
+              </v-btn>
+            </v-fab-transition>
+          </v-card-text>
+
+          <v-card-title class="secondary fontLight--text">
+            Transactions
+          </v-card-title>
+          <v-card-text class="secondary fontLight--text"
+            >Check the previous transactions made.</v-card-text
           >
         </v-card>
       </v-col>
@@ -53,8 +104,10 @@
 
 <script>
 // import locker from "../../api/splLockerApi";
-import CheckIn from "../assets/Icons/CheckIn/CheckIn_Green-01.png";
-import CheckOut from "../assets/Icons/CheckOut/CheckOut_Green-01.png";
+import CheckIn from "../assets/Icons/CheckIn/CheckIn_Green-01.svg";
+import CheckOut from "../assets/Icons/CheckOut/CheckOut_Green.svg";
+import PadLock from "../assets/Icons/Lock/Lock_Green.svg";
+import Transaction from "../assets/Icons/Transaction/Transact_Green.svg";
 
 export default {
   name: "HomeView",
@@ -63,6 +116,8 @@ export default {
     return {
       CheckIn: CheckIn,
       CheckOut: CheckOut,
+      PadLock: PadLock,
+      Transaction: Transaction,
     };
   },
 };
@@ -70,6 +125,6 @@ export default {
 
 <style scoped>
 .option {
-  margin-inline: 1.5rem;
+  margin-inline: 1rem;
 }
 </style>
