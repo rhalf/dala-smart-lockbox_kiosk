@@ -23,3 +23,4 @@ jobs:
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_DALA_SMART_LOCKBOX }}'
           channelId: live
           projectId: dala-smart-lockbox
+          entrypoint: dsl-kiosk
