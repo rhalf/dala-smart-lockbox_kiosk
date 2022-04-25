@@ -58,22 +58,44 @@
       </v-stepper-content>
 
       <v-stepper-content step="3">
-        <!-- <v-row>
-                <v-col>
-                  <commitDeposit
-                    :locker="locker"
-                    :parcel="parcel"
-                    :courier="courier"
-                    :start="stepState == 4"
-                  ></commitDeposit>
-                </v-col>
-              </v-row> -->
+        <v-row>
+          <v-col>
+            <parcel-locker></parcel-locker>
+          </v-col>
+        </v-row>
         <v-row>
           <v-spacer></v-spacer>
+          <v-col cols="auto">
+            <v-btn
+              color="primary--text"
+              @click="parcelLockerHandler()"
+              large
+              light
+            >
+              Continue
+            </v-btn>
+          </v-col>
+        </v-row>
+      </v-stepper-content>
 
-          <!-- <v-col cols="auto">
-                  <v-btn large @click="stepState = 3" outlined>Back</v-btn>
-                </v-col> -->
+      <v-stepper-content step="4">
+        <v-row>
+          <v-col>
+            <parcel-done :enable="stepState != 4"></parcel-done>
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-spacer></v-spacer>
+          <v-col cols="auto">
+            <v-btn color="primary--text" @click="goToDeposit()" large light>
+              Yes
+            </v-btn>
+          </v-col>
+          <v-col cols="auto">
+            <v-btn color="primary--text" @click="goToHome()" large light>
+              No
+            </v-btn>
+          </v-col>
         </v-row>
       </v-stepper-content>
     </v-stepper-items>
@@ -88,13 +110,15 @@
 // import commitDeposit from "./commitDeposit";
 
 import { mapActions } from "vuex";
-import ParcelCode from "../../components/global/ParcelCode";
-import ParcelDetails from "../../components/global/ParcelDetails";
+import ParcelCode from "../../components/parcel/ParcelCode";
+import ParcelDetails from "../../components/parcel/ParcelDetails";
+import ParcelLocker from "../../components/parcel/ParcelLocker";
+import ParcelDone from "../../components/parcel/ParcelDone";
 
 export default {
   name: "DepositStepper",
   //   mixins: [splLockerApi],
-  components: { ParcelCode, ParcelDetails }, //courier, parcel, locker, commitDeposit },
+  components: { ParcelCode, ParcelDetails, ParcelLocker, ParcelDone }, //courier, parcel, locker, commitDeposit },
   data() {
     return {
       parcelCode: null,
@@ -126,8 +150,25 @@ export default {
       }, 500);
     },
 
+    parcelLockerHandler(locker) {
+      console.log(locker);
+      this.setLoadingSpinner({ visible: true });
+      this.timeout = setTimeout(() => {
+        this.setLoadingSpinner({ visible: false });
+        this.stepState++;
+      }, 500);
+    },
+
     onParcelCode(code) {
       this.parcelCode = code;
+    },
+
+    goToHome() {
+      this.$router.go("/home");
+    },
+
+    goToDeposit() {
+      this.$router.go("/deposit");
     },
   },
 };

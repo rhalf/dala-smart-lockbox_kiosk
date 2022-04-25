@@ -20,7 +20,7 @@
 import { mapActions, mapGetters } from "vuex";
 
 import ParcelStepper from "./ParcelStepper";
-import CourierSignIn from "../../components/global/CourierSignIn";
+import CourierSignIn from "../../components/courier/CourierSignIn";
 
 export default {
   name: "DepositView",

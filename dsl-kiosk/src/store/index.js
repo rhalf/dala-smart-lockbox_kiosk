@@ -3,7 +3,7 @@ import Vuex from "vuex";
 
 import loadingSpinner from "../store/modules/loading-spinner";
 // import size from "../store/modules/size"
-// import locker from "../store/modules/locker"
+import locker from "../store/modules/locker";
 // import status from "../store/modules/status"
 // import company from "../store/modules/company"
 // import client from "../store/modules/client"
@@ -18,7 +18,7 @@ export default new Vuex.Store({
   modules: {
     loadingSpinner,
     // size,
-    // locker,
+    locker,
     // status,
     // company,
     // client,

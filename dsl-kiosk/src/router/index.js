@@ -3,7 +3,7 @@ import VueRouter from "vue-router";
 
 import HomeView from "@/views/HomeView";
 import DepositView from "@/views/deposit/DepositView";
-import CourierSignIn from "@/components/global/CourierSignIn";
+import CourierSignIn from "@/components/courier/CourierSignIn";
 
 Vue.use(VueRouter);
 

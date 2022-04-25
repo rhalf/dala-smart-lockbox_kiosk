@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import ScanCode from "../global/ScanCode";
+import ScanCode from "../ui/ScanCode";
 import validation from "../../mixins/validation";
 export default {
   name: "ParcelCode",
