@@ -32,7 +32,7 @@ export default {
         this.timeInterval--;
 
         if (this.timeInterval == 0) {
-          this.$router.go("/");
+          this.$router.replace("/home");
         }
       }, 1000);
     },

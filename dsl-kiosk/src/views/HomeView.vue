@@ -4,7 +4,7 @@
       <v-col>
         <v-card
           v-ripple
-          @click="$router.push('/deposit').catch(() => {})"
+          @click="$router.push('/check-in').catch(() => {})"
           class="option rounded-lg"
         >
           <v-img aspect-ratio="1" :src="CheckIn" height="350" contain></v-img>
@@ -17,7 +17,7 @@
           </v-card-text>
 
           <v-card-title class="secondary fontLight--text">
-            Check In Parcel</v-card-title
+            Check In</v-card-title
           >
           <v-card-text class="secondary fontLight--text"
             >Courier area for depositing parcels.</v-card-text
@@ -27,7 +27,7 @@
       <v-col>
         <v-card
           v-ripple
-          @click="$router.push('/withdraw').catch(() => {})"
+          @click="$router.push('/check-out').catch(() => {})"
           class="option rounded-lg"
         >
           <v-img aspect-ratio="1" :src="CheckOut" height="350" contain></v-img>
@@ -40,7 +40,7 @@
           </v-card-text>
 
           <v-card-title class="secondary fontLight--text">
-            Check out Parcel
+            Check Out
           </v-card-title>
           <v-card-text class="secondary fontLight--text"
             >Client area for withdrawing parcels.</v-card-text

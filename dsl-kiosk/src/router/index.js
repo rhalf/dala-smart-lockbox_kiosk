@@ -2,7 +2,8 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 
 import HomeView from "@/views/HomeView";
-import DepositView from "@/views/deposit/DepositView";
+import CheckInView from "@/views/checkIn/CheckInView";
+import CheckOutView from "@/views/checkOut/CheckOutView";
 import CourierSignIn from "@/components/courier/CourierSignIn";
 
 Vue.use(VueRouter);
@@ -17,9 +18,8 @@ const routes = [
     component: HomeView,
   },
   {
-    path: "/deposit",
-    // name: "Deposit",
-    component: DepositView,
+    path: "/check-in",
+    component: CheckInView,
     children: [
       {
         path: "",
@@ -27,6 +27,17 @@ const routes = [
         component: CourierSignIn,
       },
     ],
+  },
+  {
+    path: "/check-out",
+    component: CheckOutView,
+    // children: [
+    //   {
+    //     path: "",
+    //     name: "CourierSignIn",
+    //     component: CourierSignIn,
+    //   },
+    // ],
   },
 ];
 

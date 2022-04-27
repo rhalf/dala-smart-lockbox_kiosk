@@ -8,10 +8,10 @@
       <courier-sign-in @onCourier="onCourierHandler" v-if="!getCourier()">
       </courier-sign-in>
 
-      <parcel-stepper
+      <check-in-stepper
         v-if="getCourier()"
         :courier="getCourier()"
-      ></parcel-stepper>
+      ></check-in-stepper>
     </v-fade-transition>
   </div>
 </template>
@@ -19,12 +19,12 @@
 <script>
 import { mapActions, mapGetters } from "vuex";
 
-import ParcelStepper from "./ParcelStepper";
+import CheckInStepper from "./CheckInStepper";
 import CourierSignIn from "../../components/courier/CourierSignIn";
 
 export default {
-  name: "DepositView",
-  components: { CourierSignIn, ParcelStepper },
+  name: "CheckInView",
+  components: { CourierSignIn, CheckInStepper },
   data() {
     return {};
   },

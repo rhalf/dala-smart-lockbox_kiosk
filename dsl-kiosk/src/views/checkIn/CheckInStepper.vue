@@ -87,7 +87,7 @@
         <v-row>
           <v-spacer></v-spacer>
           <v-col cols="auto">
-            <v-btn color="primary--text" @click="goToDeposit()" large light>
+            <v-btn color="primary--text" @click="goToCheckIn()" large light>
               Yes
             </v-btn>
           </v-col>
@@ -116,7 +116,7 @@ import ParcelLocker from "../../components/parcel/ParcelLocker";
 import ParcelDone from "../../components/parcel/ParcelDone";
 
 export default {
-  name: "DepositStepper",
+  name: "CheckInStepper",
   //   mixins: [splLockerApi],
   components: { ParcelCode, ParcelDetails, ParcelLocker, ParcelDone }, //courier, parcel, locker, commitDeposit },
   data() {
@@ -164,11 +164,11 @@ export default {
     },
 
     goToHome() {
-      this.$router.go("/home");
+      this.$router.replace("/home");
     },
 
-    goToDeposit() {
-      this.$router.go("/deposit");
+    goToCheckIn() {
+      this.$router.go(0);
     },
   },
 };

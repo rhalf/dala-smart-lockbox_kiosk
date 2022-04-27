@@ -22,7 +22,7 @@
             outlined
             class="px-10"
             label="Code"
-            placeholder="Type to Enter code manually"
+            placeholder="Enter code manually"
             clearable
             @blur="inputState = false"
             @focus="inputState = true"
@@ -68,7 +68,8 @@ export default {
     keyDownHandler(e) {
       if (e.key == "Enter") {
         e.preventDefault();
-        this.$emit("onScanCode", this.code);
+        var regex = /\s/g;
+        this.$emit("onScanCode", this.code.toString().replace(regex, ""));
         // this.code = null;
       } else if (e.key == "Shift" || e.key == "Ctrl" || e.key == "Alt") {
         return;
