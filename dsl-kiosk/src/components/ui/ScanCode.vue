@@ -1,56 +1,48 @@
 <template>
-  <v-card light class="ma-auto justify" width="480">
-    <v-card-title class="secondary fontLight--text">Code Scan</v-card-title>
-    <v-card-subtitle class="secondary fontLight--text"></v-card-subtitle>
-    <v-card-text>
-      <v-row>
-        <v-col>
+  <v-container>
+    <v-row>
+      <v-col>
+        <v-row>
           <v-img
-            class="mx-auto my-5"
+            class="mx-auto"
             aspect-ratio="1"
-            :src="QrCode"
-            max-width="150"
-            max-height="150"
+            :src="icon"
+            max-width="220"
+            max-height="220"
             contain
           ></v-img>
-        </v-col>
-      </v-row>
-      <v-row>
-        <v-col>
+        </v-row>
+        <v-row>
           <v-text-field
             v-model="code"
             outlined
-            class="px-10"
-            label="Code"
-            placeholder="Enter code manually"
             clearable
+            class="headline px-3"
+            :label="label"
+            :placeholder="`Enter ${label} manually`"
+            height="60"
             @blur="inputState = false"
             @focus="inputState = true"
           ></v-text-field>
-        </v-col>
-      </v-row>
-    </v-card-text>
-    <!-- <v-card-actions class="secondary">
-      <v-container>
-        <v-row>
-          <v-spacer></v-spacer>
-          <v-col cols="auto">
-            <v-btn class="primary--text" @click="enterCodeHandler">Enter</v-btn>
-          </v-col>
         </v-row>
-      </v-container>
-    </v-card-actions> -->
-  </v-card>
+      </v-col>
+      <v-divider vertical></v-divider>
+      <v-col><num-pad v-model="code" @onDone="onDoneHandler"></num-pad></v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script>
-import QrCode from "../../assets/Extra/qrcode.svg";
+import NumPad from "../ui/NumPad";
 
 export default {
   name: "CodeScan",
   props: {
     enable: Boolean,
+    label: String,
+    icon: String,
   },
+  components: { NumPad },
   //   created() {
   //     window.addEventListener("keydown", this.keyDownHandler);
   //   },
@@ -60,16 +52,15 @@ export default {
   data() {
     return {
       code: null,
-      QrCode: QrCode,
       inputState: false,
+      regex: /\s/g,
     };
   },
   methods: {
     keyDownHandler(e) {
       if (e.key == "Enter") {
         e.preventDefault();
-        var regex = /\s/g;
-        this.$emit("onScanCode", this.code.toString().replace(regex, ""));
+        this.$emit("onScanCode", this.code.toString().replace(this.regex, ""));
         // this.code = null;
       } else if (e.key == "Shift" || e.key == "Ctrl" || e.key == "Alt") {
         return;
@@ -77,6 +68,9 @@ export default {
         if (this.code == null) this.code = e.key;
         else this.code = this.code + e.key;
       }
+    },
+    onDoneHandler(code) {
+      this.$emit("onScanCode", code.toString().replace(this.regex, ""));
     },
   },
 

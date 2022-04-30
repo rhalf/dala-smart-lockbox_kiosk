@@ -21,10 +21,13 @@
       <v-stepper-content step="1">
         <v-row>
           <v-col>
-            <parcel-code @onParcelCode="onParcelCode"></parcel-code>
+            <parcel-code-check-in
+              @onParcelCode="onParcelCodeHandler"
+              :enable="stepState == 1"
+            ></parcel-code-check-in>
           </v-col>
         </v-row>
-        <v-spacer></v-spacer>
+        <!-- <v-spacer></v-spacer>
         <v-row>
           <v-spacer></v-spacer>
           <v-col cols="auto">
@@ -32,7 +35,7 @@
               Continue
             </v-btn>
           </v-col>
-        </v-row>
+        </v-row> -->
       </v-stepper-content>
 
       <v-stepper-content step="2">
@@ -81,7 +84,9 @@
       <v-stepper-content step="4">
         <v-row>
           <v-col>
-            <parcel-done :enable="stepState != 4"></parcel-done>
+            <parcel-done-check-in
+              :enable="stepState != 4"
+            ></parcel-done-check-in>
           </v-col>
         </v-row>
         <v-row>
@@ -110,15 +115,20 @@
 // import commitDeposit from "./commitDeposit";
 
 import { mapActions } from "vuex";
-import ParcelCode from "../../components/parcel/ParcelCode";
+import ParcelCodeCheckIn from "../../components/parcel/ParcelCodeCheckIn";
 import ParcelDetails from "../../components/parcel/ParcelDetails";
 import ParcelLocker from "../../components/parcel/ParcelLocker";
-import ParcelDone from "../../components/parcel/ParcelDone";
+import ParcelDoneCheckIn from "../../components/parcel/ParcelDoneCheckIn";
 
 export default {
   name: "CheckInStepper",
   //   mixins: [splLockerApi],
-  components: { ParcelCode, ParcelDetails, ParcelLocker, ParcelDone }, //courier, parcel, locker, commitDeposit },
+  components: {
+    ParcelCodeCheckIn,
+    ParcelDetails,
+    ParcelLocker,
+    ParcelDoneCheckIn,
+  }, //courier, parcel, locker, commitDeposit },
   data() {
     return {
       parcelCode: null,
@@ -132,7 +142,7 @@ export default {
   methods: {
     ...mapActions(["setLoadingSpinner"]),
 
-    parcelHandler(data) {
+    onParcelCodeHandler(data) {
       console.log(data);
       this.setLoadingSpinner({ visible: true });
       this.timeout = setTimeout(() => {
@@ -157,10 +167,6 @@ export default {
         this.setLoadingSpinner({ visible: false });
         this.stepState++;
       }, 500);
-    },
-
-    onParcelCode(code) {
-      this.parcelCode = code;
     },
 
     goToHome() {

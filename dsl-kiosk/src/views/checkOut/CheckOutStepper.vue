@@ -22,12 +22,12 @@
       <v-stepper-content step="1">
         <v-row>
           <v-col>
-            <parcel-pick-up-code
-              @onParcelCode="onParcelCode"
-            ></parcel-pick-up-code>
+            <parcel-code-check-out
+              @onParcelCode="onParcelCodeHandler"
+            ></parcel-code-check-out>
           </v-col>
         </v-row>
-        <v-spacer></v-spacer>
+        <!-- <v-spacer></v-spacer>
         <v-row>
           <v-spacer></v-spacer>
           <v-col cols="auto">
@@ -35,7 +35,7 @@
               Continue
             </v-btn>
           </v-col>
-        </v-row>
+        </v-row> -->
       </v-stepper-content>
 
       <v-stepper-content step="2">
@@ -71,7 +71,7 @@
           <v-col cols="auto">
             <v-btn
               color="primary--text"
-              @click="parcelLockerHandler()"
+              @click="parcelOtpHandler()"
               large
               light
             >
@@ -84,7 +84,9 @@
       <v-stepper-content step="4">
         <v-row>
           <v-col>
-            <parcel-done :enable="stepState != 4"></parcel-done>
+            <parcel-done-check-out
+              :enable="stepState != 4"
+            ></parcel-done-check-out>
           </v-col>
         </v-row>
         <v-row>
@@ -113,15 +115,20 @@
 // import commitDeposit from "./commitDeposit";
 
 import { mapActions } from "vuex";
-import ParcelPickUpCode from "../../components/parcel/ParcelPickUpCode";
+import ParcelCodeCheckOut from "../../components/parcel/ParcelCodeCheckOut";
 import ParcelDetails from "../../components/parcel/ParcelDetails";
 import ParcelOtp from "../../components/parcel/ParcelOtp";
-import ParcelDone from "../../components/parcel/ParcelDone";
+import ParcelDoneCheckOut from "../../components/parcel/ParcelDoneCheckOut";
 
 export default {
   name: "CheckOutStepper",
   //   mixins: [splLockerApi],
-  components: { ParcelPickUpCode, ParcelDetails, ParcelOtp, ParcelDone }, //courier, parcel, locker, commitDeposit },
+  components: {
+    ParcelCodeCheckOut,
+    ParcelDetails,
+    ParcelOtp,
+    ParcelDoneCheckOut,
+  }, //courier, parcel, locker, commitDeposit },
   data() {
     return {
       parcelCode: null,
@@ -135,7 +142,7 @@ export default {
   methods: {
     ...mapActions(["setLoadingSpinner"]),
 
-    parcelHandler(data) {
+    onParcelCodeHandler(data) {
       console.log(data);
       this.setLoadingSpinner({ visible: true });
       this.timeout = setTimeout(() => {
@@ -153,17 +160,13 @@ export default {
       }, 500);
     },
 
-    parcelLockerHandler(locker) {
+    parcelOtpHandler(locker) {
       console.log(locker);
       this.setLoadingSpinner({ visible: true });
       this.timeout = setTimeout(() => {
         this.setLoadingSpinner({ visible: false });
         this.stepState++;
       }, 500);
-    },
-
-    onParcelCode(code) {
-      this.parcelCode = code;
     },
 
     goToHome() {

@@ -8,7 +8,7 @@
       </v-row>
       <v-row>
         <v-spacer></v-spacer>
-        <v-col cols="4">
+        <v-col cols="4" class="font-weight-bold headline">
           <v-otp-input length="6" type="number" height="80" light></v-otp-input>
         </v-col>
         <v-spacer></v-spacer>

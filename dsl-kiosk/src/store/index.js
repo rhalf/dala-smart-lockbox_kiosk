@@ -9,6 +9,7 @@ import locker from "../store/modules/locker";
 // import client from "../store/modules/client"
 // import parcel from "../store/modules/parcel"
 import courier from "../store/modules/courier";
+import rider from "../store/modules/rider";
 // import transaction from "../store/modules/transaction"
 // import cu48b from "../store/modules/cu48b"
 
@@ -24,6 +25,7 @@ export default new Vuex.Store({
     // client,
     // parcel,
     courier,
+    rider,
     // transaction,
     // cu48b
   },

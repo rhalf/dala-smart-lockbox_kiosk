@@ -1,41 +1,39 @@
 <template>
-  <div>
-    <!-- <v-col>
-        <v-slide-x-reverse-transition mode="out-in">
-          <router-view></router-view> </v-slide-x-reverse-transition
-      ></v-col> -->
-    <v-fade-transition mode="out-in">
-      <courier-sign-in @onCourier="onCourierHandler" v-if="!getCourier()">
-      </courier-sign-in>
+  <v-fade-transition mode="out-in">
+    <rider-sign-in
+      @onRiderSignIn="onRiderSignInHandler"
+      v-if="!getRider()"
+      :enable="true"
+    >
+    </rider-sign-in>
 
-      <check-in-stepper
-        v-if="getCourier()"
-        :courier="getCourier()"
-      ></check-in-stepper>
-    </v-fade-transition>
-  </div>
+    <check-in-stepper
+      v-if="getRider()"
+      :courier="getRider()"
+    ></check-in-stepper>
+  </v-fade-transition>
 </template>
 
 <script>
 import { mapActions, mapGetters } from "vuex";
 
 import CheckInStepper from "./CheckInStepper";
-import CourierSignIn from "../../components/courier/CourierSignIn";
+import RiderSignIn from "../../components/rider/RiderSignIn";
 
 export default {
   name: "CheckInView",
-  components: { CourierSignIn, CheckInStepper },
+  components: { RiderSignIn, CheckInStepper },
   data() {
     return {};
   },
 
   methods: {
-    ...mapActions(["setCourier"]),
-    ...mapGetters(["getCourier"]),
+    ...mapActions(["setRider"]),
+    ...mapGetters(["getRider"]),
 
-    onCourierHandler(data) {
+    onRiderSignInHandler(data) {
       console.log(data);
-      this.setCourier(data);
+      this.setRider(data);
     },
   },
 };
