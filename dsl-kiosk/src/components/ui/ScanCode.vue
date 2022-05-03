@@ -36,7 +36,7 @@
 import NumPad from "../ui/NumPad";
 
 export default {
-  name: "CodeScan",
+  name: "ScanCode",
   props: {
     enable: Boolean,
     label: String,

@@ -1,47 +1,32 @@
 <template>
   <v-sheet height="450" class="transparent">
-    <v-container>
-      <v-row>
-        <v-col class="text-center headline">
-          <label> Please enter your OTP (One Time Pin).</label>
-        </v-col>
-      </v-row>
-      <v-row>
-        <v-spacer></v-spacer>
-        <v-col cols="4" class="font-weight-bold headline">
-          <v-otp-input length="6" type="number" height="80" light></v-otp-input>
-        </v-col>
-        <v-spacer></v-spacer>
-      </v-row>
-      <v-row>
-        <v-spacer></v-spacer>
-
-        <v-col cols="auto">
-          <v-btn class="grey" light>
-            <v-icon left>mdi-trash-can</v-icon> Clear
-          </v-btn>
-        </v-col>
-        <v-col cols="auto">
-          <v-btn class="grey" light>
-            <v-icon left>mdi-refresh</v-icon> Resend
-          </v-btn>
-        </v-col>
-        <v-spacer></v-spacer>
-      </v-row>
-    </v-container>
+    <v-card light class="ma-auto justify" width="720">
+      <v-card-title class="secondary fontLight--text">Parcel OTP </v-card-title>
+      <v-card-subtitle class="secondary fontLight--text"></v-card-subtitle>
+      <v-card-text class="pa-2">
+        <otp-code
+          :enable="enable"
+          label="Code"
+          :icon="Otp"
+          @onScanCode="onScanCodeHandler"
+        ></otp-code>
+      </v-card-text>
+    </v-card>
   </v-sheet>
 </template>
 
 <script>
 import validation from "../../mixins/validation";
+import OtpCode from "../../components/ui/OtpCode";
+import Otp from "../../assets/Elements/Mail/Mail_Green.svg";
 export default {
   name: "ParcelOtp",
   props: {},
   mixins: [validation],
-  components: {},
+  components: { OtpCode },
   data() {
     return {
-      valid: true,
+      Otp: Otp,
       courier: {
         name: "",
         password: "",
@@ -52,5 +37,3 @@ export default {
   methods: {},
 };
 </script>
-
-<style scoped></style>
