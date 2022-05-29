@@ -1,15 +1,16 @@
 import Vue from "vue";
 import Vuex from "vuex";
 
-import loadingSpinner from "../store/modules/loading-spinner";
+import loading from "./modules/loading";
+import dialog from "./modules/dialog";
 // import size from "../store/modules/size"
-import locker from "../store/modules/locker";
+import locker from "./modules/locker";
 // import status from "../store/modules/status"
 // import company from "../store/modules/company"
 // import client from "../store/modules/client"
-// import parcel from "../store/modules/parcel"
-import courier from "../store/modules/courier";
-import rider from "../store/modules/rider";
+import order from "../store/modules/order";
+import courier from "./modules/courier";
+import rider from "./modules/rider";
 // import transaction from "../store/modules/transaction"
 // import cu48b from "../store/modules/cu48b"
 
@@ -17,20 +18,19 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   modules: {
-    loadingSpinner,
+    loading,
+    dialog,
     // size,
     locker,
+    order,
     // status,
     // company,
     // client,
     // parcel,
     courier,
+
     rider,
     // transaction,
     // cu48b
   },
-
-  state: {},
-  mutations: {},
-  actions: {},
 });

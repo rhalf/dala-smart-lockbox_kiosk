@@ -2,15 +2,11 @@
   <v-container>
     <v-row no-gutters>
       <v-col>
-        <v-card
-          v-ripple
-          @click="$router.push('/check-in').catch(() => {})"
-          class="option rounded-lg"
-        >
+        <v-card v-ripple @click="onCheckInHandler" class="option rounded-lg">
           <v-img aspect-ratio="1" :src="CheckIn" height="350" contain></v-img>
           <v-card-text style="position: absolute">
             <v-fab-transition>
-              <v-btn color="greenLight" dark absolute top right fab x-large>
+              <v-btn color="brownLight" dark absolute top right fab x-large>
                 <v-icon x-large>mdi-package-variant-closed</v-icon>
               </v-btn>
             </v-fab-transition>
@@ -25,15 +21,11 @@
         </v-card>
       </v-col>
       <v-col>
-        <v-card
-          v-ripple
-          @click="$router.push('/check-out').catch(() => {})"
-          class="option rounded-lg"
-        >
+        <v-card v-ripple @click="onCheckOutHandler" class="option rounded-lg">
           <v-img aspect-ratio="1" :src="CheckOut" height="350" contain></v-img>
           <v-card-text style="position: absolute">
             <v-fab-transition>
-              <v-btn color="greenLight" dark absolute top right fab x-large>
+              <v-btn color="brownLight" dark absolute top right fab x-large>
                 <v-icon x-large>mdi-package-variant</v-icon>
               </v-btn>
             </v-fab-transition>
@@ -50,13 +42,13 @@
       <v-col>
         <v-card
           v-ripple
-          @click="$router.push('/withdraw').catch(() => {})"
+          @click="onLockerStatusHandler"
           class="option rounded-lg"
         >
           <v-img aspect-ratio="1" :src="PadLock" height="350" contain></v-img>
           <v-card-text style="position: absolute">
             <v-fab-transition>
-              <v-btn color="greenLight" dark absolute top right fab x-large>
+              <v-btn color="brownLight" dark absolute top right fab x-large>
                 <v-icon x-large>mdi-locker</v-icon>
               </v-btn>
             </v-fab-transition>
@@ -73,7 +65,7 @@
       <v-col>
         <v-card
           v-ripple
-          @click="$router.push('/withdraw').catch(() => {})"
+          @click="onTransactionHandler"
           class="option rounded-lg"
         >
           <v-img
@@ -84,7 +76,7 @@
           ></v-img>
           <v-card-text style="position: absolute">
             <v-fab-transition>
-              <v-btn color="greenLight" dark absolute top right fab x-large>
+              <v-btn color="brownLight" dark absolute top right fab x-large>
                 <v-icon x-large>mdi-text-box</v-icon>
               </v-btn>
             </v-fab-transition>
@@ -103,7 +95,6 @@
 </template>
 
 <script>
-// import locker from "../../api/splLockerApi";
 import CheckIn from "../assets/Icons/CheckIn/CheckIn_Green-01.svg";
 import CheckOut from "../assets/Icons/CheckOut/CheckOut_Green.svg";
 import PadLock from "../assets/Icons/Lock/Lock_Green.svg";
@@ -111,7 +102,6 @@ import Transaction from "../assets/Icons/Transaction/Transact_Green.svg";
 
 export default {
   name: "HomeView",
-  // mixins: [locker],
   data() {
     return {
       CheckIn: CheckIn,
@@ -119,6 +109,20 @@ export default {
       PadLock: PadLock,
       Transaction: Transaction,
     };
+  },
+  methods: {
+    async onCheckInHandler() {
+      this.$router.push("/check-in").catch(() => {});
+    },
+    async onCheckOutHandler() {
+      this.$router.push("/check-out").catch(() => {});
+    },
+    async onLockerStatusHandler() {
+      this.$router.push("/locker-status").catch(() => {});
+    },
+    async onTransactionHandler() {
+      this.$router.push("/transactions").catch(() => {});
+    },
   },
 };
 </script>

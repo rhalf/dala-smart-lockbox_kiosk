@@ -1,16 +1,18 @@
 <template>
-  <div v-show="visible">
-    <v-overlay :absolute="false" :value="true">
+  <div v-show="loading.visible">
+    <v-overlay :absolute="false" :value="true" :opacity="0.75">
       <div class="lds-dual-ring"></div>
     </v-overlay>
   </div>
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+
 export default {
   name: "LoadingSpinner",
-  props: {
-    visible: Boolean,
+  computed: {
+    ...mapGetters("loading", ["loading"]),
   },
 };
 </script>
@@ -28,10 +30,10 @@ export default {
   height: 64px;
   margin: 8px;
   border-radius: 50%;
-  border: 6px solid #fff;
-  border-color: #fff transparent #fff transparent;
-  animation: lds-dual-ring 1.2s linear infinite;
-  animation: lds-dual-ring 0.8s linear infinite;
+  border: 8px solid #f2d432;
+  border-color: #f2d432 transparent #f2d432 transparent;
+  animation: lds-dual-ring 1s linear infinite;
+  animation: lds-dual-ring 0.6s linear infinite;
 }
 @keyframes lds-dual-ring {
   0% {

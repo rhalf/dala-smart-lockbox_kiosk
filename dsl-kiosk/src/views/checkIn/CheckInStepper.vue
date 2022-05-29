@@ -11,10 +11,14 @@
       </v-stepper-step>
       <v-divider></v-divider>
       <v-stepper-step :complete="stepState > 3" step="3">
-        Pick a Locker
+        Select a Locker
       </v-stepper-step>
       <v-divider></v-divider>
-      <v-stepper-step :complete="stepState > 4" step="4"> Done </v-stepper-step>
+      <v-stepper-step :complete="stepState > 4" step="4">
+        Checking a Locker
+      </v-stepper-step>
+      <v-divider></v-divider>
+      <v-stepper-step :complete="stepState > 5" step="5"> Done </v-stepper-step>
     </v-stepper-header>
 
     <v-stepper-items>
@@ -27,21 +31,12 @@
             ></parcel-code-check-in>
           </v-col>
         </v-row>
-        <!-- <v-spacer></v-spacer>
-        <v-row>
-          <v-spacer></v-spacer>
-          <v-col cols="auto">
-            <v-btn color="primary--text" @click="parcelHandler()" large light>
-              Continue
-            </v-btn>
-          </v-col>
-        </v-row> -->
       </v-stepper-content>
 
       <v-stepper-content step="2">
         <v-row>
           <v-col>
-            <parcel-details v-model="locker"></parcel-details>
+            <parcel-details></parcel-details>
           </v-col>
         </v-row>
         <v-spacer></v-spacer>
@@ -49,9 +44,10 @@
           <v-spacer></v-spacer>
           <v-col cols="auto">
             <v-btn
+              class="title"
               color="primary--text"
-              @click="parcelDetailsHandler()"
-              large
+              @click="parcelDetailsHandler"
+              x-large
               light
             >
               Continue
@@ -63,16 +59,18 @@
       <v-stepper-content step="3">
         <v-row>
           <v-col>
-            <parcel-locker></parcel-locker>
+            <parcel-select-locker></parcel-select-locker>
           </v-col>
         </v-row>
         <v-row>
           <v-spacer></v-spacer>
           <v-col cols="auto">
             <v-btn
+              :disabled="!locker"
+              class="title"
               color="primary--text"
-              @click="parcelLockerHandler()"
-              large
+              @click="parcelSelectLockerHandler"
+              x-large
               light
             >
               Continue
@@ -80,27 +78,39 @@
           </v-col>
         </v-row>
       </v-stepper-content>
-
       <v-stepper-content step="4">
         <v-row>
           <v-col>
-            <parcel-done-check-in
-              :enable="stepState != 4"
-            ></parcel-done-check-in>
+            <parcel-check-locker></parcel-check-locker>
           </v-col>
         </v-row>
         <v-row>
           <v-spacer></v-spacer>
           <v-col cols="auto">
-            <v-btn color="primary--text" @click="goToCheckIn()" large light>
-              Yes
+            <v-btn
+              :disabled="!locker"
+              class="title"
+              color="primary--text"
+              @click="parcelCheckLockerHandler"
+              x-large
+              light
+            >
+              Continue
             </v-btn>
           </v-col>
-          <v-col cols="auto">
-            <v-btn color="primary--text" @click="goToHome()" large light>
-              No
-            </v-btn>
+        </v-row>
+      </v-stepper-content>
+      <v-stepper-content step="5">
+        <v-row>
+          <v-col>
+            <parcel-done-check-in
+              :enable="stepState != 4"
+              @onDone="onDoneHandler"
+            ></parcel-done-check-in>
           </v-col>
+        </v-row>
+        <v-row>
+          <v-spacer></v-spacer>
         </v-row>
       </v-stepper-content>
     </v-stepper-items>
@@ -108,73 +118,49 @@
 </template>
 
 <script>
-// import splLockerApi from "../../api/splLockerApi";
-// import courier from "../../components/courier";
-// import parcel from "../../components/parcel";
-// import locker from "./locker";
-// import commitDeposit from "./commitDeposit";
-
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 import ParcelCodeCheckIn from "../../components/parcel/ParcelCodeCheckIn";
 import ParcelDetails from "../../components/parcel/ParcelDetails";
-import ParcelLocker from "../../components/parcel/ParcelLocker";
+import ParcelSelectLocker from "../../components/parcel/ParcelSelectLocker";
+import ParcelCheckLocker from "../../components/parcel/ParcelCheckLocker";
 import ParcelDoneCheckIn from "../../components/parcel/ParcelDoneCheckIn";
 
 export default {
   name: "CheckInStepper",
-  //   mixins: [splLockerApi],
   components: {
     ParcelCodeCheckIn,
     ParcelDetails,
-    ParcelLocker,
+    ParcelSelectLocker,
     ParcelDoneCheckIn,
-  }, //courier, parcel, locker, commitDeposit },
+    ParcelCheckLocker,
+  },
   data() {
     return {
-      parcelCode: null,
-
-      courier: null,
-      parcel: null,
-      locker: null,
       stepState: 1,
     };
   },
+  computed: {
+    ...mapGetters("locker", ["locker"]),
+  },
   methods: {
-    ...mapActions(["setLoadingSpinner"]),
+    ...mapActions("loading", ["setLoading"]),
 
-    onParcelCodeHandler(data) {
-      console.log(data);
-      this.setLoadingSpinner({ visible: true });
-      this.timeout = setTimeout(() => {
-        this.setLoadingSpinner({ visible: false });
-        this.stepState++;
-      }, 500);
+    onParcelCodeHandler() {
+      this.stepState = 2;
     },
 
-    parcelDetailsHandler(data) {
-      console.log(data);
-      this.setLoadingSpinner({ visible: true });
-      this.timeout = setTimeout(() => {
-        this.setLoadingSpinner({ visible: false });
-        this.stepState++;
-      }, 500);
+    parcelDetailsHandler() {
+      this.stepState = 3;
     },
 
-    parcelLockerHandler(locker) {
-      console.log(locker);
-      this.setLoadingSpinner({ visible: true });
-      this.timeout = setTimeout(() => {
-        this.setLoadingSpinner({ visible: false });
-        this.stepState++;
-      }, 500);
+    parcelSelectLockerHandler() {
+      this.stepState = 4;
     },
-
-    goToHome() {
-      this.$router.replace("/home");
+    parcelCheckLockerHandler() {
+      this.stepState = 5;
     },
-
-    goToCheckIn() {
-      this.$router.go(0);
+    onDoneHandler() {
+      this.stepState = 1;
     },
   },
 };

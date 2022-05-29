@@ -140,31 +140,31 @@ export default {
     };
   },
   methods: {
-    ...mapActions(["setLoadingSpinner"]),
+    ...mapActions("loading", ["loading"]),
 
     onParcelCodeHandler(data) {
       console.log(data);
-      this.setLoadingSpinner({ visible: true });
+      this.loading({ visible: true });
       this.timeout = setTimeout(() => {
-        this.setLoadingSpinner({ visible: false });
+        this.loading({ visible: false });
         this.stepState++;
       }, 500);
     },
 
     parcelDetailsHandler(data) {
       console.log(data);
-      this.setLoadingSpinner({ visible: true });
+      this.loading({ visible: true });
       this.timeout = setTimeout(() => {
-        this.setLoadingSpinner({ visible: false });
+        this.loading({ visible: false });
         this.stepState++;
       }, 500);
     },
 
     parcelOtpHandler(locker) {
       console.log(locker);
-      this.setLoadingSpinner({ visible: true });
+      this.loading({ visible: true });
       this.timeout = setTimeout(() => {
-        this.setLoadingSpinner({ visible: false });
+        this.loading({ visible: false });
         this.stepState++;
       }, 500);
     },

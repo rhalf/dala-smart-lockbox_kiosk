@@ -11,7 +11,7 @@ export default {
   fontDark: "#384229",
   brownLight: "#B2714C",
   brownDark: "#745237",
-  yellowLight: "#F2D432",
-  yellowDark: "#DEB800",
+  yellowLight: "#DEB800",
+  yellowDark: "#ccaa00",
   greenLight: "#809525",
 };

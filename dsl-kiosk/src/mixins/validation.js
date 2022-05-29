@@ -30,6 +30,18 @@ export default {
         return (v && v.length >= 6) || "Password must be atleast 6 characters";
       },
     ],
+    validateRiderId: [
+      (v) => {
+        v = v.trim();
+        return !!v || "Rider Id is required";
+      },
+    ],
+    validateRiderPin: [
+      (v) => {
+        v = v.trim();
+        return !!v || "Rider Pin is required";
+      },
+    ],
   }),
 
   methods: {

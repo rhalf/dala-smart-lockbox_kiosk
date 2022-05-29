@@ -1,24 +1,23 @@
 <template>
   <v-row>
-    <v-col cols="3" v-for="locker in getLockers" :key="locker.id" class="pa-5">
+    <v-col cols="3" v-for="locker in lockers" :key="locker.id" class="pa-5">
       <v-card
-        :light="!locker.occupied"
-        :dark="locker.occupied"
         :key="locker.id"
-        :class="`pa-2 rounded text-center display-1 ${
+        :light="!locker.lockerStatusId == 0"
+        :dark="locker.lockerStatusId == 0"
+        :class="`pa-2 rounded text-center display-1 secondary--text ${
           locker.selected ? 'selected' : ''
         }`"
         height="100"
         width="300"
-        :elevation="!locker.selected ? 3 : 0"
         ripple
-        :color="locker.occupied ? 'secondary' : 'grey'"
+        :color="locker.lockerStatusId == 0 ? 'secondary' : 'white'"
         @click="selectedLocker(locker)"
       >
         <v-row no-gutters>
           <v-col cols="5" class="ma-auto pr-2">
             <label class="display-3 font-weight-bold">
-              {{ locker.id + 1 }}
+              {{ locker.number }}
             </label>
           </v-col>
           <v-col>
@@ -27,8 +26,12 @@
                 <label>{{ locker.size }}</label>
               </v-col>
               <v-col class="ma-auto">
-                <v-icon x-large v-show="locker.locked">mdi-lock</v-icon>
-                <v-icon x-large v-show="!locker.locked">mdi-lock-open</v-icon>
+                <v-icon x-large v-show="locker.locked" class="secondary--text"
+                  >mdi-lock</v-icon
+                >
+                <v-icon x-large v-show="!locker.locked" class="secondary--text"
+                  >mdi-lock-open</v-icon
+                >
               </v-col>
             </v-row>
             <v-row no-gutters>
@@ -55,30 +58,30 @@ import { mapActions, mapGetters } from "vuex";
 
 export default {
   name: "LockerPicker",
-  data() {
-    return {};
+  created() {
+    this.fetchLockers();
   },
   computed: {
-    ...mapGetters(["getLockers"]),
+    ...mapGetters("locker", ["lockers"]),
+    ...mapGetters("locker", ["locker"]),
   },
   methods: {
-    ...mapActions(["setLockers"]),
+    ...mapActions("locker", ["fetchLockers"]),
+    ...mapActions("locker", ["setLocker"]),
+    ...mapActions("locker", ["setLockers"]),
 
     selectedLocker(locker) {
-      if (locker.occupied === true) {
-        return;
-      }
+      this.setLocker(null);
 
-      let lockers = this.getLockers;
-
-      lockers.forEach((l) => {
+      this.lockers.forEach((l) => {
         if (l.id === locker.id) l.selected = true;
         else l.selected = false;
       });
 
-      this.setLockers(lockers);
+      // console.log("locker/lockers", this.lockers);
 
-      this.$emit("onSelectedLocker", locker);
+      this.setLockers([...this.lockers]);
+      this.setLocker(locker);
     },
   },
 };
@@ -86,6 +89,6 @@ export default {
 
 <style scoped>
 .selected {
-  border: 5px solid red !important;
+  border: 6px solid #deb800 !important;
 }
 </style>

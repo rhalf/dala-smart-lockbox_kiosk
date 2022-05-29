@@ -1,31 +1,22 @@
 <template>
   <v-sheet height="450" class="transparent vertical-scroll">
-    <locker-picker @onSelectedLocker="onSelectedLocker"></locker-picker>
+    <locker-picker @onSelectedLocker="onSelectedLockerhandler"></locker-picker>
   </v-sheet>
 </template>
 
 <script>
+import { mapActions } from "vuex";
 import LockerPicker from "../locker/LockerPicker";
 
 export default {
-  name: "ParcelLocker",
-  props: {},
-  mixins: [],
+  name: "ParcelSelectLocker",
   components: { LockerPicker },
-  data() {
-    return {
-      // valid: true,
-      // courier: {
-      //   name: "",
-      //   password: "",
-      // },
-    };
-  },
-
   methods: {
-    onSelectedLocker() {
-      // console.log(locker);
-      // this.$emit("onParcelCode", { code: data });
+    ...mapActions("locker", ["setLocker"]),
+
+    onSelectedLockerhandler(locker) {
+      this.setLocker(locker);
+      this.$emit("onParcelLocker");
     },
   },
 };

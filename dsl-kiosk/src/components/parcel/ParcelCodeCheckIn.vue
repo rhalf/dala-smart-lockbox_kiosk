@@ -6,43 +6,57 @@
       </v-card-title>
       <v-card-subtitle class="secondary fontLight--text"></v-card-subtitle>
       <v-card-text class="pa-2">
-        <scan-code
+        <input-number
           :enable="enable"
-          label="Code"
+          label1="Code"
           :icon="Parcel"
-          @onScanCode="onScanCodeHandler"
-        ></scan-code>
+          @onOk="onOkHandler"
+        ></input-number>
       </v-card-text>
     </v-card>
   </v-sheet>
 </template>
 
 <script>
-import ScanCode from "../ui/ScanCode";
-import validation from "../../mixins/validation";
-
+import InputNumber from "../ui/InputNumber";
 import Parcel from "../../assets/Icons/Parcel/Parcel_Green.svg";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
   name: "ParcelCodeCheckIn",
   props: { enable: { default: false, type: Boolean } },
-  mixins: [validation],
-  components: { ScanCode },
+  mixins: [],
+  components: { InputNumber },
   data() {
     return {
-      valid: true,
       Parcel: Parcel,
-      courier: {
-        name: "",
-        password: "",
-      },
     };
   },
 
   methods: {
-    onScanCodeHandler(data) {
-      this.$emit("onParcelCode", { code: data });
+    ...mapActions("dialog", ["setError"]),
+    ...mapActions("order", ["fetchOrder"]),
+    ...mapActions("loading", ["setLoading"]),
+    async onOkHandler(id) {
+      if (!id) {
+        this.setError({
+          visible: true,
+          message1: "Parcel code must not be empty!",
+        });
+        return;
+      }
+
+      this.setLoading({ visible: true });
+      const response = await this.fetchOrder({ id: id });
+      if (response) {
+        this.$emit("onParcelCode");
+      }
+      console.log("order/order", this.order);
+      this.setLoading({ visible: false });
     },
+  },
+  computed: {
+    ...mapGetters("order", ["order"]),
   },
 };
 </script>

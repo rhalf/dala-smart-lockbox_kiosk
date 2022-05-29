@@ -6,19 +6,19 @@
       </v-card-title>
       <v-card-subtitle class="secondary fontLight--text"></v-card-subtitle>
       <v-card-text class="pa-2">
-        <scan-code
+        <input-login
           :enable="enable"
           label="Code"
           :icon="Parcel"
           @onScanCode="onScanCodeHandler"
-        ></scan-code>
+        ></input-login>
       </v-card-text>
     </v-card>
   </v-sheet>
 </template>
 
 <script>
-import ScanCode from "../ui/ScanCode";
+import InputLogin from "../ui/InputLogin";
 import validation from "../../mixins/validation";
 
 import Parcel from "../../assets/Icons/Parcel/Parcel_Green.svg";
@@ -27,7 +27,7 @@ export default {
   name: "ParcelCodeCheckOut",
   props: { enable: { default: false, type: Boolean } },
   mixins: [validation],
-  components: { ScanCode },
+  components: { InputLogin },
   data() {
     return {
       valid: true,
