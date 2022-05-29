@@ -13,7 +13,7 @@
 
 <script>
 export default {
-  name: "ParcelDone",
+  name: "ParcelDoneCheckOut",
   props: {
     enable: Boolean,
   },

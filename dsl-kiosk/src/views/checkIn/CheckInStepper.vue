@@ -104,7 +104,7 @@
         <v-row>
           <v-col>
             <parcel-done-check-in
-              :enable="stepState != 4"
+              :enable="stepState != 5"
               @onDone="onDoneHandler"
             ></parcel-done-check-in>
           </v-col>
@@ -158,9 +158,6 @@ export default {
     },
     parcelCheckLockerHandler() {
       this.stepState = 5;
-    },
-    onDoneHandler() {
-      this.stepState = 1;
     },
   },
 };

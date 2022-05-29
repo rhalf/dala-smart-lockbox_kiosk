@@ -73,7 +73,7 @@
 <script>
 import { mapActions } from "vuex";
 export default {
-  name: "ParcelDone",
+  name: "ParcelDoneCheckIn",
   props: {
     enable: Boolean,
   },

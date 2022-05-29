@@ -26,14 +26,14 @@ export default {
 .lds-dual-ring:after {
   content: " ";
   display: block;
-  width: 64px;
-  height: 64px;
+  width: 100px;
+  height: 100px;
   margin: 8px;
   border-radius: 50%;
-  border: 8px solid #f2d432;
+  border: 10px solid #f2d432;
   border-color: #f2d432 transparent #f2d432 transparent;
-  animation: lds-dual-ring 1s linear infinite;
-  animation: lds-dual-ring 0.6s linear infinite;
+  animation: lds-dual-ring 1.2s linear infinite;
+  animation: lds-dual-ring 0.8s linear infinite;
 }
 @keyframes lds-dual-ring {
   0% {
