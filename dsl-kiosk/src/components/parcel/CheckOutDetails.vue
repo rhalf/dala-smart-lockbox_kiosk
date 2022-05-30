@@ -15,18 +15,16 @@
       </v-row>
 
       <v-row>
-        <v-col cols="4">Size</v-col>
+        <v-col cols="4">Locker Number</v-col>
         <v-col>
-          <label>{{ order.parcelLength }}cm </label>
-          <label>{{ order.parcelWidth }}cm </label>
-          <label>{{ order.parcelHeight }}cm </label>
+          <label>{{ order.locker.number }} </label>
         </v-col>
       </v-row>
       <v-row>
         <v-col cols="4">
-          <label>Size Category</label>
+          <label>Size Code</label>
         </v-col>
-        <v-col> {{ order.sizeCodes.join(", ") }} </v-col>
+        <v-col> {{ order.locker.sizeCode }} </v-col>
       </v-row>
       <v-row>
         <v-col cols="4">Vendor</v-col>
