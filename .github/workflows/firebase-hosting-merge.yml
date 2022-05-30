@@ -11,6 +11,11 @@ defaults:
   run:
     working-directory: dsl-kiosk
 
+env:
+  VUE_APP_CLOUD_API_ADMIN_URL: ${{ secrets.VUE_APP_CLOUD_API_ADMIN_URL }}
+  VUE_APP_CLOUD_API_SSO_URL: ${{ secrets.VUE_APP_CLOUD_API_SSO_URL }}
+  VUE_APP_AUTH_TOKEN: ${{ secrets.VUE_APP_AUTH_TOKEN }}
+
 jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
