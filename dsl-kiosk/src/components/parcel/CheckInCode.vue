@@ -18,15 +18,14 @@
 </template>
 
 <script>
-import validation from "../../mixins/validation";
-
+import InputNumber from "../ui/InputNumber";
 import Parcel from "../../assets/Icons/Parcel/Parcel_Green.svg";
-import InputNumber from "../ui/InputNumber.vue";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
-  name: "ParcelCodeCheckOut",
+  name: "CheckInCode",
   props: { enable: { default: false, type: Boolean } },
-  mixins: [validation],
+  mixins: [],
   components: { InputNumber },
   data() {
     return {
@@ -35,9 +34,29 @@ export default {
   },
 
   methods: {
-    onOkHandler() {
-      this.$emit("onParcelCode");
+    ...mapActions("dialog", ["setError"]),
+    ...mapActions("order", ["fetchOrder"]),
+    ...mapActions("loading", ["setLoading"]),
+    async onOkHandler(id) {
+      if (!id) {
+        this.setError({
+          visible: true,
+          message1: "Parcel code must not be empty!",
+        });
+        return;
+      }
+
+      this.setLoading({ visible: true });
+      const response = await this.fetchOrder({ id: id });
+      if (response) {
+        this.$emit("onParcelCode");
+      }
+      console.log("order/order", this.order);
+      this.setLoading({ visible: false });
     },
+  },
+  computed: {
+    ...mapGetters("order", ["order"]),
   },
 };
 </script>

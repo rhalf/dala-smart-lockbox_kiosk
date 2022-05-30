@@ -56,7 +56,7 @@
 <script>
 import { mapGetters } from "vuex";
 export default {
-  name: "ParcelDetails",
+  name: "CheckInDetails",
   computed: {
     ...mapGetters("order", ["order"]),
   },

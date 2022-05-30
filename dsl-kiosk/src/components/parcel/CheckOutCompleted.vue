@@ -61,7 +61,7 @@
       </v-row>
       <v-row>
         <v-col>
-          <p class="headline">Terminates automatically in {{ timeValue }}s.</p>
+          <p class="display-1">Terminates automatically in {{ timeValue }}s.</p>
         </v-col>
       </v-row>
     </v-container>
@@ -71,7 +71,7 @@
 <script>
 import { mapActions } from "vuex";
 export default {
-  name: "ParcelDoneCheckIn",
+  name: "CheckOutCompleted",
   props: {
     enable: Boolean,
   },

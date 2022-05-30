@@ -20,7 +20,7 @@ import validation from "../../mixins/validation";
 import OtpCode from "../../components/ui/OtpCode";
 import Otp from "../../assets/Elements/Mail/Mail_Green.svg";
 export default {
-  name: "ParcelOtp",
+  name: "CheckOutOtp",
   props: { enable: Boolean },
   mixins: [validation],
   components: { OtpCode },

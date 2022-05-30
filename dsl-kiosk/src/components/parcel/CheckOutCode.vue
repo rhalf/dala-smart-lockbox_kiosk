@@ -23,7 +23,7 @@ import Parcel from "../../assets/Icons/Parcel/Parcel_Green.svg";
 import { mapActions, mapGetters } from "vuex";
 
 export default {
-  name: "ParcelCodeCheckIn",
+  name: "CheckOutCode",
   props: { enable: { default: false, type: Boolean } },
   mixins: [],
   components: { InputNumber },

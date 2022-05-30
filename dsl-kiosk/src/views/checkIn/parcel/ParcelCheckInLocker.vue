@@ -6,10 +6,10 @@
 
 <script>
 import { mapActions } from "vuex";
-import LockerChecker from "../locker/LockerChecker";
+import LockerChecker from "../../../components/locker/LockerChecker";
 
 export default {
-  name: "ParcelCheckInLocker",
+  name: "CheckInLocker",
   components: { LockerChecker },
   methods: {
     ...mapActions("locker", ["setLocker"]),

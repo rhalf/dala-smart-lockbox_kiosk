@@ -1,22 +1,22 @@
 <template>
   <v-sheet height="450" class="transparent vertical-scroll">
-    <locker-picker @onSelectedLocker="onSelectedLockerhandler"></locker-picker>
+    <locker-checker @onCheckedLocker="onCheckedLockerhandler"></locker-checker>
   </v-sheet>
 </template>
 
 <script>
 import { mapActions } from "vuex";
-import LockerPicker from "../locker/LockerPicker";
+import LockerChecker from "../locker/LockerChecker";
 
 export default {
-  name: "ParcelSelectLocker",
-  components: { LockerPicker },
+  name: "CheckOutLocker",
+  components: { LockerChecker },
   methods: {
     ...mapActions("locker", ["setLocker"]),
 
-    onSelectedLockerhandler(locker) {
+    onCheckedLockerhandler(locker) {
       this.setLocker(locker);
-      this.$emit("onParcelLocker");
+      this.$emit("onCheckedLocker");
     },
   },
 };

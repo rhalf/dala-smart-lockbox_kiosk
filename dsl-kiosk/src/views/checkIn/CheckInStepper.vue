@@ -28,10 +28,10 @@
       <v-stepper-content step="1">
         <v-row>
           <v-col>
-            <parcel-code-check-in
+            <check-in-code
               @onParcelCode="onParcelCodeHandler"
               :enable="stepState == 1"
-            ></parcel-code-check-in>
+            ></check-in-code>
           </v-col>
         </v-row>
       </v-stepper-content>
@@ -39,7 +39,7 @@
       <v-stepper-content step="2">
         <v-row>
           <v-col>
-            <parcel-details></parcel-details>
+            <check-in-details></check-in-details>
           </v-col>
         </v-row>
         <v-spacer></v-spacer>
@@ -62,7 +62,7 @@
       <v-stepper-content step="3">
         <v-row>
           <v-col>
-            <parcel-select-locker></parcel-select-locker>
+            <check-in-select-locker></check-in-select-locker>
           </v-col>
         </v-row>
         <v-row>
@@ -84,7 +84,7 @@
       <v-stepper-content step="4">
         <v-row>
           <v-col>
-            <parcel-check-in-locker></parcel-check-in-locker>
+            <check-in-locker></check-in-locker>
           </v-col>
         </v-row>
         <v-row>
@@ -106,9 +106,7 @@
       <v-stepper-content step="5">
         <v-row>
           <v-col>
-            <parcel-done-check-in
-              :enable="stepState != 5"
-            ></parcel-done-check-in>
+            <check-in-completed :enable="stepState != 5"></check-in-completed>
           </v-col>
         </v-row>
         <v-row>
@@ -121,20 +119,20 @@
 
 <script>
 import { mapActions, mapGetters } from "vuex";
-import ParcelCodeCheckIn from "../../components/parcel/ParcelCodeCheckIn";
-import ParcelDetails from "../../components/parcel/ParcelDetails";
-import ParcelSelectLocker from "../../components/parcel/ParcelSelectLocker";
-import ParcelCheckInLocker from "../../components/parcel/ParcelCheckInLocker";
-import ParcelDoneCheckIn from "../../components/parcel/ParcelDoneCheckIn";
+import CheckInCode from "../../components/parcel/CheckInCode";
+import CheckInDetails from "../../components/parcel/CheckInDetails";
+import CheckInSelectLocker from "../../components/parcel/CheckInSelectLocker";
+import CheckInLocker from "../../components/parcel/CheckInLocker";
+import CheckInCompleted from "../../components/parcel/CheckInCompleted";
 
 export default {
   name: "CheckInStepper",
   components: {
-    ParcelCodeCheckIn,
-    ParcelDetails,
-    ParcelSelectLocker,
-    ParcelDoneCheckIn,
-    ParcelCheckInLocker,
+    CheckInCode,
+    CheckInDetails,
+    CheckInSelectLocker,
+    CheckInCompleted,
+    CheckInLocker,
   },
   data() {
     return {

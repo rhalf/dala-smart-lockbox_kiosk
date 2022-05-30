@@ -26,10 +26,10 @@
       <v-stepper-content step="1">
         <v-row>
           <v-col>
-            <parcel-code-check-out
+            <check-out-code
               @onParcelCode="onParcelCodeHandler"
               :enable="stepState == 1"
-            ></parcel-code-check-out>
+            ></check-out-code>
           </v-col>
         </v-row>
       </v-stepper-content>
@@ -37,7 +37,7 @@
       <v-stepper-content step="2">
         <v-row>
           <v-col>
-            <parcel-details></parcel-details>
+            <check-in-details></check-in-details>
           </v-col>
         </v-row>
         <v-spacer></v-spacer>
@@ -60,7 +60,7 @@
       <v-stepper-content step="3">
         <v-row>
           <v-col>
-            <parcel-otp @onParcelOtp="onParcelOtpHandler()"></parcel-otp>
+            <check-out-otp @onParcelOtp="onParcelOtpHandler()"></check-out-otp>
           </v-col>
         </v-row>
       </v-stepper-content>
@@ -68,7 +68,7 @@
       <v-stepper-content step="4">
         <v-row>
           <v-col>
-            <parcel-check-out-locker></parcel-check-out-locker>
+            <check-out-locker></check-out-locker>
           </v-col>
         </v-row>
         <v-row>
@@ -90,9 +90,7 @@
       <v-stepper-content step="5">
         <v-row>
           <v-col>
-            <parcel-done-check-out
-              :enable="stepState != 5"
-            ></parcel-done-check-out>
+            <check-out-completed :enable="stepState != 5"></check-out-completed>
           </v-col>
         </v-row>
         <v-row><v-col></v-col></v-row>
@@ -102,20 +100,20 @@
 </template>
 
 <script>
-import ParcelCodeCheckOut from "../../components/parcel/ParcelCodeCheckOut";
-import ParcelDetails from "../../components/parcel/ParcelDetails";
-import ParcelOtp from "../../components/parcel/ParcelOtp";
-import ParcelCheckOutLocker from "../../components/parcel/ParcelCheckOutLocker";
-import ParcelDoneCheckOut from "../../components/parcel/ParcelDoneCheckOut";
+import CheckOutCode from "../../components/parcel/CheckOutCode";
+import CheckInDetails from "../../components/parcel/CheckInDetails";
+import CheckOutOtp from "../../components/parcel/CheckOutOtp";
+import CheckOutLocker from "../../components/parcel/CheckOutLocker";
+import CheckOutCompleted from "../../components/parcel/CheckOutCompleted";
 
 export default {
   name: "CheckOutStepper",
   components: {
-    ParcelCodeCheckOut,
-    ParcelDetails,
-    ParcelOtp,
-    ParcelDoneCheckOut,
-    ParcelCheckOutLocker,
+    CheckOutCode,
+    CheckInDetails,
+    CheckOutOtp,
+    CheckOutCompleted,
+    CheckOutLocker,
   },
   data() {
     return {
