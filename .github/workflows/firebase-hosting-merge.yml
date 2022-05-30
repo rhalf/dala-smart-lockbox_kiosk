@@ -18,6 +18,7 @@ jobs:
       name: staging
       url: https://dala-smart-lockbox.web.app/
     steps:
+      - run: env
       - uses: actions/checkout@v2
       - run: npm ci && npm run build
       - uses: FirebaseExtended/action-hosting-deploy@v0
