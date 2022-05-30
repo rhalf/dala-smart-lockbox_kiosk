@@ -1,9 +1,8 @@
 <template>
-  <!-- <v-stepper v-model="stepState" alt-labels dark flat class="transparent"> -->
   <v-stepper v-model="stepState" dark flat class="transparent">
     <v-stepper-header class="elevation-0">
       <v-stepper-step :complete="stepState > 1" step="1">
-        Scan Code
+        Scan Parcel Code
       </v-stepper-step>
       <v-divider></v-divider>
       <v-stepper-step :complete="stepState > 2" step="2">
@@ -11,14 +10,18 @@
       </v-stepper-step>
       <v-divider></v-divider>
       <v-stepper-step :complete="stepState > 3" step="3">
-        Select a Locker
+        Select Locker
       </v-stepper-step>
       <v-divider></v-divider>
+
       <v-stepper-step :complete="stepState > 4" step="4">
-        Checking a Locker
+        Checking Locker
       </v-stepper-step>
       <v-divider></v-divider>
-      <v-stepper-step :complete="stepState > 5" step="5"> Done </v-stepper-step>
+
+      <v-stepper-step :complete="stepState > 5" step="5">
+        Completed
+      </v-stepper-step>
     </v-stepper-header>
 
     <v-stepper-items>
@@ -46,7 +49,7 @@
             <v-btn
               class="title"
               color="primary--text"
-              @click="parcelDetailsHandler"
+              @click="onParcelDetailsHandler"
               x-large
               light
             >
@@ -69,7 +72,7 @@
               :disabled="!locker"
               class="title"
               color="primary--text"
-              @click="parcelSelectLockerHandler"
+              @click="onParcelSelectLockerHandler"
               x-large
               light
             >
@@ -81,7 +84,7 @@
       <v-stepper-content step="4">
         <v-row>
           <v-col>
-            <parcel-check-locker></parcel-check-locker>
+            <parcel-check-in-locker></parcel-check-in-locker>
           </v-col>
         </v-row>
         <v-row>
@@ -91,7 +94,7 @@
               :disabled="!locker"
               class="title"
               color="primary--text"
-              @click="parcelCheckLockerHandler"
+              @click="onParcelCheckLockerHandler"
               x-large
               light
             >
@@ -105,7 +108,6 @@
           <v-col>
             <parcel-done-check-in
               :enable="stepState != 5"
-              @onDone="onDoneHandler"
             ></parcel-done-check-in>
           </v-col>
         </v-row>
@@ -122,7 +124,7 @@ import { mapActions, mapGetters } from "vuex";
 import ParcelCodeCheckIn from "../../components/parcel/ParcelCodeCheckIn";
 import ParcelDetails from "../../components/parcel/ParcelDetails";
 import ParcelSelectLocker from "../../components/parcel/ParcelSelectLocker";
-import ParcelCheckLocker from "../../components/parcel/ParcelCheckLocker";
+import ParcelCheckInLocker from "../../components/parcel/ParcelCheckInLocker";
 import ParcelDoneCheckIn from "../../components/parcel/ParcelDoneCheckIn";
 
 export default {
@@ -132,7 +134,7 @@ export default {
     ParcelDetails,
     ParcelSelectLocker,
     ParcelDoneCheckIn,
-    ParcelCheckLocker,
+    ParcelCheckInLocker,
   },
   data() {
     return {
@@ -149,14 +151,15 @@ export default {
       this.stepState = 2;
     },
 
-    parcelDetailsHandler() {
+    onParcelDetailsHandler() {
       this.stepState = 3;
     },
 
-    parcelSelectLockerHandler() {
+    onParcelSelectLockerHandler() {
       this.stepState = 4;
     },
-    parcelCheckLockerHandler() {
+
+    onParcelCheckLockerHandler() {
       this.stepState = 5;
     },
   },

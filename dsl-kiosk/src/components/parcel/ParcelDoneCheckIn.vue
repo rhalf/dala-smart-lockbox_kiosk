@@ -37,7 +37,7 @@
       <v-row>
         <v-col>
           <p class="headline">
-            Press <strong>"YES"</strong> if you want to check in new parcel.
+            Press <strong>"YES"</strong> if you want to check-in new parcel.
           </p>
           <p class="headline">
             Press <strong>"NO"</strong> if you want to end your transaction.
@@ -61,9 +61,7 @@
       </v-row>
       <v-row>
         <v-col>
-          <p class="headline">
-            Rider logouts automatically in {{ timeValue }}s.
-          </p>
+          <p class="headline">Terminates automatically in {{ timeValue }}s.</p>
         </v-col>
       </v-row>
     </v-container>

@@ -1,19 +1,77 @@
 <template>
   <v-sheet height="450" class="transparent vertical-scroll text-center">
-    <br />
-    <label class="display-1">Done</label>
-    <br />
-    <br />
-    <p class="display-1">If you want to add new parcel press "YES".</p>
-    <br />
-    <br />
-    <p class="display-1">Automatically logout in {{ timeInterval }}s.</p>
+    <v-container>
+      <v-row>
+        <v-col>
+          <label class="pa-10 display-2">Check-Out Completed</label>
+        </v-col>
+      </v-row>
+      <v-row>
+        <v-spacer></v-spacer>
+        <v-col cols="auto">
+          <v-btn
+            class="title"
+            color="primary--text"
+            x-large
+            light
+            @click="addMoreHandler()"
+          >
+            <v-icon left>mdi-check</v-icon>
+            Add More
+          </v-btn>
+        </v-col>
+        <v-col cols="auto">
+          <v-btn
+            class="title"
+            color="red--text"
+            x-large
+            light
+            @click="endNowHandler()"
+          >
+            <v-icon left>mdi-close</v-icon>
+            end now
+          </v-btn>
+        </v-col>
+        <v-spacer></v-spacer>
+      </v-row>
+      <v-row>
+        <v-col>
+          <p class="headline">
+            Press <strong>"YES"</strong> if you want to check-out new parcel.
+          </p>
+          <p class="headline">
+            Press <strong>"NO"</strong> if you want to end your transaction.
+          </p>
+        </v-col>
+      </v-row>
+      <v-row>
+        <!-- <v-col><v-divider></v-divider> </v-col> -->
+      </v-row>
+      <v-row>
+        <v-col>
+          <v-progress-circular
+            :value="progress"
+            color="yellowLight"
+            size="100"
+            :width="10"
+            x-large
+          >
+          </v-progress-circular>
+        </v-col>
+      </v-row>
+      <v-row>
+        <v-col>
+          <p class="headline">Terminates automatically in {{ timeValue }}s.</p>
+        </v-col>
+      </v-row>
+    </v-container>
   </v-sheet>
 </template>
 
 <script>
+import { mapActions } from "vuex";
 export default {
-  name: "ParcelDoneCheckOut",
+  name: "ParcelDoneCheckIn",
   props: {
     enable: Boolean,
   },
@@ -23,16 +81,37 @@ export default {
     return {
       timeIntervalHandler: null,
       timeInterval: 20,
+      timeValue: 0,
+      progress: 0,
     };
   },
 
   methods: {
+    ...mapActions("rider", ["setRider"]),
+    ...mapActions("order", ["setOrder"]),
+    ...mapActions("locker", ["setLocker"]),
+
+    addMoreHandler() {
+      this.setOrder(null);
+      this.setLocker(null);
+      this.$router.go(0);
+      clearInterval(this.timeIntervalHandler);
+    },
+
+    endNowHandler() {
+      this.setRider(null);
+      this.$router.push("/home");
+      this.$router.go(0);
+      clearInterval(this.timeIntervalHandler);
+    },
+
     runTimer() {
       this.timeIntervalHandler = setInterval(() => {
-        this.timeInterval--;
+        this.timeValue--;
+        this.progress = (this.timeValue / this.timeInterval) * 100;
 
-        if (this.timeInterval == 0) {
-          this.$router.replace("/home");
+        if (this.timeValue < 0) {
+          this.endNowHandler();
         }
       }, 1000);
     },
@@ -40,9 +119,9 @@ export default {
 
   watch: {
     enable(previous, present) {
-      console.log(present);
-      if (previous == false) {
+      if (previous == false && previous != present) {
         this.runTimer();
+        this.timeValue = this.timeInterval;
       }
     },
   },

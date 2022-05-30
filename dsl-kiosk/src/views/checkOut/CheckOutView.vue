@@ -10,11 +10,6 @@ import CheckOutStepper from "../checkOut/CheckOutStepper";
 export default {
   name: "CheckOutView",
   components: { CheckOutStepper },
-  data() {
-    return {};
-  },
-
-  methods: {},
 };
 </script>
 

@@ -8,7 +8,7 @@
           :enable="enable"
           label="Code"
           :icon="Otp"
-          @onScanCode="onScanCodeHandler"
+          @onOk="onOkHandler"
         ></otp-code>
       </v-card-text>
     </v-card>
@@ -21,19 +21,18 @@ import OtpCode from "../../components/ui/OtpCode";
 import Otp from "../../assets/Elements/Mail/Mail_Green.svg";
 export default {
   name: "ParcelOtp",
-  props: {},
+  props: { enable: Boolean },
   mixins: [validation],
   components: { OtpCode },
   data() {
     return {
       Otp: Otp,
-      courier: {
-        name: "",
-        password: "",
-      },
     };
   },
-
-  methods: {},
+  methods: {
+    onOkHandler() {
+      this.$emit("onParcelOtp");
+    },
+  },
 };
 </script>

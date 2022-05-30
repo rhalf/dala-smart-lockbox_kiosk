@@ -1,37 +1,44 @@
-import Vue from "vue";
+import axios from "axios";
 
-const base_url = process.env.VUE_APP_CLOUD_API_BASE_URL;
-console.log("dslCloudApi:", base_url);
+console.log("dslCloudApi:", process.env.VUE_APP_CLOUD_API_BASE_URL);
+const admin = axios.create({
+  baseURL: process.env.VUE_APP_CLOUD_API_BASE_URL,
+});
+
+console.log("authorization:", process.env.VUE_APP_AUTH_TOKEN);
+admin.defaults.headers.common[
+  "Authorization"
+] = `Bearer ${process.env.VUE_APP_AUTH_TOKEN}`;
 
 export default {
   //Riders
   loginRider(id, pin) {
-    return Vue.axios.post(`${base_url}/riders/${id}/verify-pin`, {
+    return admin.post(`/riders/${id}/verify-pin`, {
       pin,
     });
   },
   //Order
   fetchOrder(id) {
-    return Vue.axios.get(`${base_url}/orders/${id}`);
+    return admin.get(`/orders/${id}`);
   },
   //Lockers
   fetchLockers() {
-    return Vue.axios.get(`${base_url}/lockers`);
+    return admin.get(`/lockers`);
   },
   //Parcel
   checkInParcel({ order, locker }) {
-    return Vue.axios.post(`${base_url}/lockers/${locker.id}/deposit-parcel`, {
+    return admin.post(`/lockers/${locker.id}/deposit-parcel`, {
       order_id: order.id,
     });
   },
   checkOutParcel(code) {
-    return Vue.axios.post(`${base_url}/pickup-parcel`, {
+    return admin.post(`/pickup-parcel`, {
       pickup_code: code,
     });
   },
 
   verifyCheckoutParcel(messageId, otpNumber, orderId) {
-    return Vue.axios.post(`${base_url}/pickup-parcel/verify`, {
+    return admin.post(`/pickup-parcel/verify`, {
       message_id: messageId,
       otp: otpNumber,
       order_id: orderId,

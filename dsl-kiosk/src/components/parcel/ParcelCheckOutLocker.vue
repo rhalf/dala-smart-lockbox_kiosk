@@ -9,7 +9,7 @@ import { mapActions } from "vuex";
 import LockerChecker from "../locker/LockerChecker";
 
 export default {
-  name: "ParcelCheckLocker",
+  name: "ParcelCheckOutLocker",
   components: { LockerChecker },
   methods: {
     ...mapActions("locker", ["setLocker"]),

@@ -6,42 +6,37 @@
       </v-card-title>
       <v-card-subtitle class="secondary fontLight--text"></v-card-subtitle>
       <v-card-text class="pa-2">
-        <input-login
+        <input-number
           :enable="enable"
-          label="Code"
+          label1="Code"
           :icon="Parcel"
-          @onScanCode="onScanCodeHandler"
-        ></input-login>
+          @onOk="onOkHandler"
+        ></input-number>
       </v-card-text>
     </v-card>
   </v-sheet>
 </template>
 
 <script>
-import InputLogin from "../ui/InputLogin";
 import validation from "../../mixins/validation";
 
 import Parcel from "../../assets/Icons/Parcel/Parcel_Green.svg";
+import InputNumber from "../ui/InputNumber.vue";
 
 export default {
   name: "ParcelCodeCheckOut",
   props: { enable: { default: false, type: Boolean } },
   mixins: [validation],
-  components: { InputLogin },
+  components: { InputNumber },
   data() {
     return {
-      valid: true,
       Parcel: Parcel,
-      courier: {
-        name: "",
-        password: "",
-      },
     };
   },
 
   methods: {
-    onScanCodeHandler(data) {
-      this.$emit("onParcelCode", { code: data });
+    onOkHandler() {
+      this.$emit("onParcelCode");
     },
   },
 };

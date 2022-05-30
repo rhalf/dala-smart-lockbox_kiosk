@@ -3,28 +3,38 @@
     <v-row>
       <v-col>
         <v-row>
-          <v-img
-            class="mx-auto"
-            aspect-ratio="1"
-            :src="icon"
-            max-width="220"
-            max-height="220"
-            contain
-          ></v-img>
+          <v-col>
+            <v-img
+              class="mx-auto"
+              aspect-ratio="1"
+              :src="icon"
+              max-width="200"
+              max-height="200"
+              contain
+            ></v-img>
+          </v-col>
         </v-row>
         <v-row>
-          <v-otp-input
-            class="pa-2"
-            length="6"
-            type="number"
-            height="60"
-            light
-            v-model="code"
-          ></v-otp-input>
+          <v-col>
+            <v-otp-input
+              length="6"
+              type="number"
+              height="80"
+              light
+              v-model="code"
+            ></v-otp-input>
+          </v-col>
         </v-row>
       </v-col>
       <v-divider vertical></v-divider>
-      <v-col><num-pad v-model="code" @onDone="onDoneHandler"></num-pad></v-col>
+      <v-col>
+        <num-pad
+          @onKeyPress="onKeyPressHandler"
+          @onOk="onOkHandler"
+          @onDel="onDelHandler"
+        >
+        </num-pad>
+      </v-col>
     </v-row>
   </v-container>
 </template>
@@ -43,11 +53,22 @@ export default {
   data() {
     return {
       code: null,
-      inputState: false,
-      regex: /\s/g,
     };
   },
-  methods: {},
+  methods: {
+    onKeyPressHandler(key) {
+      if (this.code) this.code += key;
+      else this.code = key;
+    },
+
+    onDelHandler() {
+      if (this.code) this.code = this.code.toString().slice(0, -1);
+    },
+
+    onOkHandler() {
+      this.$emit("onOk");
+    },
+  },
 };
 </script>
 

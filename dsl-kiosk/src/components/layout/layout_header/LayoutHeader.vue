@@ -7,6 +7,16 @@
       <v-spacer></v-spacer>
 
       <v-col cols="auto" class="ma-auto">
+        <v-btn
+          icon
+          fab
+          dark
+          @click="$router.push('/home').catch(() => {})"
+          v-if="rider"
+        >
+          <v-icon>mdi-truck-fast</v-icon>
+        </v-btn>
+
         <v-btn icon fab dark @click="$router.push('/home').catch(() => {})">
           <v-icon>mdi-home</v-icon>
         </v-btn>
@@ -24,13 +34,16 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 import logo from "../../../assets/Logos/White/SVG/Logo_Solid_Horizontal_W.svg";
 export default {
   data() {
     return {
-      data: "asdasdasdas",
       logo: logo,
     };
+  },
+  computed: {
+    ...mapGetters("rider", ["rider"]),
   },
 };
 </script>
