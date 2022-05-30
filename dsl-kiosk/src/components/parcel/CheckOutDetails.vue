@@ -13,7 +13,6 @@
         </v-col>
         <v-col>{{ order.customerMobileNumber }}</v-col>
       </v-row>
-
       <v-row>
         <v-col cols="4">Locker Number</v-col>
         <v-col>
