@@ -1,8 +1,8 @@
 import axios from "axios";
 
-console.log("dslCloudApi:", process.env.VUE_APP_CLOUD_API_BASE_URL);
+console.log("dslCloudApi:", process.env.VUE_APP_CLOUD_API_ADMIN_URL);
 const admin = axios.create({
-  baseURL: process.env.VUE_APP_CLOUD_API_BASE_URL,
+  baseURL: process.env.VUE_APP_CLOUD_API_ADMIN_URL,
 });
 
 console.log("authorization:", process.env.VUE_APP_AUTH_TOKEN);
