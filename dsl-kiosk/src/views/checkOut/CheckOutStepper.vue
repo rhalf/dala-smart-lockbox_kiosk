@@ -37,7 +37,7 @@
       <v-stepper-content step="2">
         <v-row>
           <v-col>
-            <check-in-details></check-in-details>
+            <check-out-details></check-out-details>
           </v-col>
         </v-row>
         <v-spacer></v-spacer>
@@ -101,7 +101,7 @@
 
 <script>
 import CheckOutCode from "../../components/parcel/CheckOutCode";
-import CheckInDetails from "../../components/parcel/CheckInDetails";
+import CheckOutDetails from "../../components/parcel/CheckOutDetails";
 import CheckOutOtp from "../../components/parcel/CheckOutOtp";
 import CheckOutLocker from "../../components/parcel/CheckOutLocker";
 import CheckOutCompleted from "../../components/parcel/CheckOutCompleted";
@@ -110,7 +110,7 @@ export default {
   name: "CheckOutStepper",
   components: {
     CheckOutCode,
-    CheckInDetails,
+    CheckOutDetails,
     CheckOutOtp,
     CheckOutCompleted,
     CheckOutLocker,
