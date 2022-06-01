@@ -1,5 +1,5 @@
 export default {
-  async setError(context, error) {
-    context.commit("SET_ERROR", error);
+  async setError(context, payload) {
+    context.commit("SET_ERROR", payload);
   },
 };

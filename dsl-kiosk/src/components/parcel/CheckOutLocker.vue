@@ -1,16 +1,18 @@
 <template>
   <v-sheet height="450" class="transparent vertical-scroll">
-    <locker-checker @onCheckedLocker="onCheckedLockerhandler"></locker-checker>
+    <check-out-locker-checker
+      @onCheckedLocker="onCheckedLockerhandler"
+    ></check-out-locker-checker>
   </v-sheet>
 </template>
 
 <script>
 import { mapActions } from "vuex";
-import LockerChecker from "../locker/LockerChecker";
+import CheckOutLockerChecker from "../locker/CheckOutLockerChecker";
 
 export default {
   name: "CheckOutLocker",
-  components: { LockerChecker },
+  components: { CheckOutLockerChecker },
   methods: {
     ...mapActions("locker", ["setLocker"]),
 

@@ -1,12 +1,12 @@
-import dslCloudApi from "../../../api/dslCloudApi";
+import adminApi from "../../../api/adminApi";
 
 export default {
-  async setOrder(context, order) {
-    context.commit("SET_ORDER", order);
+  async setOrder(context, payload) {
+    context.commit("SET_ORDER", payload);
   },
-  async fetchOrder({ commit, dispatch }, order) {
+  async fetchOrder({ commit, dispatch }, payload) {
     try {
-      const response = await dslCloudApi.fetchOrder(order.id);
+      const response = await adminApi.fetchOrder(payload);
       commit("SET_ORDER", response.data);
       return response;
     } catch (error) {
@@ -24,8 +24,6 @@ export default {
           }
         }
       }
-      console.log(error);
-
       dispatch(
         "dialog/setError",
         {

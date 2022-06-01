@@ -1,22 +1,46 @@
 <template>
   <v-sheet height="450" class="transparent vertical-scroll">
-    <locker-checker @onCheckedLocker="onCheckedLockerhandler"></locker-checker>
+    <check-in-locker-checker
+      @onCheckedLocker="onCheckedLockerhandler"
+    ></check-in-locker-checker>
   </v-sheet>
 </template>
 
 <script>
-import { mapActions } from "vuex";
-import LockerChecker from "../locker/LockerChecker";
+import { mapActions, mapGetters } from "vuex";
+import CheckInLockerChecker from "../locker/CheckInLockerChecker";
 
 export default {
   name: "CheckInLocker",
-  components: { LockerChecker },
+  components: { CheckInLockerChecker },
+  props: {
+    enable: Boolean,
+  },
+  data() {
+    return {
+      timeInterval: null,
+    };
+  },
   methods: {
-    ...mapActions("locker", ["setLocker"]),
+    ...mapActions("cu48b", ["fetchCu48b"]),
 
     onCheckedLockerhandler(locker) {
       this.setLocker(locker);
       this.$emit("onCheckedLocker");
+    },
+  },
+  computed: {
+    ...mapGetters("cu48b", ["cu48bLockers"]),
+  },
+  watch: {
+    enable(present, previous) {
+      if (previous == false && previous != present) {
+        this.timeInterval = setInterval(() => {
+          this.fetchCu48b();
+        }, 1000);
+      } else {
+        clearInterval(this.timeInterval);
+      }
     },
   },
 };

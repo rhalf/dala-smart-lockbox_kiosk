@@ -118,7 +118,7 @@ export default {
   },
 
   watch: {
-    enable(previous, present) {
+    enable(present, previous) {
       if (previous == false && previous != present) {
         this.runTimer();
         this.timeValue = this.timeInterval;

@@ -12,7 +12,7 @@ import order from "../store/modules/order";
 import courier from "./modules/courier";
 import rider from "./modules/rider";
 // import transaction from "../store/modules/transaction"
-// import cu48b from "../store/modules/cu48b"
+import cu48b from "./modules/cu48b";
 
 Vue.use(Vuex);
 
@@ -31,6 +31,6 @@ export default new Vuex.Store({
 
     rider,
     // transaction,
-    // cu48b
+    cu48b,
   },
 });

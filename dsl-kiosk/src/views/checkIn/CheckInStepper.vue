@@ -84,14 +84,14 @@
       <v-stepper-content step="4">
         <v-row>
           <v-col>
-            <check-in-locker></check-in-locker>
+            <check-in-locker :enable="stepState == 4"></check-in-locker>
           </v-col>
         </v-row>
         <v-row>
           <v-spacer></v-spacer>
           <v-col cols="auto">
             <v-btn
-              :disabled="!locker"
+              :disabled="!passed"
               class="title"
               color="primary--text"
               @click="onParcelCheckLockerHandler"
@@ -106,7 +106,7 @@
       <v-stepper-content step="5">
         <v-row>
           <v-col>
-            <check-in-completed :enable="stepState != 5"></check-in-completed>
+            <check-in-completed :enable="stepState == 5"></check-in-completed>
           </v-col>
         </v-row>
         <v-row>
@@ -141,9 +141,12 @@ export default {
   },
   computed: {
     ...mapGetters("locker", ["locker"]),
+    ...mapGetters("locker", ["passed"]),
+    ...mapGetters("order", ["order"]),
   },
   methods: {
     ...mapActions("loading", ["setLoading"]),
+    ...mapActions("locker", ["setLockerOrder"]),
 
     onParcelCodeHandler() {
       this.stepState = 2;
@@ -157,7 +160,20 @@ export default {
       this.stepState = 4;
     },
 
-    onParcelCheckLockerHandler() {
+    async onParcelCheckLockerHandler() {
+      this.setLoading({ visible: true });
+
+      const payload = {
+        locker: this.locker,
+        order: this.order,
+      };
+
+      const response = await this.setLockerOrder(payload);
+      this.setLoading({ visible: false });
+
+      if (!response) {
+        return;
+      }
       this.stepState = 5;
     },
   },

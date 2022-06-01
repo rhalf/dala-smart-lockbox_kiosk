@@ -5,4 +5,10 @@ export default {
   SET_LOCKERS(state, lockers) {
     state.lockers = lockers;
   },
+  SET_LOCKER_PASS(state, pass) {
+    state.passed = pass;
+  },
+  SET_LOCKER_ORDER(state, order) {
+    state.order = order;
+  },
 };
