@@ -1,9 +1,9 @@
 <template>
-  <v-container>
+  <v-container class="px-16 py-8">
     <v-row no-gutters>
       <v-col>
         <v-card v-ripple @click="onCheckInHandler" class="option rounded-lg">
-          <v-img aspect-ratio="1" :src="CheckIn" height="350" contain></v-img>
+          <v-img aspect-ratio="1" :src="CheckIn" height="400" contain> </v-img>
           <v-card-text style="position: absolute">
             <v-fab-transition>
               <v-btn color="brownLight" dark absolute top right fab x-large>
@@ -13,7 +13,7 @@
           </v-card-text>
 
           <v-card-title class="secondary fontLight--text">
-            Check In</v-card-title
+            Check-In</v-card-title
           >
           <v-card-text class="secondary fontLight--text"
             >Courier area for depositing parcels.</v-card-text
@@ -22,7 +22,7 @@
       </v-col>
       <v-col>
         <v-card v-ripple @click="onCheckOutHandler" class="option rounded-lg">
-          <v-img aspect-ratio="1" :src="CheckOut" height="350" contain></v-img>
+          <v-img aspect-ratio="1" :src="CheckOut" height="400" contain></v-img>
           <v-card-text style="position: absolute">
             <v-fab-transition>
               <v-btn color="brownLight" dark absolute top right fab x-large>
@@ -32,7 +32,7 @@
           </v-card-text>
 
           <v-card-title class="secondary fontLight--text">
-            Check Out
+            Check-Out
           </v-card-title>
           <v-card-text class="secondary fontLight--text"
             >Client area for withdrawing parcels.</v-card-text
@@ -45,7 +45,7 @@
           @click="onLockerStatusHandler"
           class="option rounded-lg"
         >
-          <v-img aspect-ratio="1" :src="PadLock" height="350" contain></v-img>
+          <v-img aspect-ratio="1" :src="PadLock" height="400" contain></v-img>
           <v-card-text style="position: absolute">
             <v-fab-transition>
               <v-btn color="brownLight" dark absolute top right fab x-large>
@@ -58,7 +58,7 @@
             Locker Status
           </v-card-title>
           <v-card-text class="secondary fontLight--text"
-            >Check the current status of each locker.</v-card-text
+            >Check status of each locker.</v-card-text
           >
         </v-card>
       </v-col>
@@ -71,7 +71,7 @@
           <v-img
             aspect-ratio="1"
             :src="Transaction"
-            height="350"
+            height="400"
             contain
           ></v-img>
           <v-card-text style="position: absolute">
@@ -86,7 +86,7 @@
             Transactions
           </v-card-title>
           <v-card-text class="secondary fontLight--text"
-            >Check the previous transactions made.</v-card-text
+            >Check previous transactions made.</v-card-text
           >
         </v-card>
       </v-col>

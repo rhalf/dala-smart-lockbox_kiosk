@@ -3,7 +3,7 @@ import cu48bApi from "../../../api/cu48bApi";
 export default {
   unlockCu48b(context, payload) {
     console.log(context);
-    return cu48bApi.unlockCu48b(payload.id);
+    return cu48bApi.unlockCu48b(payload);
   },
   unlockAllCu48b(context) {
     console.log(context);

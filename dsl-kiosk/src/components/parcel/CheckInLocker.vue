@@ -37,7 +37,7 @@ export default {
       if (previous == false && previous != present) {
         this.timeInterval = setInterval(() => {
           this.fetchCu48b();
-        }, 1000);
+        }, 2000);
       } else {
         clearInterval(this.timeInterval);
       }
