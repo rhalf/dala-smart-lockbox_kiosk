@@ -8,7 +8,7 @@ export default {
   async fetchByIdPin({ commit, dispatch }, payload) {
     try {
       const response = await adminApi.loginRider(payload);
-      commit("SET_RIDER", { name: "rider" });
+      commit("SET_RIDER", response.data.data.rider);
       return response;
     } catch (error) {
       let message1, message2;
@@ -31,8 +31,7 @@ export default {
         "dialog/setError",
         {
           visible: true,
-          message1: message1,
-          message2: message2,
+          messages: [message1, message2],
         },
         { root: true }
       );

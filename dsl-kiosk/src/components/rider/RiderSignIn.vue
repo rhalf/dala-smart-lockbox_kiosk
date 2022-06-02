@@ -47,7 +47,7 @@ export default {
       if (!riderId || !riderPin) {
         this.setError({
           visible: true,
-          message1: "Rider Id or Pin must not be empty!",
+          messages: ["Rider Id or Pin must not be empty!"],
         });
         return;
       }

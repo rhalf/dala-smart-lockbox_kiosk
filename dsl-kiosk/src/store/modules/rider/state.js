@@ -1,3 +1,3 @@
 export default () => {
-  return { rider: localStorage.getItem("rider") };
+  return { rider: JSON.parse(localStorage.getItem("rider")) };
 };

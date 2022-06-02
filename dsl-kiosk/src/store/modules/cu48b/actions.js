@@ -34,8 +34,7 @@ export default {
         "dialog/setError",
         {
           visible: true,
-          message1: message1,
-          message2: message2,
+          messages: [message1, message2],
         },
         { root: true }
       );

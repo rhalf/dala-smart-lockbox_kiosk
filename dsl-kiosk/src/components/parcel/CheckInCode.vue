@@ -41,7 +41,7 @@ export default {
       if (!id) {
         this.setError({
           visible: true,
-          message1: "Parcel code must not be empty!",
+          message: ["Parcel code must not be empty!"],
         });
         return;
       }

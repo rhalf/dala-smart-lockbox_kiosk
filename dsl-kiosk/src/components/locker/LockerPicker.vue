@@ -2,10 +2,7 @@
   <v-row>
     <v-col cols="3" v-for="locker in lockers" :key="locker.id" class="pa-5">
       <v-card
-        :disabled="
-          !(locker.orderId == null)
-            | order.sizeCodes.contains(locker.lockerModel.sizeCode)
-        "
+        :disabled="!(locker.orderId == null)"
         :key="locker.id"
         :light="!locker.lockerStatusId == 0"
         :dark="locker.lockerStatusId == 0"
@@ -82,6 +79,7 @@ export default {
       });
 
       // console.log("locker/lockers", this.lockers);
+      //| order.sizeCodes.contains(locker.lockerModel.sizeCode)
 
       this.setLockers([...this.lockers]);
       this.setLocker(locker);
@@ -93,12 +91,5 @@ export default {
 <style scoped>
 .selected {
   outline: 8px solid #deb800 !important;
-}
-
-.font-large {
-  font-size: 45px;
-}
-.font-small {
-  font-size: 20px;
 }
 </style>
