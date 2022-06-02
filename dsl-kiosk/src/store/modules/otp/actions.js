@@ -1,19 +1,17 @@
 import adminApi from "../../../api/adminApi";
 
 export default {
-  async setLockerPassed(context, payload) {
-    await context.commit("SET_LOCKER_PASS", payload);
+  async setOtp(context, payload) {
+    context.commit("SET_OTP", payload);
   },
-  async setLocker(context, payload) {
-    await context.commit("SET_LOCKER", payload);
-  },
-  async setLockers(context, payload) {
-    await context.commit("SET_LOCKERS", payload);
-  },
-  async fetchLockers({ commit, dispatch }) {
+  async fetchOtp({ commit, dispatch }, payload) {
     try {
-      const response = await adminApi.fetchLockers();
-      commit("SET_LOCKERS", response.data);
+      const response = await adminApi.checkOutParcel(payload);
+      await commit("SET_OTP", response.data);
+      await dispatch("order/setOrder", response.data.data.order, {
+        root: true,
+      });
+
       return response;
     } catch (error) {
       let message1, message2;
@@ -41,9 +39,9 @@ export default {
     }
   },
 
-  async setLockerOrder({ dispatch }, payload) {
+  async fetchOrderByCode({ dispatch }, payload) {
     try {
-      const response = await adminApi.checkInParcel(payload);
+      const response = await adminApi.checkOutParcel(payload);
       return response;
     } catch (error) {
       let message1, message2;

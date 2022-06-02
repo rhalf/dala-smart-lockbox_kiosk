@@ -41,17 +41,14 @@ export default {
       if (!id) {
         this.setError({
           visible: true,
-          message1: "Parcel code must not be empty!",
+          message: ["Parcel code must not be empty!"],
         });
         return;
       }
 
       this.setLoading({ visible: true });
       const response = await this.fetchOrder({ id: id });
-      if (response) {
-        this.$emit("onParcelCode");
-      }
-      console.log("order/order", this.order);
+      if (response) this.$emit("onParcelCode");
       this.setLoading({ visible: false });
     },
   },

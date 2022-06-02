@@ -2,7 +2,7 @@
   <v-sheet height="450" class="transparent">
     <v-card light class="ma-auto justify" width="720">
       <v-card-title class="secondary fontLight--text"
-        >Parcel Code
+        >Pickup Code
       </v-card-title>
       <v-card-subtitle class="secondary fontLight--text"></v-card-subtitle>
       <v-card-text class="pa-2">
@@ -35,23 +35,27 @@ export default {
 
   methods: {
     ...mapActions("dialog", ["setError"]),
-    ...mapActions("order", ["fetchOrder"]),
+    ...mapActions("dialog", ["setInfo"]),
+    ...mapActions("otp", ["fetchOtp"]),
     ...mapActions("loading", ["setLoading"]),
     async onOkHandler(id) {
       if (!id) {
         this.setError({
           visible: true,
-          message1: "Parcel code must not be empty!",
+          message: ["Pickup code must not be empty!"],
         });
         return;
       }
 
       this.setLoading({ visible: true });
-      const response = await this.fetchOrder({ id: id });
+      const response = await this.fetchOtp({ code: id });
       if (response) {
+        this.setInfo({
+          visible: true,
+          messages: [response.data.data.message],
+        });
         this.$emit("onParcelCode");
       }
-      console.log("order/order", this.order);
       this.setLoading({ visible: false });
     },
   },

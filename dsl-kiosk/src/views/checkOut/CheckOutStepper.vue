@@ -2,23 +2,23 @@
   <v-stepper v-model="stepState" dark flat class="transparent">
     <v-stepper-header class="elevation-0">
       <v-stepper-step :complete="stepState > 1" step="1">
-        Scan Pick-Up Code
+        <label :class="getClass(1)">Scan Pick-Up Code</label>
       </v-stepper-step>
       <v-divider></v-divider>
       <v-stepper-step :complete="stepState > 2" step="2">
-        Parcel Details
+        <label :class="getClass(2)">Parcel Details</label>
       </v-stepper-step>
       <v-divider></v-divider>
       <v-stepper-step :complete="stepState > 3" step="3">
-        Enter One-Time-Pin
+        <label :class="getClass(3)">Enter One-Time-Pin</label>
       </v-stepper-step>
       <v-divider></v-divider>
       <v-stepper-step :complete="stepState > 4" step="4">
-        Checking Locker
+        <label :class="getClass(4)">Checking Locker</label>
       </v-stepper-step>
       <v-divider></v-divider>
       <v-stepper-step :complete="stepState > 5" step="5">
-        Completed
+        <label :class="getClass(5)">Completed</label>
       </v-stepper-step>
     </v-stepper-header>
 
@@ -60,7 +60,10 @@
       <v-stepper-content step="3">
         <v-row>
           <v-col>
-            <check-out-otp @onParcelOtp="onParcelOtpHandler()"></check-out-otp>
+            <check-out-otp
+              @onParcelOtp="onParcelOtpHandler()"
+              :enable="stepState == 3"
+            ></check-out-otp>
           </v-col>
         </v-row>
       </v-stepper-content>
@@ -135,6 +138,11 @@ export default {
 
     onParcelCheckOutLocker() {
       this.stepState = 5;
+    },
+
+    getClass(state) {
+      if (state == this.stepState) return "font-medium";
+      else return "";
     },
   },
 };

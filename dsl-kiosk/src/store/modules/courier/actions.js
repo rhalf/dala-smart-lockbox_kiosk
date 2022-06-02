@@ -1,5 +1,5 @@
 export default {
-  setCourier(context, courier) {
-    context.commit("SET_COURIER", courier);
+  setCourier(context, payload) {
+    context.commit("SET_COURIER", payload);
   },
 };

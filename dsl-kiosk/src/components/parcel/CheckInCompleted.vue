@@ -90,18 +90,25 @@ export default {
     ...mapActions("rider", ["setRider"]),
     ...mapActions("order", ["setOrder"]),
     ...mapActions("locker", ["setLocker"]),
+    ...mapActions("locker", ["setLockerPassed"]),
 
-    addMoreHandler() {
+    async addMoreHandler() {
       this.setOrder(null);
       this.setLocker(null);
-      this.$router.go(0);
+      this.setLockerPassed(false);
+      await this.$router.push("/home");
+      await this.$router.push("/check-in");
+      // this.$router.go(this.$router.currentRoute);
       clearInterval(this.timeIntervalHandler);
     },
 
     endNowHandler() {
+      this.setOrder(null);
+      this.setLocker(null);
       this.setRider(null);
+      this.setLockerPassed(false);
       this.$router.push("/home");
-      this.$router.go(0);
+      // this.$router.go(0);
       clearInterval(this.timeIntervalHandler);
     },
 
@@ -113,12 +120,12 @@ export default {
         if (this.timeValue < 0) {
           this.endNowHandler();
         }
-      }, 1000);
+      }, 1500);
     },
   },
 
   watch: {
-    enable(previous, present) {
+    enable(present, previous) {
       if (previous == false && previous != present) {
         this.runTimer();
         this.timeValue = this.timeInterval;

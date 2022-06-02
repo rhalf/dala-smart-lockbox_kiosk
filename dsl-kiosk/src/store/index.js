@@ -7,12 +7,12 @@ import dialog from "./modules/dialog";
 import locker from "./modules/locker";
 // import status from "../store/modules/status"
 // import company from "../store/modules/company"
-// import client from "../store/modules/client"
+import otp from "../store/modules/otp";
 import order from "../store/modules/order";
 import courier from "./modules/courier";
 import rider from "./modules/rider";
 // import transaction from "../store/modules/transaction"
-// import cu48b from "../store/modules/cu48b"
+import cu48b from "./modules/cu48b";
 
 Vue.use(Vuex);
 
@@ -25,12 +25,12 @@ export default new Vuex.Store({
     order,
     // status,
     // company,
-    // client,
+    otp,
     // parcel,
     courier,
 
     rider,
     // transaction,
-    // cu48b
+    cu48b,
   },
 });

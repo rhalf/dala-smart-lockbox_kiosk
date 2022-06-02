@@ -16,13 +16,13 @@
 </template>
 
 <script>
-import validation from "../../mixins/validation";
 import OtpCode from "../../components/ui/OtpCode";
 import Otp from "../../assets/Elements/Mail/Mail_Green.svg";
+import { mapActions } from "vuex";
+import order from "@/store/modules/order";
 export default {
   name: "CheckOutOtp",
   props: { enable: Boolean },
-  mixins: [validation],
   components: { OtpCode },
   data() {
     return {
@@ -32,6 +32,20 @@ export default {
   methods: {
     onOkHandler() {
       this.$emit("onParcelOtp");
+    },
+    sendOtp() {
+      this.getLockerOrder({ code: order });
+    },
+  },
+  computed: {
+    ...mapActions("order", ["order"]),
+    ...mapActions("locker", ["getLockerOrder"]),
+  },
+  watch: {
+    enable(present, previous) {
+      if (previous == false && present != previous) {
+        this.sendOtp();
+      }
     },
   },
 };

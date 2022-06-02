@@ -1,8 +1,8 @@
 export default {
-  SET_RIDER(state, rider) {
-    state.rider = rider;
+  SET_RIDER(state, payload) {
+    state.rider = payload;
 
-    if (rider) localStorage.setItem("rider", JSON.stringify(rider));
+    if (payload) localStorage.setItem("rider", JSON.stringify(payload));
     else localStorage.removeItem("rider");
   },
 };

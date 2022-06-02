@@ -8,6 +8,7 @@
       </v-fade-transition>
     </v-main>
     <error-dialog />
+    <info-dialog />
   </v-app>
 </template>
 
@@ -19,10 +20,11 @@ import { mapActions } from "vuex";
 import LayoutHeader from "./components/layout/layout_header/LayoutHeader";
 import LoadingSpinner from "./components/ui/LoadingSpinner";
 import ErrorDialog from "./components/dialog/ErrorDialog";
+import InfoDialog from "./components/dialog/InfoDialog";
 
 export default defineComponent({
   name: "App",
-  components: { LoadingSpinner, LayoutHeader, ErrorDialog },
+  components: { LoadingSpinner, LayoutHeader, ErrorDialog, InfoDialog },
   created() {},
   mounted() {
     this.timeout = setTimeout(() => {
@@ -76,5 +78,15 @@ html {
 
 html::-webkit-scrollbar {
   display: none; /* for Chrome, Safari, and Opera */
+}
+
+.font-large {
+  font-size: 45px !important;
+}
+.font-medium {
+  font-size: 35px !important;
+}
+.font-small {
+  font-size: 20px !important;
 }
 </style>

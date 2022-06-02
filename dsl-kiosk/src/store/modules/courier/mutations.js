@@ -1,5 +1,5 @@
 export default {
-  SET_COURIER(state, courier) {
-    state.courier = courier;
+  SET_COURIER(state, payload) {
+    state.courier = payload;
   },
 };

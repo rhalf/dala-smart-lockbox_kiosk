@@ -2,25 +2,27 @@
   <v-stepper v-model="stepState" dark flat class="transparent">
     <v-stepper-header class="elevation-0">
       <v-stepper-step :complete="stepState > 1" step="1">
-        Scan Parcel Code
+        <label :class="getClass(1)">Scan Code</label>
       </v-stepper-step>
       <v-divider></v-divider>
+
       <v-stepper-step :complete="stepState > 2" step="2">
-        Parcel Details
+        <label :class="getClass(2)">Parcel Details</label>
       </v-stepper-step>
       <v-divider></v-divider>
+
       <v-stepper-step :complete="stepState > 3" step="3">
-        Select Locker
+        <label :class="getClass(3)">Select Locker</label>
       </v-stepper-step>
       <v-divider></v-divider>
 
       <v-stepper-step :complete="stepState > 4" step="4">
-        Checking Locker
+        <label :class="getClass(4)">Check Locker</label>
       </v-stepper-step>
       <v-divider></v-divider>
 
       <v-stepper-step :complete="stepState > 5" step="5">
-        Completed
+        <label :class="getClass(5)">Completed</label>
       </v-stepper-step>
     </v-stepper-header>
 
@@ -84,14 +86,14 @@
       <v-stepper-content step="4">
         <v-row>
           <v-col>
-            <check-in-locker></check-in-locker>
+            <check-in-locker :enable="stepState == 4"></check-in-locker>
           </v-col>
         </v-row>
         <v-row>
           <v-spacer></v-spacer>
           <v-col cols="auto">
             <v-btn
-              :disabled="!locker"
+              :disabled="!passed"
               class="title"
               color="primary--text"
               @click="onParcelCheckLockerHandler"
@@ -106,7 +108,7 @@
       <v-stepper-content step="5">
         <v-row>
           <v-col>
-            <check-in-completed :enable="stepState != 5"></check-in-completed>
+            <check-in-completed :enable="stepState == 5"></check-in-completed>
           </v-col>
         </v-row>
         <v-row>
@@ -141,9 +143,12 @@ export default {
   },
   computed: {
     ...mapGetters("locker", ["locker"]),
+    ...mapGetters("locker", ["passed"]),
+    ...mapGetters("order", ["order"]),
   },
   methods: {
     ...mapActions("loading", ["setLoading"]),
+    ...mapActions("locker", ["setLockerOrder"]),
 
     onParcelCodeHandler() {
       this.stepState = 2;
@@ -157,8 +162,26 @@ export default {
       this.stepState = 4;
     },
 
-    onParcelCheckLockerHandler() {
+    async onParcelCheckLockerHandler() {
+      this.setLoading({ visible: true });
+
+      const payload = {
+        locker: this.locker,
+        order: this.order,
+      };
+
+      const response = await this.setLockerOrder(payload);
+      this.setLoading({ visible: false });
+
+      if (!response) {
+        return;
+      }
       this.stepState = 5;
+    },
+
+    getClass(state) {
+      if (state == this.stepState) return "font-medium";
+      else return "";
     },
   },
 };
@@ -168,8 +191,4 @@ export default {
 .stepper {
   background-color: rgba(0, 0, 0, 0.5);
 }
-
-/* .stepper:active {
-  background-color: rgba(256, 0, 0, 0.5);
-} */
 </style>

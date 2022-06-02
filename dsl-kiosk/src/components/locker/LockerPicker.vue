@@ -2,50 +2,50 @@
   <v-row>
     <v-col cols="3" v-for="locker in lockers" :key="locker.id" class="pa-5">
       <v-card
+        :disabled="!(locker.orderId == null)"
         :key="locker.id"
         :light="!locker.lockerStatusId == 0"
         :dark="locker.lockerStatusId == 0"
-        :class="`pa-2 rounded text-center display-1 secondary--text ${
-          locker.selected ? 'selected' : ''
-        }`"
-        height="100"
-        width="300"
+        :class="`rounded text-center font secondary--text
+          ${locker.orderId ? 'yellowDark' : ''} 
+          ${locker.selected ? 'selected' : ''}
+          ${locker.selected ? 'selected' : ''}
+        `"
         ripple
-        :color="locker.lockerStatusId == 0 ? 'secondary' : 'white'"
         @click="selectedLocker(locker)"
       >
         <v-row no-gutters>
-          <v-col cols="5" class="ma-auto pr-2">
-            <label class="display-3 font-weight-bold">
-              {{ locker.number }}
-            </label>
+          <v-col cols="3" class="secondary d-flex align-center justify-center">
+            <div class="font-large white--text">
+              {{ locker.number | toPad(2) }}
+            </div>
           </v-col>
-          <v-col>
+          <v-col cols="6" class="ma-auto py-2 pl-4 text-left">
             <v-row no-gutters>
-              <v-col class="headline text-left text-uppercase">
-                <label>{{ locker.size }}</label>
-              </v-col>
-              <v-col class="ma-auto">
-                <v-icon x-large v-show="locker.locked" class="secondary--text"
-                  >mdi-lock</v-icon
-                >
-                <v-icon x-large v-show="!locker.locked" class="secondary--text"
-                  >mdi-lock-open</v-icon
-                >
+              <v-col>
+                <div class="font-small">
+                  {{ locker.lockerModel.sizeCode }}
+                </div>
               </v-col>
             </v-row>
             <v-row no-gutters>
-              <v-col
-                class="title text-left text-uppercase"
-                v-show="locker.occupied"
-                >occupied</v-col
-              >
-              <v-col
-                class="title text-left text-uppercase"
-                v-show="!locker.occupied"
-                >empty</v-col
-              >
+              <v-col>
+                <div class="font-small text-uppercase" v-show="locker.orderId">
+                  occupied
+                </div>
+                <div class="font-small text-uppercase" v-show="!locker.orderId">
+                  empty
+                </div>
+              </v-col>
             </v-row>
+          </v-col>
+          <v-col cols="3" class="ma-auto pa-2 text-left">
+            <v-icon size="50" v-show="locker.locked" class="secondary--text">
+              mdi-locker
+            </v-icon>
+            <v-icon size="50" v-show="!locker.locked" class="secondary--text">
+              mdi-locker
+            </v-icon>
           </v-col>
         </v-row>
       </v-card>
@@ -79,6 +79,7 @@ export default {
       });
 
       // console.log("locker/lockers", this.lockers);
+      //| order.sizeCodes.contains(locker.lockerModel.sizeCode)
 
       this.setLockers([...this.lockers]);
       this.setLocker(locker);
@@ -89,6 +90,6 @@ export default {
 
 <style scoped>
 .selected {
-  border: 6px solid #deb800 !important;
+  outline: 8px solid #deb800 !important;
 }
 </style>

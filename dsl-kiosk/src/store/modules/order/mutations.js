@@ -1,5 +1,5 @@
 export default {
-  SET_ORDER(state, order) {
-    state.order = order;
+  SET_ORDER(state, payload) {
+    state.order = payload;
   },
 };
