@@ -12,7 +12,7 @@ const locker = axios.create({
 
 export default {
   unlockCu48b(payload) {
-    return locker.post(`/cu48b/${payload.id}`);
+    return locker.post(`/cu48b/${payload.id - 1}`);
   },
   unlockAllCu48b() {
     return locker.delete(`/cu48b/`);

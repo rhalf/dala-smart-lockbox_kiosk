@@ -1,5 +1,9 @@
 <template>
   <v-app>
+    <div class="circle-1"></div>
+    <div class="circle-2"></div>
+    <div class="circle-3"></div>
+    <div class="circle-4"></div>
     <loading-spinner />
     <layout-header />
     <v-main>
@@ -80,6 +84,7 @@ html::-webkit-scrollbar {
   display: none; /* for Chrome, Safari, and Opera */
 }
 
+//font
 .font-large {
   font-size: 45px !important;
 }
@@ -88,5 +93,61 @@ html::-webkit-scrollbar {
 }
 .font-small {
   font-size: 20px !important;
+}
+//arc
+.circle-4 {
+  position: absolute;
+  opacity: 0.35;
+  bottom: 150px;
+  left: 50px;
+  width: 300px;
+  height: 300px;
+  background: none;
+  border: 30px solid yellow;
+  border-radius: 150px;
+  -moz-border-radius: 150px;
+  -webkit-border-radius: 150px;
+}
+
+.circle-3 {
+  position: absolute;
+  opacity: 0.35;
+  bottom: 350px;
+  left: 10px;
+  width: 150px;
+  height: 150px;
+  background: none;
+  border: 20px solid yellow;
+  border-radius: 10px;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+}
+
+.circle-2 {
+  position: absolute;
+  opacity: 0.35;
+  bottom: 150px;
+  right: 10px;
+  width: 250px;
+  height: 250px;
+  background: none;
+  border: 20px solid yellow;
+  border-radius: 150px;
+  -moz-border-radius: 150px;
+  -webkit-border-radius: 150px;
+}
+
+.circle-1 {
+  position: absolute;
+  opacity: 0.35;
+  bottom: 325px;
+  right: 10px;
+  width: 150px;
+  height: 150px;
+  background: none;
+  border: 30px solid yellow;
+  border-radius: 100px;
+  -moz-border-radius: 100px;
+  -webkit-border-radius: 100px;
 }
 </style>

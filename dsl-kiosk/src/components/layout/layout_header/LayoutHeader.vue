@@ -1,12 +1,13 @@
 <template>
   <v-container>
     <v-row no-gutters>
-      <v-col>
-        <v-img :src="logo" width="200"></v-img>
+      <v-col cols="auto" class="d-flex justify-center align-center">
+        <div>
+          <v-img :src="logo" :aspect-ratio="16 / 6" :width="240"></v-img>
+        </div>
       </v-col>
       <v-spacer></v-spacer>
-
-      <v-col cols="auto" class="ma-auto">
+      <v-col cols="auto" class="d-flex justify-center align-center">
         <v-menu offset-y :nudge-width="100" v-if="rider">
           <template v-slot:activator="{ on, attrs }">
             <v-btn icon fab dark v-bind="attrs" v-on="on">
