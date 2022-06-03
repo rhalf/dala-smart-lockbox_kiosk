@@ -38,9 +38,10 @@ export default {
   },
 
   verifyCheckoutParcel(payload) {
+    console.log("payload", payload);
     return admin.post(`/pickup-parcel/verify`, {
-      message_id: payload.messageId,
       otp: payload.otpNumber,
+      message_id: payload.messageId,
       order_id: payload.orderId,
     });
   },

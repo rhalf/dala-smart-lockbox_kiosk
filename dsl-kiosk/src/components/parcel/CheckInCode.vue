@@ -25,7 +25,6 @@ import { mapActions, mapGetters } from "vuex";
 export default {
   name: "CheckInCode",
   props: { enable: { default: false, type: Boolean } },
-  mixins: [],
   components: { InputNumber },
   data() {
     return {

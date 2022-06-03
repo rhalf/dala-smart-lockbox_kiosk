@@ -76,7 +76,7 @@
 import { mapActions, mapGetters } from "vuex";
 
 export default {
-  name: "LockerChecker",
+  name: "CheckInLockerChecker",
   created() {},
   computed: {
     ...mapGetters("locker", ["locker"]),

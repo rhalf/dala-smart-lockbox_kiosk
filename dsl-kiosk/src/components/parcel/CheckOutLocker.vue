@@ -7,18 +7,40 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 import CheckOutLockerChecker from "../locker/CheckOutLockerChecker";
 
 export default {
   name: "CheckOutLocker",
   components: { CheckOutLockerChecker },
+  props: {
+    enable: Boolean,
+  },
+  data() {
+    return {
+      timeInterval: null,
+    };
+  },
   methods: {
-    ...mapActions("locker", ["setLocker"]),
+    ...mapActions("cu48b", ["fetchCu48b"]),
 
     onCheckedLockerhandler(locker) {
       this.setLocker(locker);
       this.$emit("onCheckedLocker");
+    },
+  },
+  computed: {
+    ...mapGetters("cu48b", ["cu48bLockers"]),
+  },
+  watch: {
+    enable(present, previous) {
+      if (previous == false && previous != present) {
+        this.timeInterval = setInterval(() => {
+          this.fetchCu48b();
+        }, 2000);
+      } else {
+        clearInterval(this.timeInterval);
+      }
     },
   },
 };

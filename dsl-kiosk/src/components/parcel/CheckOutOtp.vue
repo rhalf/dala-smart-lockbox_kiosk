@@ -18,8 +18,7 @@
 <script>
 import OtpCode from "../../components/ui/OtpCode";
 import Otp from "../../assets/Elements/Mail/Mail_Green.svg";
-import { mapActions } from "vuex";
-import order from "@/store/modules/order";
+import { mapActions, mapGetters } from "vuex";
 export default {
   name: "CheckOutOtp",
   props: { enable: Boolean },
@@ -30,23 +29,36 @@ export default {
     };
   },
   methods: {
-    onOkHandler() {
-      this.$emit("onParcelOtp");
+    ...mapActions("otp", ["verifyOtp"]),
+    ...mapActions("loading", ["setLoading"]),
+
+    async onOkHandler(code) {
+      if (code) {
+        this.setLoading({ visible: true });
+        const response = await this.verifyOtpHandler(code);
+        this.setLoading({ visible: false });
+
+        if (response) this.$emit("onParcelOtp");
+      }
     },
-    sendOtp() {
-      this.getLockerOrder({ code: order });
+    verifyOtpHandler(code) {
+      return this.verifyOtp({
+        otpNumber: code,
+        messageId: this.otp.messageId,
+        orderId: this.order.id,
+      });
     },
   },
   computed: {
-    ...mapActions("order", ["order"]),
-    ...mapActions("locker", ["getLockerOrder"]),
+    ...mapGetters("order", ["order"]),
+    ...mapGetters("otp", ["otp"]),
   },
   watch: {
-    enable(present, previous) {
-      if (previous == false && present != previous) {
-        this.sendOtp();
-      }
-    },
+    // enable(present, previous) {
+    //   if (previous == false && present != previous) {
+    //     // this.sendOtp();
+    //   }
+    // },
   },
 };
 </script>
