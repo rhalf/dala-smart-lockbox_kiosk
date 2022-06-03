@@ -57,7 +57,7 @@ export default {
   },
   methods: {
     onKeyPressHandler(key) {
-      if (this.code.toString().length() == 6) return;
+      if (this.code) if (String(this.code).length == 6) return;
 
       if (this.code) this.code += key;
       else this.code = key;
@@ -68,7 +68,7 @@ export default {
     },
 
     onOkHandler() {
-      this.$emit("onOk");
+      this.$emit("onOk", this.code);
     },
   },
 };

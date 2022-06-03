@@ -2,14 +2,14 @@
   <v-row>
     <v-col cols="3" v-for="locker in lockers" :key="locker.id" class="pa-5">
       <v-card
-        :disabled="!(locker.orderId == null)"
+        :disabled="!(locker.orderId == null) || !isValidSize(locker)"
         :key="locker.id"
         :light="!locker.lockerStatusId == 0"
         :dark="locker.lockerStatusId == 0"
         :class="`rounded text-center font secondary--text
+          ${locker.selected ? 'selected' : ''}
+          ${!isValidSize(locker) ? 'grey' : ''}
           ${locker.orderId ? 'yellowDark' : ''} 
-          ${locker.selected ? 'selected' : ''}
-          ${locker.selected ? 'selected' : ''}
         `"
         ripple
         @click="selectedLocker(locker)"
@@ -64,6 +64,7 @@ export default {
   computed: {
     ...mapGetters("locker", ["lockers"]),
     ...mapGetters("locker", ["locker"]),
+    ...mapGetters("order", ["order"]),
   },
   methods: {
     ...mapActions("locker", ["fetchLockers"]),
@@ -83,6 +84,13 @@ export default {
 
       this.setLockers([...this.lockers]);
       this.setLocker(locker);
+    },
+
+    isValidSize(locker) {
+      if (this.order && locker.lockerModel) {
+        return this.order.sizeCodes.includes(locker.lockerModel.sizeCode);
+      }
+      return false;
     },
   },
 };

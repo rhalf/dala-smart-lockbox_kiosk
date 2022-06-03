@@ -7,8 +7,11 @@ export default {
   async fetchOtp({ commit, dispatch }, payload) {
     try {
       const response = await adminApi.checkOutParcel(payload);
-      await commit("SET_OTP", response.data);
+      await commit("SET_OTP", response.data.data);
       await dispatch("order/setOrder", response.data.data.order, {
+        root: true,
+      });
+      await dispatch("locker/setLocker", response.data.data.order.locker, {
         root: true,
       });
 
@@ -39,9 +42,10 @@ export default {
     }
   },
 
-  async fetchOrderByCode({ dispatch }, payload) {
+  async verifyOtp({ dispatch }, payload) {
     try {
-      const response = await adminApi.checkOutParcel(payload);
+      console.log("payload", payload);
+      const response = await adminApi.verifyCheckoutParcel(payload);
       return response;
     } catch (error) {
       let message1, message2;

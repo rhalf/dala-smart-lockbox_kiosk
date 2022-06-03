@@ -71,13 +71,14 @@
       <v-stepper-content step="4">
         <v-row>
           <v-col>
-            <check-out-locker></check-out-locker>
+            <check-out-locker :enable="stepState == 4"></check-out-locker>
           </v-col>
         </v-row>
         <v-row>
           <v-spacer></v-spacer>
           <v-col cols="auto">
             <v-btn
+              :disabled="!passed"
               class="title"
               color="primary--text"
               @click="onParcelCheckOutLocker()"
@@ -93,7 +94,7 @@
       <v-stepper-content step="5">
         <v-row>
           <v-col>
-            <check-out-completed :enable="stepState != 5"></check-out-completed>
+            <check-out-completed :enable="stepState == 5"></check-out-completed>
           </v-col>
         </v-row>
         <v-row><v-col></v-col></v-row>
@@ -108,6 +109,7 @@ import CheckOutDetails from "../../components/parcel/CheckOutDetails";
 import CheckOutOtp from "../../components/parcel/CheckOutOtp";
 import CheckOutLocker from "../../components/parcel/CheckOutLocker";
 import CheckOutCompleted from "../../components/parcel/CheckOutCompleted";
+import { mapGetters } from "vuex";
 
 export default {
   name: "CheckOutStepper",
@@ -122,6 +124,9 @@ export default {
     return {
       stepState: 1,
     };
+  },
+  computed: {
+    ...mapGetters("locker", ["passed"]),
   },
   methods: {
     onParcelCodeHandler() {

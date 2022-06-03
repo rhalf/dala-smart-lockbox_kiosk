@@ -26,7 +26,13 @@
         <v-col cols="4">
           <label>Size Category</label>
         </v-col>
-        <v-col> {{ order.sizeCodes.join(", ") }} </v-col>
+        <v-col>
+          <label v-if="order.sizeCodes">{{ order.sizeCodes.join(", ") }}</label>
+          <label
+            v-if="order.sizeCodes === undefined || order.sizeCodes.length == 0"
+            >Not yet configured</label
+          >
+        </v-col>
       </v-row>
       <v-row>
         <v-col cols="4">Vendor</v-col>
