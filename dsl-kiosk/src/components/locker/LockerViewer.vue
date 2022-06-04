@@ -56,7 +56,7 @@
 import { mapActions, mapGetters } from "vuex";
 
 export default {
-  name: "LockerPicker",
+  name: "LockerViewer",
   mounted() {
     this.fetchLockers();
   },
@@ -67,26 +67,20 @@ export default {
   },
   methods: {
     ...mapActions("locker", ["fetchLockers"]),
-    ...mapActions("locker", ["fetchLockers"]),
     ...mapActions("locker", ["setLocker"]),
     ...mapActions("locker", ["setLockers"]),
-
     selectedLocker(locker) {
       this.lockers.forEach((l) => {
         if (l.id === locker.id) l.selected = true;
         else l.selected = false;
       });
-
       this.setLockers([...this.lockers]);
     },
-
     isValidSize(locker) {
-      if (this.order && locker.lockerModel) {
+      if (this.order && locker.lockerModel)
         return this.order.sizeCodes.includes(locker.lockerModel.sizeCode);
-      }
       return false;
     },
-
     isSelected(locker) {
       if (!this.locker) return false;
       return this.locker.number == locker.number;

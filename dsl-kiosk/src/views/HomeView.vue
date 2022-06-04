@@ -116,7 +116,7 @@ export default {
       this.$router.push("/locker-viewer").catch(() => {});
     },
     async onTransactionHandler() {
-      this.$router.push("/transactions").catch(() => {});
+      this.$router.push("/transaction-viewer").catch(() => {});
     },
   },
 };
