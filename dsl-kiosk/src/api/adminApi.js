@@ -8,9 +8,11 @@ const admin = axios.create({
 const token = JSON.parse(localStorage.getItem("token"));
 console.log("token", token);
 
-admin.defaults.headers.common[
-  "Authorization"
-] = `${token.token_type} ${token.access_token}`;
+if (token) {
+  admin.defaults.headers.common[
+    "Authorization"
+  ] = `${token.token_type} ${token.access_token}`;
+}
 
 export default {
   //Riders
