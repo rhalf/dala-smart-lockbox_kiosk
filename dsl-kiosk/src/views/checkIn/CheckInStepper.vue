@@ -94,10 +94,21 @@
           <v-spacer></v-spacer>
           <v-col cols="auto">
             <v-btn
+              class="title"
+              color="primary--text"
+              @click="onByPassHandler"
+              x-large
+              light
+            >
+              By Pass
+            </v-btn>
+          </v-col>
+          <v-col cols="auto">
+            <v-btn
               :disabled="!passed"
               class="title"
               color="primary--text"
-              @click="onParcelCheckLockerHandler"
+              @click="onParcelCheckInLockerHandler"
               x-large
               light
             >
@@ -167,7 +178,7 @@ export default {
       this.stepState = 4;
     },
 
-    async onParcelCheckLockerHandler() {
+    async onParcelCheckInLockerHandler() {
       const payload = {
         locker: this.locker,
         order: this.order,
@@ -181,6 +192,10 @@ export default {
         return;
       }
       this.stepState = 5;
+    },
+
+    onByPassHandler() {
+      this.onParcelCheckInLockerHandler();
     },
 
     getClass(state) {
