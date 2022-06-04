@@ -5,10 +5,12 @@ const admin = axios.create({
   baseURL: process.env.VUE_APP_CLOUD_API_ADMIN_URL,
 });
 
-console.log("authorization:", process.env.VUE_APP_AUTH_TOKEN);
+const token = JSON.parse(localStorage.getItem("token"));
+console.log("token", token);
+
 admin.defaults.headers.common[
   "Authorization"
-] = `Bearer ${process.env.VUE_APP_AUTH_TOKEN}`;
+] = `${token.token_type} ${token.access_token}`;
 
 export default {
   //Riders

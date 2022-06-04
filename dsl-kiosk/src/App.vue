@@ -33,7 +33,9 @@ export default defineComponent({
     InfoDialog,
     DesignDecoration,
   },
-  created() {},
+  async created() {
+    await this.fetchToken();
+  },
   mounted() {
     this.timeout = setTimeout(() => {
       this.setLoading({ visible: false });
@@ -42,6 +44,7 @@ export default defineComponent({
 
   methods: {
     ...mapActions("loading", ["setLoading"]),
+    ...mapActions("token", ["fetchToken"]),
   },
 });
 </script>

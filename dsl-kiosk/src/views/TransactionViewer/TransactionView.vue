@@ -3,7 +3,7 @@
     <v-row>
       <v-col>
         <v-sheet height="525" class="transparent vertical-scroll">
-          <locker-viewer />
+          <transaction-viewer />
         </v-sheet>
       </v-col>
     </v-row>
@@ -13,7 +13,7 @@
         <v-btn
           class="title"
           color="primary--text"
-          @click="$router.push('/home')"
+          @click="$router.push('\home')"
           x-large
           light
         >
@@ -25,10 +25,10 @@
 </template>
 
 <script>
-import LockerViewer from "@/components/locker/LockerViewer";
+import TransactionViewer from "@/components/ui/TransactionViewer";
 export default {
-  name: "LockerView",
-  components: { LockerViewer },
+  name: "TransactionView",
+  components: { TransactionViewer },
 };
 </script>
 
