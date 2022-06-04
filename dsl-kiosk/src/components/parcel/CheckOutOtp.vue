@@ -53,12 +53,5 @@ export default {
     ...mapGetters("order", ["order"]),
     ...mapGetters("otp", ["otp"]),
   },
-  watch: {
-    // enable(present, previous) {
-    //   if (previous == false && present != previous) {
-    //     // this.sendOtp();
-    //   }
-    // },
-  },
 };
 </script>

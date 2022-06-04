@@ -75,8 +75,6 @@ export default {
   props: {
     enable: Boolean,
   },
-  mixins: [],
-  components: {},
   data() {
     return {
       timeIntervalHandler: null,
@@ -116,10 +114,12 @@ export default {
       }, 1000);
     },
   },
-
+  beforeDestroy() {
+    clearInterval(this.timeIntervalHandler);
+  },
   watch: {
     enable(present, previous) {
-      if (previous == false && previous != present) {
+      if (present && previous != present) {
         this.runTimer();
         this.timeValue = this.timeInterval;
       }

@@ -24,7 +24,7 @@ import { mapActions, mapGetters } from "vuex";
 
 export default {
   name: "CheckInCode",
-  props: { enable: { default: false, type: Boolean } },
+  props: { enable: Boolean },
   components: { InputNumber },
   data() {
     return {
@@ -40,7 +40,7 @@ export default {
       if (!id) {
         this.setError({
           visible: true,
-          message: ["Parcel code must not be empty!"],
+          messages: ["Parcel code must not be empty!"],
         });
         return;
       }

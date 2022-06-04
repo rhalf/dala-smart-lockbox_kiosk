@@ -67,8 +67,31 @@ export default {
       if (this.code) this.code = this.code.toString().slice(0, -1);
     },
 
+    keyDownHandler(e) {
+      e.preventDefault();
+
+      if (e.key == "Enter") {
+        this.$emit("onOk", this.code);
+      } else if (e.key.length == 1 && String(e.key).match(/[0-9]/g)) {
+        if (this.code == null) this.code = e.key;
+        else this.code = this.code + e.key;
+      }
+    },
+
     onOkHandler() {
       this.$emit("onOk", this.code);
+    },
+  },
+  beforeDestroy() {
+    console.log("beforeDestroy", this.$options.name, this.label1);
+    window.removeEventListener("keydown", this.keyDownHandler);
+  },
+  watch: {
+    enable(present, previous) {
+      if (present && present != previous)
+        window.addEventListener("keydown", this.keyDownHandler);
+      if (!present && present != previous)
+        window.removeEventListener("keydown", this.keyDownHandler);
     },
   },
 };

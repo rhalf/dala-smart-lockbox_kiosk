@@ -24,7 +24,7 @@ import { mapActions, mapGetters } from "vuex";
 
 export default {
   name: "CheckOutCode",
-  props: { enable: { default: false, type: Boolean } },
+  props: { enable: Boolean },
   mixins: [],
   components: { InputNumber },
   data() {
@@ -42,13 +42,15 @@ export default {
       if (!id) {
         this.setError({
           visible: true,
-          message: ["Pickup code must not be empty!"],
+          messages: ["Pickup code must not be empty!"],
         });
         return;
       }
 
       this.setLoading({ visible: true });
       const response = await this.fetchOtp({ code: id });
+      this.setLoading({ visible: false });
+
       if (response) {
         this.setInfo({
           visible: true,
@@ -56,7 +58,6 @@ export default {
         });
         this.$emit("onParcelCode");
       }
-      this.setLoading({ visible: false });
     },
   },
   computed: {

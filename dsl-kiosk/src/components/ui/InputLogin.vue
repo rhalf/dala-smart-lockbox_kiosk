@@ -57,7 +57,6 @@
 
 <script>
 // import SimpleKeyboard from "./SimpleKeyboard";
-
 import NumPad from "../ui/NumPad";
 
 export default {
@@ -69,52 +68,21 @@ export default {
     icon: String,
   },
   components: { NumPad },
-  created() {},
-  //   created() {
-  //     window.addEventListener("keydown", this.keyDownHandler);
-  //   },
-  // mounted() {
-  //   this.$nextTick(() => this.$refs.courierCode.focus());
-  // },
   data() {
     return {
       sheet: true,
       selected: 1,
-      input: null,
       input1: "",
       input2: "",
-      inputState: false,
-      regex: /\s/g,
     };
   },
   methods: {
-    // keyDownHandler(e) {
-    //   if (e.key == "Enter") {
-    //     e.preventDefault();
-    //     this.$emit("onScanCode", this.code.toString().replace(this.regex, ""));
-    //     // this.code = null;
-    //   } else if (e.key == "Shift" || e.key == "Ctrl" || e.key == "Alt") {
-    //     return;
-    //   } else {
-    //     if (this.code == null) this.code = e.key;
-    //     else this.code = this.code + e.key;
-    //   }
-    // },
     onKeyPress(button) {
-      if (this.selected == 1) {
-        this.input1 += button;
-      }
-      if (this.selected == 2) {
-        this.input2 += button;
-      }
-      console.log("button", button);
-    },
-    onInputChange(input) {
-      this.input = input.target.value;
+      if (this.selected == 1) this.input1 += button;
+      if (this.selected == 2) this.input2 += button;
     },
 
     onKeyPressHandler(key) {
-      // console.log("numPad:", key);
       if (this.selected == 1) {
         if (this.input1) this.input1 += key;
         else this.input1 = key;
@@ -126,7 +94,6 @@ export default {
     },
 
     onDelHandler() {
-      console.log("onDelHandler");
       if (this.selected == 1) {
         if (this.input1) this.input1 = this.input1.toString().slice(0, -1);
       }
@@ -134,32 +101,34 @@ export default {
         if (this.input2) this.input2 = this.input2.toString().slice(0, -1);
       }
     },
+
     onOkHandler() {
-      // if (this.selected == 1) {
-      //   console.log("onOkHandler", 1);
-      // }
-      // if (this.selected == 2) {
-      //   console.log("onOkHandler", 2);
-      // }
       this.$emit("onOk", this.input1, this.input2);
     },
-  },
 
+    keyDownHandler(e) {
+      e.preventDefault();
+
+      if (e.key == "Enter") {
+        return;
+        // this.$emit("onOk", this.input1);
+      } else if (e.key.length == 1 && String(e.key).match(/[0-9]/g)) {
+        if (this.input1 == null) this.input1 = e.key;
+        else this.input1 = this.input1 + e.key;
+      }
+    },
+  },
+  beforeDestroy() {
+    console.log("beforeDestroy", this.$options.name, this.label1);
+    window.removeEventListener("keydown", this.keyDownHandler);
+  },
   watch: {
-    // inputState() {
-    //   if (this.enable && !this.inputState) {
-    //     window.addEventListener("keydown", this.keyDownHandler);
-    //   } else {
-    //     window.removeEventListener("keydown", this.keyDownHandler);
-    //   }
-    // },
-    // enable() {
-    //   if (this.enable && !this.inputState) {
-    //     window.addEventListener("keydown", this.keyDownHandler);
-    //   } else {
-    //     window.removeEventListener("keydown", this.keyDownHandler);
-    //   }
-    // },
+    enable(present, previous) {
+      if (present && present != previous)
+        window.addEventListener("keydown", this.keyDownHandler);
+      if (!present && present != previous)
+        window.removeEventListener("keydown", this.keyDownHandler);
+    },
   },
 };
 </script>
