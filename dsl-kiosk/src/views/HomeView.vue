@@ -1,9 +1,9 @@
 <template>
-  <v-container class="px-16 py-8">
-    <v-row no-gutters>
+  <v-container class="px-16 py-10">
+    <v-row no-gutters class="px-16">
       <v-col>
         <v-card v-ripple @click="onCheckInHandler" class="option rounded-lg">
-          <v-img aspect-ratio="1" :src="CheckIn" height="400" contain> </v-img>
+          <v-img height="350" :src="CheckIn" contain> </v-img>
           <v-card-text style="position: absolute">
             <v-fab-transition>
               <v-btn color="brownLight" dark absolute top right fab x-large>
@@ -16,13 +16,13 @@
             Check-In</v-card-title
           >
           <v-card-text class="secondary fontLight--text"
-            >Courier area for depositing parcels.</v-card-text
+            >Rider area for depositing parcels.</v-card-text
           >
         </v-card>
       </v-col>
       <v-col>
         <v-card v-ripple @click="onCheckOutHandler" class="option rounded-lg">
-          <v-img aspect-ratio="1" :src="CheckOut" height="400" contain></v-img>
+          <v-img height="350" :src="CheckOut" contain></v-img>
           <v-card-text style="position: absolute">
             <v-fab-transition>
               <v-btn color="brownLight" dark absolute top right fab x-large>
@@ -45,7 +45,7 @@
           @click="onLockerStatusHandler"
           class="option rounded-lg"
         >
-          <v-img aspect-ratio="1" :src="PadLock" height="400" contain></v-img>
+          <v-img height="350" :src="PadLock" contain></v-img>
           <v-card-text style="position: absolute">
             <v-fab-transition>
               <v-btn color="brownLight" dark absolute top right fab x-large>
@@ -55,10 +55,10 @@
           </v-card-text>
 
           <v-card-title class="secondary fontLight--text">
-            Locker Status
+            Locker Viewer
           </v-card-title>
           <v-card-text class="secondary fontLight--text"
-            >Check status of each locker.</v-card-text
+            >Check the status of each locker.</v-card-text
           >
         </v-card>
       </v-col>
@@ -68,12 +68,7 @@
           @click="onTransactionHandler"
           class="option rounded-lg"
         >
-          <v-img
-            aspect-ratio="1"
-            :src="Transaction"
-            height="400"
-            contain
-          ></v-img>
+          <v-img height="350" :src="Transaction" contain></v-img>
           <v-card-text style="position: absolute">
             <v-fab-transition>
               <v-btn color="brownLight" dark absolute top right fab x-large>
@@ -118,7 +113,7 @@ export default {
       this.$router.push("/check-out").catch(() => {});
     },
     async onLockerStatusHandler() {
-      this.$router.push("/locker-status").catch(() => {});
+      this.$router.push("/locker-viewer").catch(() => {});
     },
     async onTransactionHandler() {
       this.$router.push("/transactions").catch(() => {});

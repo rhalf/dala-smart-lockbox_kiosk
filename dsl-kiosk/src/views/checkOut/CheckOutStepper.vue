@@ -120,9 +120,12 @@ export default {
     CheckOutCompleted,
     CheckOutLocker,
   },
+  mounted() {
+    this.stepState = 1;
+  },
   data() {
     return {
-      stepState: 1,
+      stepState: 0,
     };
   },
   computed: {

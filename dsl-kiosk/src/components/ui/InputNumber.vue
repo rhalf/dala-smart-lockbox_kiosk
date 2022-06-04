@@ -14,6 +14,7 @@
         </v-row>
         <v-row>
           <v-text-field
+            ref="input1Ref"
             v-model="input1"
             outlined
             clearable
@@ -53,6 +54,7 @@ export default {
       selected: 1,
       input: null,
       input1: "",
+      input1Ref: null,
       regex: /\s/g,
     };
   },
@@ -68,6 +70,30 @@ export default {
 
     onOkHandler() {
       this.$emit("onOk", this.input1);
+    },
+
+    keyDownHandler(e) {
+      e.preventDefault();
+
+      if (e.key == "Enter") {
+        this.$emit("onOk", this.input1);
+      } else if (e.key.length == 1 && String(e.key).match(/[0-9]/g)) {
+        if (this.input1 == null) this.input1 = e.key;
+        else this.input1 = this.input1 + e.key;
+      }
+    },
+  },
+
+  beforeDestroy() {
+    console.log("beforeDestroy", this.$options.name, this.label1);
+    window.removeEventListener("keydown", this.keyDownHandler);
+  },
+  watch: {
+    enable(present, previous) {
+      if (present && present != previous)
+        window.addEventListener("keydown", this.keyDownHandler);
+      if (!present && present != previous)
+        window.removeEventListener("keydown", this.keyDownHandler);
     },
   },
 };

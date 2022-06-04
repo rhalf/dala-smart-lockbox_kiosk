@@ -83,6 +83,7 @@
           </v-col>
         </v-row>
       </v-stepper-content>
+
       <v-stepper-content step="4">
         <v-row>
           <v-col>
@@ -105,6 +106,7 @@
           </v-col>
         </v-row>
       </v-stepper-content>
+
       <v-stepper-content step="5">
         <v-row>
           <v-col>
@@ -136,9 +138,12 @@ export default {
     CheckInCompleted,
     CheckInLocker,
   },
+  mounted() {
+    this.stepState = 1;
+  },
   data() {
     return {
-      stepState: 1,
+      stepState: 0,
     };
   },
   computed: {
@@ -163,13 +168,12 @@ export default {
     },
 
     async onParcelCheckLockerHandler() {
-      this.setLoading({ visible: true });
-
       const payload = {
         locker: this.locker,
         order: this.order,
       };
 
+      this.setLoading({ visible: true });
       const response = await this.setLockerOrder(payload);
       this.setLoading({ visible: false });
 

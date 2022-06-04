@@ -1,9 +1,6 @@
 <template>
   <v-app>
-    <div class="circle-1"></div>
-    <div class="circle-2"></div>
-    <div class="circle-3"></div>
-    <div class="circle-4"></div>
+    <design-decoration />
     <loading-spinner />
     <layout-header />
     <v-main>
@@ -25,10 +22,17 @@ import LayoutHeader from "./components/layout/layout_header/LayoutHeader";
 import LoadingSpinner from "./components/ui/LoadingSpinner";
 import ErrorDialog from "./components/dialog/ErrorDialog";
 import InfoDialog from "./components/dialog/InfoDialog";
+import DesignDecoration from "./views/DesignDecoration";
 
 export default defineComponent({
   name: "App",
-  components: { LoadingSpinner, LayoutHeader, ErrorDialog, InfoDialog },
+  components: {
+    LoadingSpinner,
+    LayoutHeader,
+    ErrorDialog,
+    InfoDialog,
+    DesignDecoration,
+  },
   created() {},
   mounted() {
     this.timeout = setTimeout(() => {
@@ -93,61 +97,5 @@ html::-webkit-scrollbar {
 }
 .font-small {
   font-size: 20px !important;
-}
-//arc
-.circle-4 {
-  position: absolute;
-  opacity: 0.35;
-  bottom: 150px;
-  left: 50px;
-  width: 300px;
-  height: 300px;
-  background: none;
-  border: 30px solid yellow;
-  border-radius: 150px;
-  -moz-border-radius: 150px;
-  -webkit-border-radius: 150px;
-}
-
-.circle-3 {
-  position: absolute;
-  opacity: 0.35;
-  bottom: 350px;
-  left: 10px;
-  width: 150px;
-  height: 150px;
-  background: none;
-  border: 20px solid yellow;
-  border-radius: 10px;
-  -moz-border-radius: 10px;
-  -webkit-border-radius: 10px;
-}
-
-.circle-2 {
-  position: absolute;
-  opacity: 0.35;
-  bottom: 150px;
-  right: 10px;
-  width: 250px;
-  height: 250px;
-  background: none;
-  border: 20px solid yellow;
-  border-radius: 150px;
-  -moz-border-radius: 150px;
-  -webkit-border-radius: 150px;
-}
-
-.circle-1 {
-  position: absolute;
-  opacity: 0.35;
-  bottom: 325px;
-  right: 10px;
-  width: 150px;
-  height: 150px;
-  background: none;
-  border: 30px solid yellow;
-  border-radius: 100px;
-  -moz-border-radius: 100px;
-  -webkit-border-radius: 100px;
 }
 </style>

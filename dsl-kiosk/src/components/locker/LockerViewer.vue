@@ -2,13 +2,12 @@
   <v-row>
     <v-col cols="3" v-for="locker in lockers" :key="locker.id" class="pa-5">
       <v-card
-        :disabled="!(locker.orderId == null) || !isValidSize(locker)"
+        :disabled="!(locker.orderId == null)"
         :key="locker.id"
         :light="!locker.lockerStatusId == 0"
         :dark="locker.lockerStatusId == 0"
         :class="`rounded text-center font secondary--text
           ${locker.selected ? 'selected' : ''}
-          ${!isValidSize(locker) ? 'grey' : ''}
           ${locker.orderId ? 'yellowDark' : ''} 
         `"
         ripple
@@ -57,7 +56,7 @@
 import { mapActions, mapGetters } from "vuex";
 
 export default {
-  name: "LockerPicker",
+  name: "LockerViewer",
   mounted() {
     this.fetchLockers();
   },

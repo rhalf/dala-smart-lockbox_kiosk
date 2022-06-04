@@ -64,8 +64,9 @@ export default {
     ...mapActions("rider", ["setRider"]),
     ...mapActions("dialog", ["setInfo"]),
 
-    riderLogoutHandler() {
+    async riderLogoutHandler() {
       this.setRider(null);
+      await this.$router.go(0);
     },
     riderDetailsHandler() {
       this.setInfo({
