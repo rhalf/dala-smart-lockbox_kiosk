@@ -78,6 +78,17 @@
           <v-spacer></v-spacer>
           <v-col cols="auto">
             <v-btn
+              class="title"
+              color="primary--text"
+              @click="onByPassHandler"
+              x-large
+              light
+            >
+              By Pass
+            </v-btn>
+          </v-col>
+          <v-col cols="auto">
+            <v-btn
               :disabled="!passed"
               class="title"
               color="primary--text"
@@ -146,6 +157,10 @@ export default {
 
     onParcelCheckOutLocker() {
       this.stepState = 5;
+    },
+
+    onByPassHandler() {
+      this.onParcelCheckOutLocker();
     },
 
     getClass(state) {
