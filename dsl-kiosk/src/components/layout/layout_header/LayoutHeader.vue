@@ -73,6 +73,7 @@ export default {
     };
   },
   mounted() {
+    this.connect();
     this.timeIntervalHandler = setInterval(() => {
       this.connect();
     }, 10000);
