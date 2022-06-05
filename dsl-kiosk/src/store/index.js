@@ -14,6 +14,7 @@ import rider from "./modules/rider";
 // import transaction from "../store/modules/transaction"
 import cu48b from "./modules/cu48b";
 import token from "./modules/token";
+import connection from "./modules/connection";
 
 Vue.use(Vuex);
 
@@ -34,5 +35,6 @@ export default new Vuex.Store({
     // transaction,
     cu48b,
     token,
+    connection,
   },
 });

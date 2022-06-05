@@ -186,6 +186,7 @@ export default {
 
       this.setLoading({ visible: true });
       const response = await this.setLockerOrder(payload);
+      console.log("..................", "hey");
       this.setLoading({ visible: false });
 
       if (!response) {
@@ -194,8 +195,8 @@ export default {
       this.stepState = 5;
     },
 
-    onByPassHandler() {
-      this.onParcelCheckInLockerHandler();
+    async onByPassHandler() {
+      await this.onParcelCheckInLockerHandler();
     },
 
     getClass(state) {

@@ -49,4 +49,8 @@ export default {
       order_id: payload.orderId,
     });
   },
+
+  connectionStatus() {
+    return admin.get(`/health-check`);
+  },
 };
