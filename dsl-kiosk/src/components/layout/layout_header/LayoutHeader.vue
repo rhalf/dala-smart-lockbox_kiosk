@@ -15,7 +15,6 @@
             </v-btn>
           </template>
           <v-list class="pa-0">
-            <!-- <v-list-item v-for="(item, index) in items" :key="index"> -->
             <v-list-item-title>
               <v-btn @click="riderDetailsHandler" class="py-6" block>
                 <v-icon left>mdi-text-account</v-icon>
@@ -32,12 +31,27 @@
           </v-list>
         </v-menu>
 
+        <v-menu offset-y :nudge-width="100">
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn icon fab dark v-bind="attrs" v-on="on">
+              <v-icon v-if="status">mdi-earth</v-icon>
+              <v-icon v-if="!status">mdi-earth-off</v-icon>
+            </v-btn>
+          </template>
+          <v-list class="pa-0">
+            <v-list-item-title>
+              <v-btn v-if="status" class="py-6">
+                <v-icon>mdi-rotate-3d-variant</v-icon>Connected</v-btn
+              >
+              <v-btn v-if="!status" class="py-6">
+                <v-icon>mdi-close</v-icon>Not Connected
+              </v-btn>
+            </v-list-item-title>
+          </v-list>
+        </v-menu>
+
         <v-btn icon fab dark @click="$router.push('/home').catch(() => {})">
           <v-icon>mdi-home</v-icon>
-        </v-btn>
-
-        <v-btn icon fab dark @click="$router.push('setting').catch(() => {})">
-          <v-icon>mdi-cog</v-icon>
         </v-btn>
 
         <v-btn icon fab dark @click="$router.go().catch(() => {})">
@@ -55,12 +69,20 @@ export default {
   data() {
     return {
       logo: logo,
+      timeIntervalHandler: null,
     };
+  },
+  mounted() {
+    this.timeIntervalHandler = setInterval(() => {
+      this.connect();
+    }, 10000);
   },
   computed: {
     ...mapGetters("rider", ["rider"]),
+    ...mapGetters("connection", ["status"]),
   },
   methods: {
+    ...mapActions("connection", ["connect"]),
     ...mapActions("rider", ["setRider"]),
     ...mapActions("dialog", ["setInfo"]),
 
@@ -78,6 +100,10 @@ export default {
         ],
       });
     },
+  },
+
+  beforeDestroy() {
+    clearInterval(this.timeIntervalHandler);
   },
 };
 </script>
