@@ -45,7 +45,7 @@
               <v-row v-if="isLockerOccupied">
                 <v-col>
                   <v-card outlined class="white red--text headline pa-4">
-                    <v-icon x-large left color="red"> mdi-check-circle</v-icon>
+                    <v-icon x-large left color="red"> mdi-close-circle</v-icon>
                     <label>Locker is <strong>OCCUPIED</strong></label>
                   </v-card>
                 </v-col>
@@ -54,7 +54,7 @@
                 <v-col>
                   <v-card outlined class="white green--text headline pa-4">
                     <v-icon x-large left color="green">
-                      mdi-close-circle</v-icon
+                      mdi-check-circle</v-icon
                     >
                     <label>Locker is <strong>EMPTY</strong></label>
                   </v-card>
