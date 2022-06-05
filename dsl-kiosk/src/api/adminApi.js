@@ -45,8 +45,8 @@ export default {
     console.log("payload", payload);
     return admin.post(`/pickup-parcel/verify`, {
       otp: payload.otpNumber,
-      message_id: payload.messageId,
-      order_id: payload.orderId,
+      message_id: String(payload.messageId),
+      order_id: String(payload.orderId),
     });
   },
 
