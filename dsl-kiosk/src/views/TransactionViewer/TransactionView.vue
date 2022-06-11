@@ -17,7 +17,7 @@
           x-large
           light
         >
-          Continue
+          Back to home
         </v-btn>
       </v-col>
     </v-row>

@@ -34,18 +34,20 @@
         <v-menu offset-y :nudge-width="100">
           <template v-slot:activator="{ on, attrs }">
             <v-btn icon fab dark v-bind="attrs" v-on="on">
-              <v-icon v-if="status">mdi-earth</v-icon>
-              <v-icon v-if="!status">mdi-earth-off</v-icon>
+              <v-icon v-if="offline.status || maintenance.status"
+                >mdi-earth-off</v-icon
+              >
+              <v-icon v-else>mdi-earth</v-icon>
             </v-btn>
           </template>
           <v-list class="pa-0">
             <v-list-item-title>
-              <v-btn v-if="status" class="py-6">
-                <v-icon>mdi-rotate-3d-variant</v-icon>Connected</v-btn
-              >
-              <v-btn v-if="!status" class="py-6">
+              <v-btn v-if="offline.status || maintenance.status" class="py-6">
                 <v-icon>mdi-close</v-icon>Not Connected
               </v-btn>
+              <v-btn v-else class="py-6">
+                <v-icon>mdi-rotate-3d-variant</v-icon>Connected</v-btn
+              >
             </v-list-item-title>
           </v-list>
         </v-menu>
@@ -72,15 +74,10 @@ export default {
       timeIntervalHandler: null,
     };
   },
-  mounted() {
-    this.connect();
-    this.timeIntervalHandler = setInterval(() => {
-      this.connect();
-    }, 10000);
-  },
+
   computed: {
     ...mapGetters("rider", ["rider"]),
-    ...mapGetters("connection", ["status"]),
+    ...mapGetters("connection", ["offline", "maintenance"]),
   },
   methods: {
     ...mapActions("connection", ["connect"]),

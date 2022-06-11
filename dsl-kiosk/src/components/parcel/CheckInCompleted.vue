@@ -87,8 +87,7 @@ export default {
   methods: {
     ...mapActions("rider", ["setRider"]),
     ...mapActions("order", ["setOrder"]),
-    ...mapActions("locker", ["setLocker"]),
-    ...mapActions("locker", ["setLockerPassed"]),
+    ...mapActions("locker", ["setLocker", "setLockerPassed"]),
 
     async addMoreHandler() {
       this.setOrder(null);

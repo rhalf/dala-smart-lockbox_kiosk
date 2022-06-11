@@ -39,8 +39,6 @@ export default {
   methods: {
     ...mapActions("loading", ["setLoading"]),
     ...mapActions("dialog", ["setError"]),
-
-    ...mapActions("rider", ["fetchByIdPin"]),
     ...mapActions("rider", ["fetchByIdPin"]),
 
     async onOkHandler(riderId, riderPin) {

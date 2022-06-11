@@ -34,8 +34,7 @@ export default {
   },
 
   methods: {
-    ...mapActions("dialog", ["setError"]),
-    ...mapActions("dialog", ["setInfo"]),
+    ...mapActions("dialog", ["setError", "setInfo"]),
     ...mapActions("otp", ["fetchOtp"]),
     ...mapActions("loading", ["setLoading"]),
     async onOkHandler(id) {

@@ -10,64 +10,35 @@ export default {
   async setLockers(context, payload) {
     await context.commit("SET_LOCKERS", payload);
   },
-  async fetchLockers({ commit, dispatch }) {
+  async fetchLockers({ commit }) {
     try {
       const response = await adminApi.fetchLockers();
       commit("SET_LOCKERS", response.data);
       return response;
-    } catch (error) {
-      let message1, message2;
-
-      if (error) message1 = error.message;
-      if (error) {
-        if (error.response) {
-          if (error.response.data) {
-            if (error.response.data.data) {
-              message2 = error.response.data.data.message;
-            } else {
-              message2 = error.response.data;
-            }
-          }
-        }
-      }
-      dispatch(
-        "dialog/setError",
-        {
-          visible: true,
-          messages: [message1, message2],
-        },
-        { root: true }
-      );
+    } catch {
+      return null;
+    }
+  },
+  async setLockerOrder({ commit }, payload) {
+    try {
+      console.log("commit", commit);
+      const response = await adminApi.checkInParcel(payload);
+      return response;
+    } catch {
+      return null;
     }
   },
 
-  async setLockerOrder({ dispatch }, payload) {
-    try {
-      const response = await adminApi.checkInParcel(payload);
-      return response;
-    } catch (error) {
-      let message1, message2;
-
-      if (error) message1 = error.message;
-      if (error) {
-        if (error.response) {
-          if (error.response.data) {
-            if (error.response.data.data) {
-              message2 = error.response.data.data.message;
-            } else {
-              message2 = error.response.data;
-            }
-          }
-        }
-      }
-      dispatch(
-        "dialog/setError",
-        {
-          visible: true,
-          messages: [message1, message2],
-        },
-        { root: true }
-      );
-    }
+  async openLocker({ commit }, payload) {
+    console.log("commit", commit);
+    return await adminApi.lockerOpen(payload);
+  },
+  async closeLocker({ commit }, payload) {
+    console.log("commit", commit);
+    return await adminApi.lockerClose(payload);
+  },
+  async openStateLocker({ commit }, payload) {
+    console.log("commit", commit);
+    return await adminApi.lockerOpenState(payload);
   },
 };
