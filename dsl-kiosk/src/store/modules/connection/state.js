@@ -1,3 +1,6 @@
 export default () => {
-  return { status: null };
+  return {
+    offline: { status: false },
+    maintenance: { status: false },
+  };
 };

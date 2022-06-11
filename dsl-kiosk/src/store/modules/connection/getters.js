@@ -1,5 +1,8 @@
 export default {
-  status(state) {
-    return state.status;
+  offline(state) {
+    return state.offline;
+  },
+  maintenance(state) {
+    return state.maintenance;
   },
 };

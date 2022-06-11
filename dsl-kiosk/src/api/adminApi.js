@@ -1,49 +1,58 @@
-import axios from "axios";
-
-console.log("adminApi:", process.env.VUE_APP_CLOUD_API_ADMIN_URL);
-const admin = axios.create({
-  baseURL: process.env.VUE_APP_CLOUD_API_ADMIN_URL,
-});
-
-const token = JSON.parse(localStorage.getItem("token"));
-console.log("token", token);
-
-if (token) {
-  admin.defaults.headers.common[
-    "Authorization"
-  ] = `${token.token_type} ${token.access_token}`;
-}
+import { adminApi } from "./conf";
 
 export default {
   //Riders
   loginRider(payload) {
-    return admin.post(`/riders/${payload.id}/verify-pin`, {
+    return adminApi.post(`/riders/${payload.id}/verify-pin`, {
       pin: payload.pin,
     });
   },
   //Order
   fetchOrder(payload) {
-    return admin.get(`/orders/${payload.id}`);
+    return adminApi.get(`/orders/${payload.id}`);
   },
   //Lockers
   fetchLockers() {
-    return admin.get(`/lockers`);
+    return adminApi.get(`/lockers`);
+  },
+  // OPDP = Open Locker (Deposit)
+  // CLDP = Close Locker (Deposit)
+  // OPPK = Open Locker (Pickup)
+  // CLPK = Close Locker (Pickup)
+  lockerOpen(payload) {
+    const lockerId = payload.locker ? payload.locker.id : "";
+    return adminApi.post(`/lockers/${lockerId}/open`, {
+      action_code: payload.type == "check-in" ? "OPDP" : "OPPK",
+      order_id: payload.order.id,
+    });
+  },
+  lockerClose(payload) {
+    return adminApi.post(`/lockers/${payload.locker.id}/close`, {
+      action_code: payload.type == "check-in" ? "CLDP" : "CLPK",
+      order_id: payload.order.id,
+    });
+  },
+  lockerOpenState(payload) {
+    return adminApi.post(`/lockers/${payload.locker.id}/open-state`, {
+      minutes: payload.minutes,
+      order_id: payload.order.id,
+    });
   },
   //Parcel
   checkInParcel(payload) {
-    return admin.post(`/lockers/${payload.locker.id}/deposit-parcel`, {
+    return adminApi.post(`/lockers/${payload.locker.id}/deposit-parcel`, {
       order_id: payload.order.id,
     });
   },
   checkOutParcel(payload) {
-    return admin.post(`/pickup-parcel`, {
+    return adminApi.post(`/pickup-parcel`, {
       pickup_code: payload.code,
     });
   },
 
   verifyCheckoutParcel(payload) {
     console.log("payload", payload);
-    return admin.post(`/pickup-parcel/verify`, {
+    return adminApi.post(`/pickup-parcel/verify`, {
       otp: payload.otpNumber,
       message_id: String(payload.messageId),
       order_id: String(payload.orderId),
@@ -51,6 +60,6 @@ export default {
   },
 
   connectionStatus() {
-    return admin.get(`/health-check`);
+    return adminApi.get(`/health-check`);
   },
 };

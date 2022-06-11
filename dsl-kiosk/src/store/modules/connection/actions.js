@@ -1,13 +1,21 @@
 import adminApi from "../../../api/adminApi";
 
 export default {
-  setStatus(context, payload) {
-    context.commit("SET_STATUS", payload);
+  setOffline(context, payload) {
+    context.commit("SET_OFFLINE", payload);
+  },
+
+  setMaintenance(context, payload) {
+    context.commit("SET_MAINTENANCE", payload);
   },
 
   async connect({ commit }) {
-    const response = await adminApi.connectionStatus();
-    commit("SET_STATUS", response.status == 200);
-    return response;
+    try {
+      console.log("commit", commit);
+      const response = await adminApi.connectionStatus();
+      return response;
+    } catch {
+      return null;
+    }
   },
 };

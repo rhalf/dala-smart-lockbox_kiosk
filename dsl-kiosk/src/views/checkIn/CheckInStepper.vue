@@ -186,7 +186,6 @@ export default {
 
       this.setLoading({ visible: true });
       const response = await this.setLockerOrder(payload);
-      console.log("..................", "hey");
       this.setLoading({ visible: false });
 
       if (!response) {

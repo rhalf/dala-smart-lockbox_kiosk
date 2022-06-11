@@ -3,11 +3,14 @@
     <design-decoration />
     <loading-spinner />
     <layout-header />
+
     <v-main>
       <v-fade-transition mode="out-in">
-        <router-view></router-view>
+        <maintenance-view v-if="maintenance.status" />
+        <router-view v-else></router-view>
       </v-fade-transition>
     </v-main>
+
     <error-dialog />
     <info-dialog />
   </v-app>
@@ -16,7 +19,7 @@
 <script>
 import { defineComponent } from "@vue/composition-api";
 
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 
 import LayoutHeader from "./components/layout/layout_header/LayoutHeader";
 import LoadingSpinner from "./components/ui/LoadingSpinner";
@@ -24,17 +27,24 @@ import ErrorDialog from "./components/dialog/ErrorDialog";
 import InfoDialog from "./components/dialog/InfoDialog";
 import DesignDecoration from "./views/DesignDecoration";
 
+import adminApiInterceptor from "./mixins/adminApiInterceptor";
+import MaintenanceView from "./views/MaintenanceView";
+
 export default defineComponent({
   name: "App",
+  mixins: [adminApiInterceptor],
   components: {
     LoadingSpinner,
     LayoutHeader,
     ErrorDialog,
     InfoDialog,
     DesignDecoration,
+    MaintenanceView,
   },
   async created() {
     await this.fetchToken();
+    this.setRequestInterceptor();
+    this.setResponseInterceptor();
   },
   mounted() {
     this.timeout = setTimeout(() => {
@@ -43,8 +53,13 @@ export default defineComponent({
   },
 
   methods: {
+    ...mapActions("dialog", ["setError"]),
     ...mapActions("loading", ["setLoading"]),
     ...mapActions("token", ["fetchToken"]),
+  },
+
+  computed: {
+    ...mapGetters("connection", ["maintenance"]),
   },
 });
 </script>

@@ -77,11 +77,16 @@ import { mapActions, mapGetters } from "vuex";
 
 export default {
   name: "CheckOutLockerChecker",
-  created() {},
+  data() {
+    return {
+      timerHandler: null,
+      timeOut: 60 * 1000,
+    };
+  },
   computed: {
+    ...mapGetters("order", ["order"]),
     ...mapGetters("locker", ["locker"]),
-    ...mapGetters("cu48b", ["cu48bLockers"]),
-    ...mapGetters("cu48b", ["cu48bSensors"]),
+    ...mapGetters("cu48b", ["cu48bLockers", "cu48bSensors"]),
 
     isLockerClosed() {
       if (!this.cu48bLockers) return false;
@@ -96,8 +101,13 @@ export default {
   },
   methods: {
     ...mapActions("cu48b", ["unlockCu48b"]),
-    ...mapActions("locker", ["setLocker"]),
-    ...mapActions("locker", ["setLockerPassed"]),
+    ...mapActions("locker", [
+      "setLocker",
+      "setLockerPassed",
+      "closeLocker",
+      "openLocker",
+      "openStateLocker",
+    ]),
 
     unlockLockerHandler() {
       this.unlockCu48b({ id: this.locker.number });
@@ -105,7 +115,31 @@ export default {
   },
 
   watch: {
-    isLockerClosed() {
+    isLockerClosed(present, previous) {
+      if (!present && present != previous) {
+        this.openLocker({
+          locker: this.locker,
+          order: this.order,
+          type: "check-in",
+        });
+        this.timerHandler = setTimeout(() => {
+          this.openStateLocker({
+            locker: this.locker,
+            order: this.order,
+            minutes: 1,
+          });
+        }, this.timeOut);
+      }
+      if (present && present != previous) {
+        this.closeLocker({
+          locker: this.locker,
+          order: this.order,
+          type: "check-in",
+        });
+
+        clearTimeout(this.timerHandler);
+      }
+
       this.setLockerPassed(this.isLockerClosed && !this.isLockerOccupied);
     },
     isLockerOccupied() {

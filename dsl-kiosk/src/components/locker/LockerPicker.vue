@@ -62,15 +62,11 @@ export default {
     this.fetchLockers();
   },
   computed: {
-    ...mapGetters("locker", ["lockers"]),
-    ...mapGetters("locker", ["locker"]),
+    ...mapGetters("locker", ["lockers", "locker"]),
     ...mapGetters("order", ["order"]),
   },
   methods: {
-    ...mapActions("locker", ["fetchLockers"]),
-    ...mapActions("locker", ["fetchLockers"]),
-    ...mapActions("locker", ["setLocker"]),
-    ...mapActions("locker", ["setLockers"]),
+    ...mapActions("locker", ["fetchLockers", "setLocker", "setLockers"]),
 
     selectedLocker(locker) {
       this.setLocker(null);
