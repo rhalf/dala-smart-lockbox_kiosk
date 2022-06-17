@@ -2,7 +2,9 @@ import axios from "axios";
 
 axios.defaults.headers.post["Content-Type"] = "application/json";
 
-const token = JSON.parse(localStorage.getItem("token"));
+let tokenJson = localStorage.getItem("token");
+let token = {};
+if (tokenJson) token = JSON.parse(tokenJson);
 console.log("token", token);
 
 console.log("adminApi:", process.env.VUE_APP_CLOUD_API_ADMIN_URL);

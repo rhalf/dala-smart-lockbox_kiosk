@@ -40,12 +40,12 @@ export default {
     setResponseInterceptor() {
       adminApi.interceptors.response.use(
         (response) => {
-          if (response.status === 503) {
+          if (response.status == 503) {
             this.setMaintenance({ status: true });
           } else {
             this.setMaintenance({ status: false });
           }
-          if (response.status === 500) {
+          if (response.status == 500) {
             this.setOffline({ status: true });
           } else {
             this.setOffline({ status: false });

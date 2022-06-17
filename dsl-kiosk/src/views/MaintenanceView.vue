@@ -28,9 +28,12 @@ export default {
       timeInterval: 10,
     };
   },
+
   mounted() {
     this.timeHandler = setInterval(() => {
-      this.connect();
+      if (this.maintenance.status) {
+        this.connect();
+      }
     }, this.timeInterval * 1000);
   },
   beforeDestroy() {
