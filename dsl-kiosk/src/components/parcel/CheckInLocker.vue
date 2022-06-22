@@ -31,6 +31,7 @@ export default {
   },
   computed: {
     ...mapGetters("cu48b", ["cu48bLockers"]),
+    ...mapGetters("locker", ["locker"]),
   },
   beforeDestroy() {
     clearInterval(this.timeInterval);
@@ -39,7 +40,8 @@ export default {
     enable(present, previous) {
       if (present && previous != present) {
         this.timeInterval = setInterval(() => {
-          this.fetchCu48b();
+          if (this.locker)
+            this.fetchCu48b({ boardNumber: this.locker.boardNumber });
         }, 2000);
       }
       if (!present && previous != present) {

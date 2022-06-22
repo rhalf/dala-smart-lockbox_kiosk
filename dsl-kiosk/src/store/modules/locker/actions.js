@@ -7,12 +7,10 @@ export default {
   async setLocker(context, payload) {
     await context.commit("SET_LOCKER", payload);
   },
-  async setLockers(context, payload) {
-    await context.commit("SET_LOCKERS", payload);
-  },
-  async fetchLockers({ commit }) {
+
+  async fetchBoards({ commit }) {
     try {
-      const response = await adminApi.fetchLockers();
+      const response = await adminApi.fetchBoards();
       commit("SET_LOCKERS", response.data);
       return response;
     } catch {

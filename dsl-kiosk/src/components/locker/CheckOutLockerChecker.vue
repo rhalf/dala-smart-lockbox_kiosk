@@ -110,7 +110,10 @@ export default {
     ]),
 
     unlockLockerHandler() {
-      this.unlockCu48b({ id: this.locker.number });
+      this.unlockCu48b({
+        boardNumber: this.locker.boardNumber,
+        lockerNumber: this.locker.number,
+      });
     },
   },
 

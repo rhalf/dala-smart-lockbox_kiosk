@@ -11,7 +11,7 @@ import otp from "../store/modules/otp";
 import order from "../store/modules/order";
 import courier from "./modules/courier";
 import rider from "./modules/rider";
-// import transaction from "../store/modules/transaction"
+import board from "../store/modules/board";
 import cu48b from "./modules/cu48b";
 import token from "./modules/token";
 import connection from "./modules/connection";
@@ -22,7 +22,7 @@ export default new Vuex.Store({
   modules: {
     loading,
     dialog,
-    // size,
+    board,
     locker,
     order,
     // status,
