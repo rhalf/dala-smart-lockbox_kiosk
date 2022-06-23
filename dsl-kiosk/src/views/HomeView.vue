@@ -1,6 +1,7 @@
 <template>
-  <v-container class="px-16 py-10">
-    <v-row no-gutters class="px-16">
+  <v-container class="py-10">
+    <v-row no-gutters>
+      <v-spacer></v-spacer>
       <v-col>
         <v-card v-ripple @click="onCheckInHandler" class="option rounded-lg">
           <v-img height="350" :src="CheckIn" contain> </v-img>
@@ -62,7 +63,7 @@
           >
         </v-card>
       </v-col>
-      <v-col>
+      <!-- <v-col>
         <v-card
           v-ripple
           @click="onTransactionHandler"
@@ -84,7 +85,8 @@
             >Check previous transactions made.</v-card-text
           >
         </v-card>
-      </v-col>
+      </v-col> -->
+      <v-spacer></v-spacer>
     </v-row>
   </v-container>
 </template>

@@ -11,9 +11,9 @@ export default {
   fetchOrder(payload) {
     return adminApi.get(`/orders/${payload.id}`);
   },
-  //Lockers
-  fetchLockers() {
-    return adminApi.get(`/lockers`);
+  //Boards
+  fetchBoards() {
+    return adminApi.get(`/v2/lockers`);
   },
   // OPDP = Open Locker (Deposit)
   // CLDP = Close Locker (Deposit)

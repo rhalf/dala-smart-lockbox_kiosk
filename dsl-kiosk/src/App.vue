@@ -108,12 +108,12 @@ html::-webkit-scrollbar {
 
 //font
 .font-large {
-  font-size: 45px !important;
+  font-size: 44px !important;
 }
 .font-medium {
-  font-size: 35px !important;
+  font-size: 32px !important;
 }
 .font-small {
-  font-size: 20px !important;
+  font-size: 18px !important;
 }
 </style>

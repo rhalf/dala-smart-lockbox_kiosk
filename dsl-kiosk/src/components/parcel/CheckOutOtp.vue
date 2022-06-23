@@ -29,6 +29,7 @@ export default {
     };
   },
   methods: {
+    ...mapActions("locker", ["setLocker"]),
     ...mapActions("otp", ["verifyOtp"]),
     ...mapActions("loading", ["setLoading"]),
 
@@ -36,6 +37,9 @@ export default {
       if (code) {
         this.setLoading({ visible: true });
         const response = await this.verifyOtpHandler(code);
+        if (response) {
+          this.setLocker(this.order.locker);
+        }
         this.setLoading({ visible: false });
 
         if (response) this.$emit("onParcelOtp");
