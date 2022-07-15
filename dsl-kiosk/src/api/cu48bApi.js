@@ -3,7 +3,7 @@ import { cu48bApi } from "./conf";
 export default {
   unlockCu48b(payload) {
     return cu48bApi.post(
-      `/cu48b/${payload.boardNumber}/${payload.lockerNumber - 1}`
+      `/cu48b/${payload.boardNumber}/${payload.lockerNumber}`
     );
   },
   unlockAllCu48b(payload) {
