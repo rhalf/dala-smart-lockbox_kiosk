@@ -8,15 +8,7 @@ export default {
     await context.commit("SET_LOCKER", payload);
   },
 
-  async fetchBoards({ commit }) {
-    try {
-      const response = await adminApi.fetchBoards();
-      commit("SET_LOCKERS", response.data);
-      return response;
-    } catch {
-      return null;
-    }
-  },
+
   async setLockerOrder({ commit }, payload) {
     try {
       console.log("commit", commit);

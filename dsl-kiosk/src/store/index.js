@@ -3,7 +3,7 @@ import Vuex from "vuex";
 
 import loading from "./modules/loading";
 import dialog from "./modules/dialog";
-// import size from "../store/modules/size"
+import code from "./modules/code"
 import locker from "./modules/locker";
 // import status from "../store/modules/status"
 // import company from "../store/modules/company"
@@ -25,7 +25,7 @@ export default new Vuex.Store({
     board,
     locker,
     order,
-    // status,
+    code,
     // company,
     otp,
     // parcel,
