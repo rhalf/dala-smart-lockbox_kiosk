@@ -37,10 +37,10 @@
       <v-row>
         <v-col>
           <p class="headline">
-            Press <strong>"YES"</strong> if you want to check-out new parcel.
+            Press <strong>"ADD MORE"</strong> if you want to check-out new parcel.
           </p>
           <p class="headline">
-            Press <strong>"NO"</strong> if you want to end your transaction.
+            Press <strong>"END NOW"</strong> if you want to end your transaction.
           </p>
         </v-col>
       </v-row>
