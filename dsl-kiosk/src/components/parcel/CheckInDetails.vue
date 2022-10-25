@@ -1,70 +1,85 @@
 <template>
-  <v-sheet height="450" class="transparent headline">
-    <v-container v-if="order">
-      <v-row>
-        <v-col cols="4">
-          <label>Order Id</label>
-        </v-col>
-        <v-col>{{ order.id }}</v-col>
-      </v-row>
-      <v-row>
-        <v-col cols="4">
-          <label>Customer Mobile</label>
-        </v-col>
-        <v-col>{{ order.customerMobileNumber }}</v-col>
-      </v-row>
+  <BaseSheet scrollable custom-class="text-h4" v-if="order">
+    <v-row dense>
+      <v-col cols="4">
+        <label>Order Id</label>
+      </v-col>
+      <v-col>{{ order.id }}</v-col>
+    </v-row>
 
-      <v-row>
-        <v-col cols="4">Size</v-col>
-        <v-col>
-          <label>{{ order.parcelLength }}cm </label>
-          <label>{{ order.parcelWidth }}cm </label>
-          <label>{{ order.parcelHeight }}cm </label>
-        </v-col>
-      </v-row>
-      <v-row>
-        <v-col cols="4">
-          <label>Size Category</label>
-        </v-col>
-        <v-col>
-          <label v-if="order.sizeCodes">{{ order.sizeCodes.join(", ") }}</label>
-          <label
-            v-if="order.sizeCodes === undefined || order.sizeCodes.length == 0"
-            >Not yet configured</label
-          >
-        </v-col>
-      </v-row>
-      <v-row>
-        <v-col cols="4">Vendor</v-col>
-        <v-col>{{ order.vendor.name }}</v-col>
-      </v-row>
+    <v-row dense>
+      <v-col cols="4">
+        <label>Customer Mobile</label>
+      </v-col>
+      <v-col>{{ order.customerMobileNumber }}</v-col>
+    </v-row>
 
-      <v-row>
-        <v-col cols="4">Rider Name</v-col>
-        <v-col>
-          <label>{{
-            `${order.rider.firstName} ${order.rider.lastName}`
-          }}</label>
-        </v-col>
-      </v-row>
-      <v-row>
-        <v-col cols="4">Rider Mobile</v-col>
-        <v-col>{{ order.rider.mobileNumber }}</v-col>
-      </v-row>
-      <v-row>
-        <v-col cols="4">Rider Email</v-col>
-        <v-col>{{ order.rider.email }}</v-col>
-      </v-row>
-    </v-container>
-  </v-sheet>
+    <v-row dense>
+      <v-col cols="4">Size</v-col>
+      <v-col>
+        <v-row>
+          <v-col>
+            <label>Length: {{ order.parcelLength }}cm </label>
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col>
+            <label>Width: {{ order.parcelWidth }}cm </label>
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col>
+            <label>Height: {{ order.parcelHeight }}cm </label>
+          </v-col>
+        </v-row>
+      </v-col>
+    </v-row>
+
+    <v-row dense>
+      <v-col cols="4">
+        <label>Size Category</label>
+      </v-col>
+      <v-col>
+        <label>{{ order.lockerSizeCode }} </label>
+      </v-col>
+    </v-row>
+
+    <v-row dense>
+      <v-col cols="4">Created At</v-col>
+      <v-col>
+        <label>{{ toStringDate(order.createdAt) }}</label>
+      </v-col>
+    </v-row>
+
+    <v-row dense>
+      <v-col cols="4">Updated At</v-col>
+      <v-col>
+        <label>{{ toStringDate(order.updatedAt) }}</label>
+      </v-col>
+    </v-row>
+
+    <v-row dense>
+      <v-col cols="4">Price</v-col>
+      <v-col>{{ order.price }}</v-col>
+    </v-row>
+  </BaseSheet>
 </template>
 
 <script>
+import BaseSheet from "@/components/common/BaseSheet";
+
 import { mapGetters } from "vuex";
+
 export default {
   name: "CheckInDetails",
+  components: { BaseSheet },
   computed: {
     ...mapGetters("order", ["order"]),
+  },
+  methods: {
+    toStringDate(date) {
+      return new Date(date).toLocaleString();
+    },
   },
 };
 </script>

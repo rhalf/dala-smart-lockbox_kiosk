@@ -1,159 +1,157 @@
 <template>
-	<v-container>
-		<v-row>
-			<v-col></v-col>
-		</v-row>
-		<v-row>
-			<v-col>
-				<v-container>
-					<v-row>
-						<v-spacer></v-spacer>
-						<v-col>
-							<v-row>
-								<v-col>
-									<v-btn
-										x-large
-										class="purple"
-										block
-										dark
-										height="80"
-										@click="unlockLockerHandler"
-									>
-										<!-- <v-icon large left>mdi-check</v-icon>/ -->
-										Press to Open the Locker
-									</v-btn>
-								</v-col>
-							</v-row>
-							<v-row v-if="isLockerClosed">
-								<v-col>
-									<v-card outlined class="white green--text headline pa-4">
-										<v-icon x-large left color="green">
-											mdi-check-circle</v-icon
-										>
-										<label>Locker door is <strong>CLOSE</strong></label>
-									</v-card>
-								</v-col>
-							</v-row>
-							<v-row v-if="!isLockerClosed">
-								<v-col>
-									<v-card outlined class="white red--text headline pa-4">
-										<v-icon x-large left color="red"> mdi-close-circle</v-icon>
-										<label>Locker door is <strong>OPEN</strong></label>
-									</v-card>
-								</v-col>
-							</v-row>
-							<v-row v-if="isLockerOccupied">
-								<v-col>
-									<v-card outlined class="white red--text headline pa-4">
-										<v-icon x-large left color="red"> mdi-close-circle</v-icon>
-										<label>Locker is <strong>OCCUPIED</strong></label>
-									</v-card>
-								</v-col>
-							</v-row>
-							<v-row v-if="!isLockerOccupied">
-								<v-col>
-									<v-card outlined class="white green--text headline pa-4">
-										<v-icon x-large left color="green">
-											mdi-check-circle</v-icon
-										>
-										<label>Locker is <strong>EMPTY</strong></label>
-									</v-card>
-								</v-col>
-							</v-row>
-						</v-col>
-						<v-spacer></v-spacer>
-					</v-row>
-				</v-container>
-			</v-col>
-		</v-row>
-		<v-row>
-			<v-col></v-col>
-		</v-row>
-	</v-container>
+  <v-container>
+    <v-row>
+      <v-spacer></v-spacer>
+      <v-col cols="4">
+        <Locker :item="locker"></Locker>
+      </v-col>
+      <v-spacer></v-spacer>
+    </v-row>
+
+    <v-row class="mt-15">
+      <v-spacer></v-spacer>
+
+      <v-col cols="4" v-if="isLockerClosed">
+        <v-sheet outlined class="white green--text headline pa-4 rounded">
+          <v-icon x-large left color="green"> mdi-check-circle</v-icon>
+          <label>Locker door is <strong>CLOSE</strong></label>
+        </v-sheet>
+      </v-col>
+
+      <v-col cols="4" v-if="!isLockerClosed">
+        <v-sheet outlined class="white red--text headline pa-4 rounded">
+          <v-icon x-large left color="red"> mdi-close-circle</v-icon>
+          <label>Locker door is <strong>OPEN</strong></label>
+        </v-sheet>
+      </v-col>
+
+      <v-col cols="4" v-if="isLockerOccupied">
+        <v-sheet outlined class="white red--text headline pa-4 rounded">
+          <v-icon x-large left color="red"> mdi-close-circle</v-icon>
+          <label>Locker is <strong>OCCUPIED</strong></label>
+        </v-sheet>
+      </v-col>
+
+      <v-col cols="4" v-if="!isLockerOccupied">
+        <v-sheet outlined class="white green--text headline pa-4 rounded">
+          <v-icon x-large left color="green"> mdi-close-circle</v-icon>
+          <label>Locker is <strong>EMPTY</strong></label>
+        </v-sheet>
+      </v-col>
+
+      <v-spacer></v-spacer>
+    </v-row>
+
+    <v-row class="mt-15">
+      <v-spacer></v-spacer>
+      <v-col cols="4">
+        <v-btn
+          block
+          rounded
+          x-large
+          class="yellowDark"
+          height="80"
+          dark
+          @click="unlockLockerHandler"
+        >
+          <span class="font-weight-bold">Press to Open the Locker </span>
+        </v-btn>
+      </v-col>
+      <v-spacer></v-spacer>
+    </v-row>
+  </v-container>
 </template>
 
 <script>
-	import { mapActions, mapGetters } from 'vuex';
+import { mapActions, mapGetters } from "vuex";
 
-	export default {
-		name: 'CheckOutLockerChecker',
-		data() {
-			return {
-				timerHandler: null,
-				timeOut: 60 * 1000,
-			};
-		},
-		computed: {
-			...mapGetters('order', ['order']),
-			...mapGetters('locker', ['locker']),
-			...mapGetters('cu48b', ['cu48bLockers', 'cu48bSensors']),
+import cu48bApi from "@/api/cu48bApi";
+import ssoApi from "@/api/ssoApi";
 
-			isLockerClosed() {
-				if (!this.cu48bLockers) return false;
-				if (!this.locker) return false;
-				return this.cu48bLockers[this.locker.number] == 1;
-			},
-			isLockerOccupied() {
-				if (!this.cu48bSensors) return false;
-				if (!this.locker) return false;
-				return this.cu48bSensors[this.locker.number] == 1;
-			},
-		},
-		methods: {
-			...mapActions('cu48b', ['unlockCu48b']),
-			...mapActions('locker', [
-				'setLocker',
-				'setLockerPassed',
-				'closeLocker',
-				'openLocker',
-				'openStateLocker',
-			]),
+import Locker from "@/components/common/Locker.vue";
 
-			unlockLockerHandler() {
-				this.unlockCu48b({
-					boardNumber: this.locker.boardNumber,
-					lockerNumber: this.locker.number,
-				});
-			},
-		},
+export default {
+  components: { Locker },
 
-		watch: {
-			isLockerClosed(present, previous) {
-				if (!present && present != previous) {
-					this.openLocker({
-						locker: this.locker,
-						order: this.order,
-						type: 'check-in',
-					});
-					this.timerHandler = setTimeout(() => {
-						this.openStateLocker({
-							locker: this.locker,
-							order: this.order,
-							minutes: 1,
-						});
-					}, this.timeOut);
-				}
-				if (present && present != previous) {
-					this.closeLocker({
-						locker: this.locker,
-						order: this.order,
-						type: 'check-in',
-					});
+  name: "CheckOutLockerChecker",
+  data() {
+    return {
+      timerHandler: null,
+      timeOut: 60 * 1000,
+    };
+  },
+  computed: {
+    ...mapGetters("order", ["order"]),
+    ...mapGetters("locker", ["locker"]),
+    ...mapGetters("cu48b", ["cu48bLockers", "cu48bSensors"]),
 
-					clearTimeout(this.timerHandler);
-				}
+    isLockerClosed() {
+      if (!this.cu48bLockers) return false;
+      if (!this.locker) return false;
+      return this.cu48bLockers[this.locker.number] == 1;
+    },
+    isLockerOccupied() {
+      if (!this.cu48bSensors) return false;
+      if (!this.locker) return false;
+      return this.cu48bSensors[this.locker.number] == 1;
+    },
+  },
+  methods: {
+    components: { Locker },
+    ...mapActions("cu48b", ["unlockCu48b"]),
+    ...mapActions("locker", [
+      "setLocker",
+      "setLockerPassed",
+      "closeLocker",
+      "openLocker",
+      "openStateLocker",
+    ]),
 
-				this.setLockerPassed(this.isLockerClosed && !this.isLockerOccupied);
-			},
-			isLockerOccupied() {
-				this.setLockerPassed(this.isLockerClosed && !this.isLockerOccupied);
-			},
-		},
-	};
+    unlockLockerHandler() {
+      cu48bApi.unlockCu48b({
+        boardNumber: this.locker.boardNumber,
+        lockerNumber: this.locker.number,
+      });
+    },
+  },
+
+  watch: {
+    isLockerClosed(present, previous) {
+      if (!present && present != previous) {
+        ssoApi.openLocker({
+          locker: this.locker,
+          order: this.order,
+          type: "check-in",
+        });
+        this.timerHandler = setTimeout(() => {
+          this.openStateLocker({
+            locker: this.locker,
+            order: this.order,
+            minutes: 1,
+          });
+        }, this.timeOut);
+      }
+      if (present && present != previous) {
+        ssoApi.closeLocker({
+          locker: this.locker,
+          order: this.order,
+          type: "check-in",
+        });
+
+        clearTimeout(this.timerHandler);
+      }
+
+      this.setLockerPassed(this.isLockerClosed && !this.isLockerOccupied);
+    },
+    isLockerOccupied() {
+      this.setLockerPassed(this.isLockerClosed && !this.isLockerOccupied);
+    },
+  },
+};
 </script>
 
 <style scoped>
-	.selected {
-		border: 6px solid #deb800 !important;
-	}
+.selected {
+  border: 6px solid #deb800 !important;
+}
 </style>

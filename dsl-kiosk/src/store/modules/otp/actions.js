@@ -1,4 +1,4 @@
-import adminApi from "../../../api/adminApi";
+import ssoApi from "@/api/ssoApi";
 
 export default {
   async setOtp(context, payload) {
@@ -6,7 +6,7 @@ export default {
   },
   async fetchOtp({ commit, dispatch }, payload) {
     try {
-      const response = await adminApi.checkOutParcel(payload);
+      const response = await ssoApi.checkOutParcel(payload);
       await commit("SET_OTP", response.data.data);
       await dispatch("order/setOrder", response.data.data.order, {
         root: true,
@@ -24,7 +24,7 @@ export default {
   async verifyOtp({ commit }, payload) {
     try {
       console.log("commit", commit);
-      const response = await adminApi.verifyCheckoutParcel(payload);
+      const response = await ssoApi.verifyCheckoutParcel(payload);
       return response;
     } catch {
       return null;

@@ -10,9 +10,9 @@ export default {
     return cu48bApi.unlockAllCu48b(payload);
   },
 
-  async fetchCu48b({ commit }, payload) {
+  async readCu48b({ commit }, payload) {
     try {
-      const response = await cu48bApi.fetchCu48b(payload);
+      const response = await cu48bApi.readCu48b(payload);
       commit("SET_CU48B", response.data);
       return response;
     } catch {

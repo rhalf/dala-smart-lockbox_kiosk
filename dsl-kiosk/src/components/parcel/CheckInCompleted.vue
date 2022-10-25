@@ -1,5 +1,5 @@
 <template>
-  <v-sheet height="450" class="transparent vertical-scroll text-center">
+  <BaseSheet scrollable custom-class="text-center">
     <v-container>
       <v-row>
         <v-col>
@@ -37,10 +37,12 @@
       <v-row>
         <v-col>
           <p class="headline">
-            Press <strong>"ADD MORE"</strong> if you want to check-in new parcel.
+            Press <strong>"ADD MORE"</strong> if you want to check-in new
+            parcel.
           </p>
           <p class="headline">
-            Press <strong>"END NOW"</strong> if you want to end your transaction.
+            Press <strong>"END NOW"</strong> if you want to end your
+            transaction.
           </p>
         </v-col>
       </v-row>
@@ -65,13 +67,16 @@
         </v-col>
       </v-row>
     </v-container>
-  </v-sheet>
+  </BaseSheet>
 </template>
 
 <script>
+import BaseSheet from "@/components/common/BaseSheet";
+
 import { mapActions } from "vuex";
 export default {
   name: "CheckInCompleted",
+  components: { BaseSheet },
   props: {
     enable: Boolean,
   },

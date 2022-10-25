@@ -5,9 +5,9 @@ export default {
     context.commit("SET_TOKEN", payload);
   },
 
-  async fetchToken({ commit }) {
+  async login({ commit }) {
     try {
-      const response = await ssoApi.fetchToken();
+      const response = await ssoApi.login();
       commit("SET_TOKEN", response.data);
       return response;
     } catch {

@@ -1,39 +1,50 @@
 <template>
-  <v-sheet height="450" class="transparent vertical-scroll">
-    <locker-picker @onSelectedLocker="onSelectedLockerhandler"></locker-picker>
-  </v-sheet>
+  <BaseSheet scrollable>
+    <v-row dense v-for="board in boards" :key="board.id">
+      <v-col>
+        <Board :item="board"></Board>
+      </v-col>
+    </v-row>
+  </BaseSheet>
 </template>
 
 <script>
+import BaseSheet from "@/components/common/BaseSheet";
+
+import ssoApi from "@/api/ssoApi";
+
+import Board from "@/components/common/Board.vue";
 import { mapActions } from "vuex";
-import LockerPicker from "../locker/LockerPicker";
 
 export default {
   name: "CheckInSelectLocker",
-  components: { LockerPicker },
+  components: { BaseSheet, Board },
+  data() {
+    return {
+      boards: null,
+    };
+  },
   methods: {
-    ...mapActions("locker", ["setLocker"]),
-
-    onSelectedLockerhandler(locker) {
-      this.setLocker(locker);
-      this.$emit("onParcelLocker");
-    },
+    ...mapActions("loading", ["setLoading"]),
+  },
+  mounted() {
+    this.setLoading({ visible: true });
+    ssoApi
+      .readBoards()
+      .then(async (response) => {
+        response.data.map((board) => {
+          board.lockers.map((locker) => {
+            return (locker.boardNumber = board.number);
+          });
+        });
+        this.boards = response.data;
+        console.log(this.boards);
+      })
+      .finally(() => {
+        this.setLoading({ visible: false });
+      });
   },
 };
 </script>
 
-<style scoped>
-.vertical-scroll {
-  overflow-x: hidden;
-  overflow-y: scroll;
-  white-space: nowrap;
-  padding: 0.5rem;
-
-  -ms-overflow-style: none; /* Internet Explorer 10+ */
-  scrollbar-width: none; /* Firefox */
-}
-
-.vertical-scroll::-webkit-scrollbar {
-  display: none; /* Safari and Chrome */
-}
-</style>
+<style scoped></style>

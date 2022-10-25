@@ -1,61 +1,61 @@
 <template>
-  <v-sheet height="450" class="transparent">
-    <v-card light class="ma-auto justify" width="720">
-      <v-card-title class="secondary fontLight--text">Parcel OTP </v-card-title>
-      <v-card-subtitle class="secondary fontLight--text"></v-card-subtitle>
-      <v-card-text class="pa-2">
-        <otp-code
-          :enable="enable"
-          label="Code"
-          :icon="Otp"
-          @onOk="onOkHandler"
-        ></otp-code>
-      </v-card-text>
-    </v-card>
-  </v-sheet>
+  <BaseSheet scrollable>
+    <BaseOtpNumber
+      :enable="enable"
+      label="Otp Code"
+      placeholder="Enter otp code."
+      :icon="Otp"
+      @onOk="onOkHandler"
+    ></BaseOtpNumber>
+  </BaseSheet>
 </template>
 
 <script>
-import OtpCode from "../../components/ui/OtpCode";
-import Otp from "../../assets/Elements/Mail/Mail_Green.svg";
-import { mapActions, mapGetters } from "vuex";
+import BaseSheet from "@/components/common/BaseSheet";
+import BaseOtpNumber from "@/components/common/BaseOtpNumber";
+import Otp from "@/assets/Elements/Mail/Mail_Green.svg";
+import { mapGetters, mapActions } from "vuex";
+
+import ssoApi from "@/api/ssoApi";
+
 export default {
   name: "CheckOutOtp",
   props: { enable: Boolean },
-  components: { OtpCode },
+  components: { BaseSheet, BaseOtpNumber },
   data() {
     return {
       Otp: Otp,
     };
   },
   methods: {
-    ...mapActions("locker", ["setLocker"]),
-    ...mapActions("otp", ["verifyOtp"]),
+    // ...mapActions("locker", ["setLocker"]),
+    // ...mapActions("otp", ["verifyOtp"]),
     ...mapActions("loading", ["setLoading"]),
 
     async onOkHandler(code) {
       if (code) {
         this.setLoading({ visible: true });
-        const response = await this.verifyOtpHandler(code);
-        if (response) {
-          this.setLocker(this.order.locker);
-        }
-        this.setLoading({ visible: false });
+        ssoApi
+          .verifyCheckoutParcel({
+            otpNumber: code,
+            messageId: this.code,
+            orderId: this.order.id,
+          })
+          .then((response) => {
+            //this.setLocker(this.order.locker);
+            const { success } = response.data;
 
-        if (response) this.$emit("onParcelOtp");
+            if (success) this.$emit("onParcelOtp");
+          })
+          .finally(() => {
+            this.setLoading({ visible: false });
+          });
       }
-    },
-    verifyOtpHandler(code) {
-      return this.verifyOtp({
-        otpNumber: code,
-        messageId: this.otp.messageId,
-        orderId: this.order.id,
-      });
     },
   },
   computed: {
     ...mapGetters("order", ["order"]),
-    ...mapGetters("otp", ["otp"]),
+    ...mapGetters("code", ["code"]),
   },
 };
 </script>

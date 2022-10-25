@@ -1,31 +1,27 @@
 <template>
-  <v-sheet height="450" class="transparent">
-    <v-card light class="ma-auto justify" width="720">
-      <v-card-title class="secondary fontLight--text"
-        >Parcel Code
-      </v-card-title>
-      <v-card-subtitle class="secondary fontLight--text"></v-card-subtitle>
-      <v-card-text class="pa-2">
-        <input-number
-          :enable="enable"
-          label1="Code"
-          :icon="Parcel"
-          @onOk="onOkHandler"
-        ></input-number>
-      </v-card-text>
-    </v-card>
-  </v-sheet>
+  <BaseSheet scrollable>
+    <BaseInputNumber
+      :enable="enable"
+      label="Deposit Code"
+      placeholder="Enter deposit code."
+      :icon="Parcel"
+      @onOk="onOkHandler"
+    ></BaseInputNumber>
+  </BaseSheet>
 </template>
 
 <script>
-import InputNumber from "../ui/InputNumber";
-import Parcel from "../../assets/Icons/Parcel/Parcel_Green.svg";
+import BaseSheet from "@/components/common/BaseSheet";
+import BaseInputNumber from "@/components/common/BaseInputNumber";
+import Parcel from "@/assets/Icons/Parcel/Parcel_Green.svg";
 import { mapActions, mapGetters } from "vuex";
+
+import ssoApi from "@/api/ssoApi";
 
 export default {
   name: "CheckInCode",
   props: { enable: Boolean },
-  components: { InputNumber },
+  components: { BaseInputNumber, BaseSheet },
   data() {
     return {
       Parcel: Parcel,
@@ -34,9 +30,10 @@ export default {
 
   methods: {
     ...mapActions("dialog", ["setError"]),
-    ...mapActions("order", ["fetchOrder"]),
+    ...mapActions("order", ["readOrder", "setOrder"]),
     ...mapActions("loading", ["setLoading"]),
-    async onOkHandler(id) {
+
+    onOkHandler(id) {
       if (!id) {
         this.setError({
           visible: true,
@@ -46,9 +43,16 @@ export default {
       }
 
       this.setLoading({ visible: true });
-      const response = await this.fetchOrder({ id: id });
-      if (response) this.$emit("onParcelCode");
-      this.setLoading({ visible: false });
+      ssoApi
+        .readOrder({ code: id })
+        .then((response) => {
+          // console.log(response);
+          this.setOrder(response.data);
+          this.$emit("onParcelCode");
+        })
+        .finally(() => {
+          this.setLoading({ visible: false });
+        });
     },
   },
   computed: {

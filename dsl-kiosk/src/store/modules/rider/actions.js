@@ -1,4 +1,4 @@
-import adminApi from "../../../api/adminApi";
+import ssoApi from "@/api/ssoApi";
 
 export default {
   setRider(context, payload) {
@@ -7,7 +7,7 @@ export default {
 
   async fetchByIdPin({ commit }, payload) {
     try {
-      const response = await adminApi.loginRider(payload);
+      const response = await ssoApi.loginRider(payload);
       commit("SET_RIDER", response.data.data.rider);
       return response;
     } catch {

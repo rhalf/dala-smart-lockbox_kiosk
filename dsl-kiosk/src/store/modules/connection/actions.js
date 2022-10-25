@@ -1,4 +1,4 @@
-import adminApi from "../../../api/adminApi";
+import ssoApi from "@/api/ssoApi";
 
 export default {
   setOffline(context, payload) {
@@ -12,7 +12,7 @@ export default {
   async connect({ commit }) {
     try {
       console.log("commit", commit);
-      const response = await adminApi.connectionStatus();
+      const response = await ssoApi.connectionStatus();
       return response;
     } catch {
       return null;

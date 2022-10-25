@@ -9,7 +9,7 @@ export default {
   unlockAllCu48b(payload) {
     return cu48bApi.delete(`/cu48b/${payload.boardNumber}`);
   },
-  fetchCu48b(payload) {
+  readCu48b(payload) {
     return cu48bApi.get(`/cu48b/${payload.boardNumber}`);
   },
 };
