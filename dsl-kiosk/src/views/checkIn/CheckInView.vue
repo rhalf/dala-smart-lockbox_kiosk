@@ -1,7 +1,6 @@
 <template>
   <div>
     <v-fade-transition mode="out-in">
-      <!-- <rider-sign-in v-if="!rider"></rider-sign-in> -->
       <check-in-stepper></check-in-stepper>
     </v-fade-transition>
   </div>

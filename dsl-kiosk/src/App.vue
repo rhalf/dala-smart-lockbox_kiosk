@@ -1,18 +1,18 @@
 <template>
   <v-app>
-    <design-decoration />
-    <loading-spinner />
-    <layout-header />
+    <DesignDecoration></DesignDecoration>
+    <BaseLoadingSpinner></BaseLoadingSpinner>
+    <LayoutHeader></LayoutHeader>
 
     <v-main>
       <v-fade-transition mode="out-in">
-        <maintenance-view v-if="maintenance.status" />
+        <MaintenanceView v-if="maintenance.status" />
         <router-view v-else></router-view>
       </v-fade-transition>
     </v-main>
 
-    <error-dialog />
-    <info-dialog />
+    <ErrorDialog></ErrorDialog>
+    <InfoDialog></InfoDialog>
   </v-app>
 </template>
 
@@ -22,7 +22,7 @@ import { defineComponent } from "@vue/composition-api";
 import { mapActions, mapGetters } from "vuex";
 
 import LayoutHeader from "./components/layout/layout_header/LayoutHeader";
-import LoadingSpinner from "./components/ui/LoadingSpinner";
+import BaseLoadingSpinner from "./components/common/BaseLoadingSpinner";
 import ErrorDialog from "./components/dialog/ErrorDialog";
 import InfoDialog from "./components/dialog/InfoDialog";
 import DesignDecoration from "./views/DesignDecoration";
@@ -34,7 +34,7 @@ export default defineComponent({
   name: "App",
   mixins: [ssoInterceptor],
   components: {
-    LoadingSpinner,
+    BaseLoadingSpinner,
     LayoutHeader,
     ErrorDialog,
     InfoDialog,

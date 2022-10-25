@@ -34,8 +34,8 @@ export default {
     },
   },
   computed: {
-    ...mapGetters("cu48b", ["cu48bLockers"]),
     ...mapGetters("locker", ["locker"]),
+    ...mapGetters("cu48b", ["cu48bLockers"]),
   },
   beforeDestroy() {
     clearInterval(this.timeInterval);

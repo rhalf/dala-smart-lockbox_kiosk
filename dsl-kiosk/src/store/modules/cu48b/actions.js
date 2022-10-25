@@ -1,4 +1,4 @@
-import cu48bApi from "../../../api/cu48bApi";
+import cu48bApi from "@/api/cu48bApi";
 
 export default {
   unlockCu48b(context, payload) {

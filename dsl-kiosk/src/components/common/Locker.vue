@@ -5,9 +5,9 @@
     :key="item.id"
     :light="!isOccupied(item)"
     :dark="isOccupied(item)"
-    :class="`rounded text-center font secondary--text
-          ${isSelected(item) ? 'selected' : ''}
-          ${isOccupied(item) ? 'yellowDark' : ''} 
+    class="rounded text-center font secondary--text"
+    :class="`${isSelected(item) ? 'selected' : ''}
+        ${isOccupied(item) ? 'yellowDark' : ''} 
         `"
     @click="selectLocker(item)"
     :ripple="false"
@@ -54,31 +54,21 @@ export default {
     item: Object,
   },
 
-  // mounted() {
-  //   console.log(this.item);
-  // },
   computed: {
     ...mapGetters("locker", ["locker"]),
   },
   methods: {
-    // ...mapActions("board", ["readBoards", "setBoards"]),
     ...mapActions("locker", ["setLocker"]),
 
     selectLocker(locker) {
       this.setLocker({ ...locker });
     },
-    isValidSize(locker) {
-      console.log(locker);
-      // if (this.order && locker.lockerModel)
-      //   return this.order.sizeCodes.includes(locker.lockerModel.sizeCode);
-      return false;
-    },
     isSelected(locker) {
-      if (!this.locker) return false;
+      if (!this.locker || !locker) return false;
       return this.locker.id == locker.id;
     },
     isOccupied(locker) {
-      if (!this.locker) return false;
+      if (!locker) return false;
       return "VACANT" !== locker.lockerStatusCode;
     },
   },

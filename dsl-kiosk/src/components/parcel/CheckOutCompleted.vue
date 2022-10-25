@@ -1,5 +1,5 @@
 <template>
-  <v-sheet height="450" class="transparent vertical-scroll text-center">
+  <BaseSheet>
     <v-container>
       <v-row>
         <v-col>
@@ -37,10 +37,12 @@
       <v-row>
         <v-col>
           <p class="headline">
-            Press <strong>"ADD MORE"</strong> if you want to check-out new parcel.
+            Press <strong>"ADD MORE"</strong> if you want to check-out new
+            parcel.
           </p>
           <p class="headline">
-            Press <strong>"END NOW"</strong> if you want to end your transaction.
+            Press <strong>"END NOW"</strong> if you want to end your
+            transaction.
           </p>
         </v-col>
       </v-row>
@@ -65,13 +67,15 @@
         </v-col>
       </v-row>
     </v-container>
-  </v-sheet>
+  </BaseSheet>
 </template>
 
 <script>
+import BaseSheet from "@/components/common/BaseSheet";
 import { mapActions } from "vuex";
 export default {
   name: "CheckOutCompleted",
+  components: { BaseSheet },
   props: {
     enable: Boolean,
   },
@@ -85,7 +89,6 @@ export default {
   },
 
   methods: {
-    ...mapActions("rider", ["setRider"]),
     ...mapActions("order", ["setOrder"]),
     ...mapActions("locker", ["setLocker"]),
 
@@ -97,7 +100,6 @@ export default {
     },
 
     endNowHandler() {
-      this.setRider(null);
       this.$router.push("/home");
       this.$router.go(0);
       clearInterval(this.timeIntervalHandler);
@@ -128,18 +130,4 @@ export default {
 };
 </script>
 
-<style scoped>
-.vertical-scroll {
-  overflow-x: hidden;
-  overflow-y: scroll;
-  white-space: nowrap;
-  padding: 0.5rem;
-
-  -ms-overflow-style: none; /* Internet Explorer 10+ */
-  scrollbar-width: none; /* Firefox */
-}
-
-.vertical-scroll::-webkit-scrollbar {
-  display: none; /* Safari and Chrome */
-}
-</style>
+<style scoped></style>

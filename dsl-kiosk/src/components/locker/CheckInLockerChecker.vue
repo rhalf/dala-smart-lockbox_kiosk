@@ -96,13 +96,7 @@ export default {
   },
   methods: {
     ...mapActions("cu48b", ["unlockCu48b"]),
-    ...mapActions("locker", [
-      "setLocker",
-      "setLockerPassed",
-      "closeLocker",
-      "openLocker",
-      "openStateLocker",
-    ]),
+    ...mapActions("locker", ["setLocker", "setLockerPassed"]),
 
     unlockLockerHandler() {
       cu48bApi.unlockCu48b({

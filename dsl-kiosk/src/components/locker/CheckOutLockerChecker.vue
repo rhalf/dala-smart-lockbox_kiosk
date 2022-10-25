@@ -71,9 +71,8 @@ import ssoApi from "@/api/ssoApi";
 import Locker from "@/components/common/Locker.vue";
 
 export default {
-  components: { Locker },
-
   name: "CheckOutLockerChecker",
+  components: { Locker },
   data() {
     return {
       timerHandler: null,
@@ -97,15 +96,8 @@ export default {
     },
   },
   methods: {
-    components: { Locker },
     ...mapActions("cu48b", ["unlockCu48b"]),
-    ...mapActions("locker", [
-      "setLocker",
-      "setLockerPassed",
-      "closeLocker",
-      "openLocker",
-      "openStateLocker",
-    ]),
+    ...mapActions("locker", ["setLocker", "setLockerPassed"]),
 
     unlockLockerHandler() {
       cu48bApi.unlockCu48b({
@@ -118,13 +110,13 @@ export default {
   watch: {
     isLockerClosed(present, previous) {
       if (!present && present != previous) {
-        ssoApi.openLocker({
+        ssoApi.lockerOpen({
           locker: this.locker,
           order: this.order,
           type: "check-in",
         });
         this.timerHandler = setTimeout(() => {
-          this.openStateLocker({
+          this.lockerOpenState({
             locker: this.locker,
             order: this.order,
             minutes: 1,
@@ -132,7 +124,7 @@ export default {
         }, this.timeOut);
       }
       if (present && present != previous) {
-        ssoApi.closeLocker({
+        ssoApi.lockerClose({
           locker: this.locker,
           order: this.order,
           type: "check-in",

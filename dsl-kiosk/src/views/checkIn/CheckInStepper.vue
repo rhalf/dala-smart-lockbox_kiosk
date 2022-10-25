@@ -134,11 +134,11 @@
 
 <script>
 import { mapActions, mapGetters } from "vuex";
-import CheckInCode from "../../components/parcel/CheckInCode";
-import CheckInDetails from "../../components/parcel/CheckInDetails";
-import CheckInSelectLocker from "../../components/parcel/CheckInSelectLocker";
-import CheckInLocker from "../../components/parcel/CheckInLocker";
-import CheckInCompleted from "../../components/parcel/CheckInCompleted";
+import CheckInCode from "@/components/parcel/CheckInCode";
+import CheckInDetails from "@/components/parcel/CheckInDetails";
+import CheckInSelectLocker from "@/components/parcel/CheckInSelectLocker";
+import CheckInLocker from "@/components/parcel/CheckInLocker";
+import CheckInCompleted from "@/components/parcel/CheckInCompleted";
 
 export default {
   name: "CheckInStepper",

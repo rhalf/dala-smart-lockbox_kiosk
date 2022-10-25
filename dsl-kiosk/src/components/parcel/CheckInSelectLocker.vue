@@ -38,7 +38,6 @@ export default {
           });
         });
         this.boards = response.data;
-        console.log(this.boards);
       })
       .finally(() => {
         this.setLoading({ visible: false });

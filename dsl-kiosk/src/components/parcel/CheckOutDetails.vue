@@ -73,9 +73,6 @@ import { mapGetters } from "vuex";
 export default {
   name: "CheckOutDetails",
   components: { BaseSheet },
-  mounted() {
-    console.log(this.order);
-  },
   computed: {
     ...mapGetters("order", ["order"]),
   },

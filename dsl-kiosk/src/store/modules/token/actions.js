@@ -1,4 +1,4 @@
-import ssoApi from "../../../api/ssoApi";
+import ssoApi from "@/api/ssoApi";
 
 export default {
   setToken(context, payload) {

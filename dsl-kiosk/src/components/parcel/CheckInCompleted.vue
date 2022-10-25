@@ -90,7 +90,6 @@ export default {
   },
 
   methods: {
-    ...mapActions("rider", ["setRider"]),
     ...mapActions("order", ["setOrder"]),
     ...mapActions("locker", ["setLocker", "setLockerPassed"]),
 
@@ -107,7 +106,6 @@ export default {
     endNowHandler() {
       this.setOrder(null);
       this.setLocker(null);
-      this.setRider(null);
       this.setLockerPassed(false);
       this.$router.push("/home");
       // this.$router.go(0);

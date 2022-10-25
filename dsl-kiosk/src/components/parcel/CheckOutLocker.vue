@@ -22,7 +22,7 @@ export default {
     };
   },
   methods: {
-    ...mapActions("cu48b", ["fetchCu48b"]),
+    ...mapActions("cu48b", ["readCu48b"]),
 
     onCheckedLockerhandler(locker) {
       this.setLocker(locker);
@@ -41,7 +41,7 @@ export default {
       if (present && previous != present) {
         this.timeInterval = setInterval(() => {
           if (this.locker)
-            this.fetchCu48b({ boardNumber: this.locker.boardNumber });
+            this.readCu48b({ boardNumber: this.locker.boardNumber });
         }, 2000);
       }
       if (!present && previous != present) {

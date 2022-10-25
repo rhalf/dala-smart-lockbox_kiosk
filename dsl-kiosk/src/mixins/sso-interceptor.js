@@ -69,8 +69,10 @@ export default {
           if (!error.response.data.data) return;
 
           if (error.response.data.data.errors) {
-            const { deposit_code } = error.response.data.data.errors;
-            message2 = deposit_code;
+            const { deposit_code, pickup_code } =
+              error.response.data.data.errors;
+            if (deposit_code) message2 = deposit_code;
+            if (pickup_code) message2 = pickup_code;
           }
 
           if (error.response.data.data.message) {

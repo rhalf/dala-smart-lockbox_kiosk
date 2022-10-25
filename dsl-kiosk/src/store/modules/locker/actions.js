@@ -18,16 +18,16 @@ export default {
     }
   },
 
-  async openLocker({ commit }, payload) {
-    console.log("commit", commit);
-    return await ssoApi.lockerOpen(payload);
-  },
-  async closeLocker({ commit }, payload) {
-    console.log("commit", commit);
-    return await ssoApi.lockerClose(payload);
-  },
-  async openStateLocker({ commit }, payload) {
-    console.log("commit", commit);
-    return await ssoApi.lockerOpenState(payload);
-  },
+  //   async openLocker({ commit }, payload) {
+  //     console.log("commit", commit);
+  //     return await ssoApi.lockerOpen(payload);
+  //   },
+  //   async closeLocker({ commit }, payload) {
+  //     console.log("commit", commit);
+  //     return await ssoApi.lockerClose(payload);
+  //   },
+  //   async openStateLocker({ commit }, payload) {
+  //     console.log("commit", commit);
+  //     return await ssoApi.lockerOpenState(payload);
+  //   },
 };

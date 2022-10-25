@@ -28,8 +28,6 @@ export default {
     };
   },
   methods: {
-    // ...mapActions("locker", ["setLocker"]),
-    // ...mapActions("otp", ["verifyOtp"]),
     ...mapActions("loading", ["setLoading"]),
 
     async onOkHandler(code) {
@@ -38,8 +36,8 @@ export default {
         ssoApi
           .verifyCheckoutParcel({
             otpNumber: code,
-            messageId: this.code,
-            orderId: this.order.id,
+            messageId: this.messageId,
+            orderId: this.orderId,
           })
           .then((response) => {
             //this.setLocker(this.order.locker);
@@ -54,8 +52,8 @@ export default {
     },
   },
   computed: {
-    ...mapGetters("order", ["order"]),
-    ...mapGetters("code", ["code"]),
+    // ...mapGetters("order", ["order"]),
+    ...mapGetters("verification", ["depositCode", "orderId", "messageId"]),
   },
 };
 </script>

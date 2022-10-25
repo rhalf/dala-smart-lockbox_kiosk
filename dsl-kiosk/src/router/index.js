@@ -5,7 +5,6 @@ import HomeView from "@/views/HomeView";
 import CheckInView from "@/views/checkIn/CheckInView";
 import CheckOutView from "@/views/checkOut/CheckOutView";
 import LockersView from "@/views/lockerView/LockersView";
-import TransactionView from "@/views/TransactionView/TransactionsView";
 
 Vue.use(VueRouter);
 
@@ -33,11 +32,6 @@ const routes = [
     path: "/lockers",
     name: "lockers",
     component: LockersView,
-  },
-  {
-    path: "/transactions",
-    name: "transactions",
-    component: TransactionView,
   },
 ];
 

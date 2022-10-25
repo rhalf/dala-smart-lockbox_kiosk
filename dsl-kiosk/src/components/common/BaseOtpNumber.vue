@@ -4,38 +4,41 @@
     <v-container>
       <v-row>
         <v-col>
-          <v-row>
-            <v-col>
-              <v-img
-                class="mx-auto"
-                aspect-ratio="1"
-                :src="icon"
-                max-width="200"
-                max-height="200"
-                contain
-              ></v-img>
-            </v-col>
-          </v-row>
-          <v-row>
-            <v-col>
-              <v-otp-input
-                length="6"
-                type="number"
-                height="80"
-                light
-                v-model="code"
-              ></v-otp-input>
-            </v-col>
-          </v-row>
+          <div class="pa-5">
+            <v-row>
+              <v-col>
+                <v-img
+                  class="mx-auto"
+                  :aspect-ratio="30 / 21"
+                  :src="icon"
+                ></v-img>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col>
+                <v-otp-input
+                  class="pa-0 ma-0"
+                  length="6"
+                  type="number"
+                  height="75"
+                  light
+                  v-model="code"
+                  @keypress="keypress"
+                  hide-details="auto"
+                ></v-otp-input>
+              </v-col>
+            </v-row>
+          </div>
         </v-col>
         <v-divider vertical></v-divider>
         <v-col>
-          <num-pad
+          <BaseNumPad
+            custom-class="pa-5"
             @onKeyPress="onKeyPressHandler"
             @onOk="onOkHandler"
             @onDel="onDelHandler"
           >
-          </num-pad>
+          </BaseNumPad>
         </v-col>
       </v-row>
     </v-container>
@@ -43,7 +46,7 @@
 </template>
 
 <script>
-import NumPad from "@/components/ui/NumPad";
+import BaseNumPad from "./BaseNumPad";
 export default {
   name: "OtpCode",
   props: {
@@ -51,7 +54,7 @@ export default {
     label: String,
     icon: String,
   },
-  components: { NumPad },
+  components: { BaseNumPad },
   data() {
     return {
       code: null,
@@ -59,7 +62,7 @@ export default {
   },
   methods: {
     onKeyPressHandler(key) {
-      if (this.code) if (String(this.code).length == 6) return;
+      if (this.code) if (String(this.code).length >= 6) return;
 
       if (this.code) this.code += key;
       else this.code = key;
@@ -69,31 +72,19 @@ export default {
       if (this.code) this.code = this.code.toString().slice(0, -1);
     },
 
-    keyDownHandler(e) {
+    onOkHandler() {
+      this.$emit("onOk", this.code);
+    },
+
+    keypress(e) {
       e.preventDefault();
 
       if (e.key == "Enter") {
         this.$emit("onOk", this.code);
-      } else if (e.key.length == 1 && String(e.key).match(/[0-9]/g)) {
+      } else if ("0123456789".includes(e.key)) {
         if (this.code == null) this.code = e.key;
         else this.code = this.code + e.key;
       }
-    },
-
-    onOkHandler() {
-      this.$emit("onOk", this.code);
-    },
-  },
-  beforeDestroy() {
-    console.log("beforeDestroy", this.$options.name, this.label1);
-    window.removeEventListener("keydown", this.keyDownHandler);
-  },
-  watch: {
-    enable(present, previous) {
-      if (present && present != previous)
-        window.addEventListener("keydown", this.keyDownHandler);
-      if (!present && present != previous)
-        window.removeEventListener("keydown", this.keyDownHandler);
     },
   },
 };

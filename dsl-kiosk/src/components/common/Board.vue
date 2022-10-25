@@ -1,7 +1,7 @@
 <template>
   <v-row class="mb-8">
     <v-col v-for="locker in board.lockers" :key="locker.id" cols="3">
-      <Locker :item="locker"></Locker>
+      <Locker :item="locker" :key="locker.id"></Locker>
     </v-col>
   </v-row>
 </template>

@@ -33,7 +33,11 @@ export default {
     ...mapActions("dialog", ["setError", "setInfo"]),
     ...mapActions("order", ["setOrder"]),
     ...mapActions("loading", ["setLoading"]),
-    ...mapActions("code", ["setCode"]),
+    ...mapActions("verification", [
+      "setPickupCode",
+      "setMessageId",
+      "setOrderId",
+    ]),
     ...mapActions("locker", ["setLocker"]),
     async onOkHandler(id) {
       if (!id) {
@@ -43,6 +47,8 @@ export default {
         });
         return;
       }
+
+      this.setPickupCode(id);
 
       this.setLoading({ visible: true });
       ssoApi
@@ -57,11 +63,13 @@ export default {
           this.$emit("onParcelCode");
 
           this.setOrder(order);
+
           let locker = { ...order.locker };
           locker.boardNumber = order.locker.board.number;
-
           this.setLocker(locker);
-          this.setCode(messageId);
+
+          this.setMessageId(messageId);
+          this.setOrderId(order.id);
         })
         .finally(() => {
           this.setLoading({ visible: false });

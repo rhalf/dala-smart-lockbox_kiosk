@@ -4,37 +4,41 @@
     <v-container>
       <v-row>
         <v-col>
-          <v-row>
-            <v-img
-              class="mx-auto"
-              aspect-ratio="1"
-              :src="icon"
-              max-width="270"
-              max-height="270"
-              contain
-            ></v-img>
-          </v-row>
-          <v-row>
-            <v-text-field
-              ref="input1Ref"
-              v-model="input1"
-              outlined
-              clearable
-              class="headline px-10"
-              :placeholder="placeholder"
-              height="40"
-              @focus="selected = 1"
-            ></v-text-field>
-          </v-row>
+          <div class="pa-5">
+            <v-row>
+              <v-col>
+                <v-img
+                  class="mx-auto"
+                  :aspect-ratio="30 / 23"
+                  :src="icon"
+                ></v-img>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col>
+                <v-text-field
+                  class="text-h5"
+                  v-model="code"
+                  outlined
+                  clearable
+                  :placeholder="placeholder"
+                  @keypress="keypress"
+                  hide-details="auto"
+                  :height="60"
+                ></v-text-field>
+              </v-col>
+            </v-row>
+          </div>
         </v-col>
         <v-divider vertical></v-divider>
         <v-col>
-          <num-pad
+          <BaseNumPad
+            custom-class="pa-5"
             @onOk="onOkHandler"
             @onDel="onDelHandler"
             @onKeyPress="onKeyPressHandler"
           >
-          </num-pad
+          </BaseNumPad
         ></v-col>
       </v-row>
     </v-container>
@@ -42,7 +46,7 @@
 </template>
 
 <script>
-import NumPad from "@/components/ui/NumPad";
+import BaseNumPad from "./BaseNumPad.vue";
 
 export default {
   name: "BaseInputNumber",
@@ -52,52 +56,35 @@ export default {
     placeholder: String,
     icon: String,
   },
-  components: { NumPad },
+  components: { BaseNumPad },
   data() {
     return {
-      selected: 1,
-      input: null,
-      input1: "",
-      input1Ref: null,
-      regex: /\s/g,
+      code: null,
     };
   },
   methods: {
     onKeyPressHandler(key) {
-      if (this.input1) this.input1 += key;
-      else this.input1 = key;
+      if (this.code) this.code += key;
+      else this.code = key;
     },
 
     onDelHandler() {
-      if (this.input1) this.input1 = this.input1.toString().slice(0, -1);
+      if (this.code) this.code = this.code.toString().slice(0, -1);
     },
 
     onOkHandler() {
-      this.$emit("onOk", this.input1);
+      this.$emit("onOk", this.code);
     },
 
-    keyDownHandler(e) {
+    keypress(e) {
       e.preventDefault();
 
       if (e.key == "Enter") {
-        this.$emit("onOk", this.input1);
-      } else if (e.key.length == 1 && String(e.key).match(/[0-9]/g)) {
-        if (this.input1 == null) this.input1 = e.key;
-        else this.input1 = this.input1 + e.key;
+        this.$emit("onOk", this.code);
+      } else if ("0123456789".includes(e.key)) {
+        if (this.code == null) this.code = e.key;
+        else this.code = this.code + e.key;
       }
-    },
-  },
-
-  beforeDestroy() {
-    console.log("beforeDestroy", this.$options.name, this.label1);
-    window.removeEventListener("keydown", this.keyDownHandler);
-  },
-  watch: {
-    enable(present, previous) {
-      if (present && present != previous)
-        window.addEventListener("keydown", this.keyDownHandler);
-      if (!present && present != previous)
-        window.removeEventListener("keydown", this.keyDownHandler);
     },
   },
 };

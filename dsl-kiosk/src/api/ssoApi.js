@@ -15,13 +15,6 @@ export default {
     });
   },
 
-  //Riders
-  // loginRider(payload) {
-  //   return ssoApi.post(`/riders/${payload.id}/verify-pin`, {
-  //     pin: payload.pin,
-  //   });
-  // },
-
   //Order
   readOrder(payload) {
     return ssoApi.get(`/orders/deposit-code/${payload.code}`);
