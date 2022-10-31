@@ -12,9 +12,10 @@ defaults:
     working-directory: dsl-kiosk
 
 env:
-  VUE_APP_CLOUD_API_ADMIN_URL: ${{ secrets.VUE_APP_CLOUD_API_ADMIN_URL }}
   VUE_APP_CLOUD_API_SSO_URL: ${{ secrets.VUE_APP_CLOUD_API_SSO_URL }}
-  VUE_APP_AUTH_TOKEN: ${{ secrets.VUE_APP_AUTH_TOKEN }}
+  VUE_APP_LOCAL_API_LOCKER_URL: ${{ secrets.VUE_APP_LOCAL_API_LOCKER_URL }}
+  VUE_APP_CLIENT_ID: ${{ secrets.VUE_APP_CLIENT_ID }}
+  VUE_APP_CLIENT_SECRET: ${{ secrets.VUE_APP_CLIENT_SECRET }}
 
 jobs:
   build_and_deploy:
