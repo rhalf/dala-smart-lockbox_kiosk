@@ -1,43 +1,22 @@
-import cu48bApi from "../../../api/cu48bApi";
+import cu48bApi from "@/api/cu48bApi";
 
 export default {
   unlockCu48b(context, payload) {
     console.log(context);
-    return cu48bApi.unlockCu48b(payload.id);
+    return cu48bApi.unlockCu48b(payload);
   },
-  unlockAllCu48b(context) {
+  unlockAllCu48b(context, payload) {
     console.log(context);
-    return cu48bApi.unlockAllCu48b();
+    return cu48bApi.unlockAllCu48b(payload);
   },
 
-  async fetchCu48b({ commit, dispatch }) {
+  async readCu48b({ commit }, payload) {
     try {
-      const response = await cu48bApi.fetchCu48b();
+      const response = await cu48bApi.readCu48b(payload);
       commit("SET_CU48B", response.data);
       return response;
-    } catch (error) {
-      let message1, message2;
-
-      if (error) message1 = error.message;
-      if (error) {
-        if (error.response) {
-          if (error.response.data) {
-            if (error.response.data.data) {
-              message2 = error.response.data.data.message;
-            } else {
-              message2 = error.response.data;
-            }
-          }
-        }
-      }
-      dispatch(
-        "dialog/setError",
-        {
-          visible: true,
-          messages: [message1, message2],
-        },
-        { root: true }
-      );
+    } catch {
+      return false;
     }
   },
 };

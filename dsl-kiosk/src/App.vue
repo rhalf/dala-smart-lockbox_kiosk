@@ -1,39 +1,80 @@
 <template>
   <v-app>
-    <loading-spinner />
-    <layout-header />
+    <DesignDecoration></DesignDecoration>
+    <BaseLoadingSpinner></BaseLoadingSpinner>
+    <LayoutHeader></LayoutHeader>
+
     <v-main>
       <v-fade-transition mode="out-in">
-        <router-view></router-view>
+        <MaintenanceView v-if="maintenance.status" />
+        <router-view v-else></router-view>
       </v-fade-transition>
     </v-main>
-    <error-dialog />
-    <info-dialog />
+
+    <ErrorDialog></ErrorDialog>
+    <InfoDialog></InfoDialog>
   </v-app>
 </template>
 
 <script>
 import { defineComponent } from "@vue/composition-api";
 
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 
 import LayoutHeader from "./components/layout/layout_header/LayoutHeader";
-import LoadingSpinner from "./components/ui/LoadingSpinner";
+import BaseLoadingSpinner from "./components/common/BaseLoadingSpinner";
 import ErrorDialog from "./components/dialog/ErrorDialog";
 import InfoDialog from "./components/dialog/InfoDialog";
+import DesignDecoration from "./views/DesignDecoration";
+
+import ssoInterceptor from "./mixins/sso-interceptor";
+import MaintenanceView from "./views/MaintenanceView";
 
 export default defineComponent({
   name: "App",
-  components: { LoadingSpinner, LayoutHeader, ErrorDialog, InfoDialog },
-  created() {},
+  mixins: [ssoInterceptor],
+  components: {
+    BaseLoadingSpinner,
+    LayoutHeader,
+    ErrorDialog,
+    InfoDialog,
+    DesignDecoration,
+    MaintenanceView,
+  },
+  data() {
+    return {
+      timeout: null,
+      interval: null,
+    };
+  },
+  async created() {
+    await this.login();
+    this.setRequestInterceptor();
+    this.setResponseInterceptor();
+  },
   mounted() {
     this.timeout = setTimeout(() => {
       this.setLoading({ visible: false });
     }, 500);
+    this.interval = setInterval(() => {
+      this.setOffline({ status: navigator.onLine });
+    }, 2000);
+  },
+
+  beforeDestroy() {
+    clearTimeout(this.timeout);
+    clearTimeout(this.interval);
   },
 
   methods: {
+    ...mapActions("dialog", ["setError"]),
     ...mapActions("loading", ["setLoading"]),
+    ...mapActions("token", ["login"]),
+    ...mapActions("connection", ["setOffline"]),
+  },
+
+  computed: {
+    ...mapGetters("connection", ["maintenance"]),
   },
 });
 </script>
@@ -80,13 +121,14 @@ html::-webkit-scrollbar {
   display: none; /* for Chrome, Safari, and Opera */
 }
 
+//font
 .font-large {
-  font-size: 45px !important;
+  font-size: 44px !important;
 }
 .font-medium {
-  font-size: 35px !important;
+  font-size: 32px !important;
 }
 .font-small {
-  font-size: 20px !important;
+  font-size: 18px !important;
 }
 </style>
