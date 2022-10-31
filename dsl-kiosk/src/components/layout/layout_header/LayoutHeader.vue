@@ -17,7 +17,7 @@
           icon
           fab
           dark
-          @click="$router.push({ name: 'home' }).catch(() => {})"
+          @click="$router.push({ name: 'Home' }).catch(() => {})"
         >
           <v-icon>mdi-home</v-icon>
         </v-btn>

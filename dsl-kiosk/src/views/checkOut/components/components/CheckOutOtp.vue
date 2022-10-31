@@ -29,6 +29,7 @@ export default {
   },
   methods: {
     ...mapActions("loading", ["setLoading"]),
+    ...mapActions("locker", ["setLocker"]),
 
     async onOkHandler(code) {
       if (code) {
@@ -40,9 +41,12 @@ export default {
             orderId: this.orderId,
           })
           .then((response) => {
-            //this.setLocker(this.order.locker);
-            const { success } = response.data;
+            //console.log(response);
+            const { locker } = response.data.order;
+            locker.boardNumber = locker.board.number;
+            this.setLocker({ ...locker });
 
+            const { success } = response.data;
             if (success) this.$emit("onParcelOtp");
           })
           .finally(() => {

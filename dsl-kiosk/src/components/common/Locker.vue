@@ -1,13 +1,14 @@
 <template>
   <v-card
     v-if="item"
-    :disabled="isOccupied(item)"
+    :disabled="isOccupied(item) || isDisabled(item)"
     :key="item.id"
     :light="!isOccupied(item)"
     :dark="isOccupied(item)"
     class="rounded text-center font secondary--text"
     :class="`${isSelected(item) ? 'selected' : ''}
         ${isOccupied(item) ? 'yellowDark' : ''} 
+        ${isDisabled(item) ? 'grey' : ''}
         `"
     @click="selectLocker(item)"
     :ripple="false"
@@ -15,7 +16,7 @@
     <v-row no-gutters>
       <v-col cols="3" class="secondary d-flex align-center justify-center">
         <div class="font-medium white--text">
-          {{ (item.number + 1) | toPad(2) }}
+          {{ item.number | toPad(2) }}
         </div>
       </v-col>
       <v-col cols="6" class="ma-auto py-2 pl-4 text-left">
@@ -52,10 +53,15 @@ import { mapActions, mapGetters } from "vuex";
 export default {
   props: {
     item: Object,
+    filter: {
+      type: String,
+      default: null,
+    },
   },
 
   computed: {
     ...mapGetters("locker", ["locker"]),
+    ...mapGetters("order", ["order"]),
   },
   methods: {
     ...mapActions("locker", ["setLocker"]),
@@ -70,6 +76,11 @@ export default {
     isOccupied(locker) {
       if (!locker) return false;
       return "VACANT" !== locker.lockerStatusCode;
+    },
+    isDisabled(locker) {
+      if (!locker) return false;
+      if (this.order == null) return false;
+      return this.order.lockerSizeCode !== locker.lockerSizeCode;
     },
   },
 };

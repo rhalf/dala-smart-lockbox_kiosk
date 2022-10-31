@@ -1,28 +1,25 @@
 <template>
   <BaseSheet scrollable>
-    <check-in-locker-checker
+    <CheckOutLockerChecker
       @onCheckedLocker="onCheckedLockerhandler"
-    ></check-in-locker-checker>
+    ></CheckOutLockerChecker>
   </BaseSheet>
 </template>
 
 <script>
-import BaseSheet from "@/components/common/BaseSheet";
 import { mapActions, mapGetters } from "vuex";
-import CheckInLockerChecker from "../locker/CheckInLockerChecker";
-
-// import cu48bApi from "@/api/cu48bApi";
+import BaseSheet from "@/components/common/BaseSheet";
+import CheckOutLockerChecker from "@/components/locker/CheckOutLockerChecker";
 
 export default {
-  name: "CheckInLocker",
-  components: { BaseSheet, CheckInLockerChecker },
+  name: "CheckOutLocker",
+  components: { BaseSheet, CheckOutLockerChecker },
   props: {
     enable: Boolean,
   },
   data() {
     return {
       timeInterval: null,
-      board: null,
     };
   },
   methods: {
@@ -46,11 +43,6 @@ export default {
         this.timeInterval = setInterval(() => {
           if (this.locker)
             this.readCu48b({ boardNumber: this.locker.boardNumber });
-          // cu48bApi
-          //   .readCu48b({ boardNumber: this.locker.boardNumber })
-          //   .then((response) => {
-          //     this.board = response.data;
-          //   });
         }, 2000);
       }
       if (!present && previous != present) {

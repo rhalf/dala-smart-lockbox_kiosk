@@ -64,9 +64,9 @@ export default {
 
           this.setOrder(order);
 
-          let locker = { ...order.locker };
-          locker.boardNumber = order.locker.board.number;
-          this.setLocker(locker);
+          // let locker = { ...order.locker };
+          // locker.boardNumber = order.locker.board.number;
+          // this.setLocker(locker);
 
           this.setMessageId(messageId);
           this.setOrderId(order.id);

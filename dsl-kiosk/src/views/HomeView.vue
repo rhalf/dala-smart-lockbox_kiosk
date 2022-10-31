@@ -104,7 +104,6 @@
 import CheckIn from "../assets/Icons/CheckIn/CheckIn_Green-01.svg";
 import CheckOut from "../assets/Icons/CheckOut/CheckOut_Green.svg";
 import PadLock from "../assets/Icons/Lock/Lock_Green.svg";
-import Transaction from "../assets/Icons/Transaction/Transact_Green.svg";
 
 export default {
   name: "HomeView",
@@ -113,21 +112,17 @@ export default {
       CheckIn: CheckIn,
       CheckOut: CheckOut,
       PadLock: PadLock,
-      Transaction: Transaction,
     };
   },
   methods: {
     async onCheckInHandler() {
-      this.$router.push({ name: "check-in" });
+      this.$router.push({ name: "CheckIn" });
     },
     async onCheckOutHandler() {
-      this.$router.push({ name: "check-out" });
+      this.$router.push({ name: "CheckOut" });
     },
     async onLockerStatusHandler() {
-      this.$router.push({ name: "lockers" });
-    },
-    async onTransactionHandler() {
-      this.$router.push({ name: "transactions" });
+      this.$router.push({ name: "Lockers" });
     },
   },
 };

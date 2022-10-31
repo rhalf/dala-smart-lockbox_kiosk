@@ -1,17 +1,28 @@
 <template>
   <div>
     <v-fade-transition mode="out-in">
-      <check-in-stepper></check-in-stepper>
+      <Stepper></Stepper>
     </v-fade-transition>
   </div>
 </template>
 
 <script>
-import CheckInStepper from "./CheckInStepper";
+import Stepper from "./components/Stepper";
+
+import { mapActions } from "vuex";
 
 export default {
   name: "CheckInView",
-  components: { CheckInStepper },
+  components: { Stepper },
+  methods: {
+    ...mapActions("order", ["setOrder"]),
+    ...mapActions("locker", ["setLocker", "setLockerPassed"]),
+  },
+  mounted() {
+    this.setOrder(null);
+    this.setLocker(null);
+    this.setLockerPassed(false);
+  },
 };
 </script>
 

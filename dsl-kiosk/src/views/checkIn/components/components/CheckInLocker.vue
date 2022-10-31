@@ -1,24 +1,28 @@
 <template>
-  <v-sheet height="450" class="transparent vertical-scroll">
-    <check-out-locker-checker
+  <BaseSheet scrollable>
+    <check-in-locker-checker
       @onCheckedLocker="onCheckedLockerhandler"
-    ></check-out-locker-checker>
-  </v-sheet>
+    ></check-in-locker-checker>
+  </BaseSheet>
 </template>
 
 <script>
+import BaseSheet from "@/components/common/BaseSheet";
 import { mapActions, mapGetters } from "vuex";
-import CheckOutLockerChecker from "../locker/CheckOutLockerChecker";
+import CheckInLockerChecker from "@/components/locker/CheckInLockerChecker";
+
+// import cu48bApi from "@/api/cu48bApi";
 
 export default {
-  name: "CheckOutLocker",
-  components: { CheckOutLockerChecker },
+  name: "CheckInLocker",
+  components: { BaseSheet, CheckInLockerChecker },
   props: {
     enable: Boolean,
   },
   data() {
     return {
       timeInterval: null,
+      board: null,
     };
   },
   methods: {
@@ -42,6 +46,11 @@ export default {
         this.timeInterval = setInterval(() => {
           if (this.locker)
             this.readCu48b({ boardNumber: this.locker.boardNumber });
+          // cu48bApi
+          //   .readCu48b({ boardNumber: this.locker.boardNumber })
+          //   .then((response) => {
+          //     this.board = response.data;
+          //   });
         }, 2000);
       }
       if (!present && previous != present) {
@@ -52,18 +61,4 @@ export default {
 };
 </script>
 
-<style scoped>
-.vertical-scroll {
-  overflow-x: hidden;
-  overflow-y: scroll;
-  white-space: nowrap;
-  padding: 0.5rem;
-
-  -ms-overflow-style: none; /* Internet Explorer 10+ */
-  scrollbar-width: none; /* Firefox */
-}
-
-.vertical-scroll::-webkit-scrollbar {
-  display: none; /* Safari and Chrome */
-}
-</style>
+<style scoped></style>

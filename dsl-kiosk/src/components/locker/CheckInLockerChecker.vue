@@ -86,12 +86,12 @@ export default {
     isLockerClosed() {
       if (!this.cu48bLockers) return false;
       if (!this.locker) return false;
-      return this.cu48bLockers[this.locker.number] == 1;
+      return this.cu48bLockers[this.locker.number - 1] == 1;
     },
     isLockerOccupied() {
       if (!this.cu48bSensors) return false;
       if (!this.locker) return false;
-      return this.cu48bSensors[this.locker.number] == 1;
+      return this.cu48bSensors[this.locker.number - 1] == 1;
     },
   },
   methods: {
@@ -101,7 +101,7 @@ export default {
     unlockLockerHandler() {
       cu48bApi.unlockCu48b({
         boardNumber: this.locker.boardNumber,
-        lockerNumber: this.locker.number,
+        lockerNumber: this.locker.number - 1,
       });
     },
   },

@@ -15,22 +15,22 @@ const routes = [
   },
   {
     path: "/home",
-    name: "home",
+    name: "Home",
     component: HomeView,
   },
   {
     path: "/check-in",
-    name: "check-in",
+    name: "CheckIn",
     component: CheckInView,
   },
   {
     path: "/check-out",
-    name: "check-out",
+    name: "CheckOut",
     component: CheckOutView,
   },
   {
     path: "/lockers",
-    name: "lockers",
+    name: "Lockers",
     component: LockersView,
   },
 ];

@@ -1,9 +1,9 @@
 <template>
-  <BaseSheet>
+  <BaseSheet scrollable custom-class="text-center">
     <v-container>
       <v-row>
         <v-col>
-          <label class="pa-10 display-2">Check-Out Completed</label>
+          <label class="pa-10 display-2">Check-In Completed</label>
         </v-col>
       </v-row>
       <v-row>
@@ -37,7 +37,7 @@
       <v-row>
         <v-col>
           <p class="headline">
-            Press <strong>"ADD MORE"</strong> if you want to check-out new
+            Press <strong>"ADD MORE"</strong> if you want to check-in new
             parcel.
           </p>
           <p class="headline">
@@ -46,9 +46,7 @@
           </p>
         </v-col>
       </v-row>
-      <v-row>
-        <!-- <v-col><v-divider></v-divider> </v-col> -->
-      </v-row>
+      <v-row> </v-row>
       <v-row>
         <v-col>
           <v-progress-circular
@@ -72,9 +70,10 @@
 
 <script>
 import BaseSheet from "@/components/common/BaseSheet";
+
 import { mapActions } from "vuex";
 export default {
-  name: "CheckOutCompleted",
+  name: "CheckInCompleted",
   components: { BaseSheet },
   props: {
     enable: Boolean,
@@ -90,18 +89,22 @@ export default {
 
   methods: {
     ...mapActions("order", ["setOrder"]),
-    ...mapActions("locker", ["setLocker"]),
+    ...mapActions("locker", ["setLocker", "setLockerPassed"]),
 
-    addMoreHandler() {
+    async addMoreHandler() {
       this.setOrder(null);
       this.setLocker(null);
-      this.$router.go(0);
+      this.setLockerPassed(false);
+      await this.$router.push({ name: "Home" });
+      await this.$router.push({ name: "CheckIn" });
       clearInterval(this.timeIntervalHandler);
     },
 
-    endNowHandler() {
-      this.$router.push("/home");
-      this.$router.go(0);
+    async endNowHandler() {
+      this.setOrder(null);
+      this.setLocker(null);
+      this.setLockerPassed(false);
+      await this.$router.push({ name: "Home" });
       clearInterval(this.timeIntervalHandler);
     },
 
@@ -113,7 +116,7 @@ export default {
         if (this.timeValue < 0) {
           this.endNowHandler();
         }
-      }, 1000);
+      }, 1500);
     },
   },
   beforeDestroy() {

@@ -2,7 +2,7 @@
   <v-stepper v-model="stepState" dark flat class="transparent">
     <v-stepper-header class="elevation-0">
       <v-stepper-step :complete="stepState > 1" step="1">
-        <label :class="getClass(1)">Scan Code</label>
+        <label :class="getClass(1)">Deposit Code</label>
       </v-stepper-step>
       <v-divider></v-divider>
 
@@ -134,11 +134,11 @@
 
 <script>
 import { mapActions, mapGetters } from "vuex";
-import CheckInCode from "@/components/parcel/CheckInCode";
-import CheckInDetails from "@/components/parcel/CheckInDetails";
-import CheckInSelectLocker from "@/components/parcel/CheckInSelectLocker";
-import CheckInLocker from "@/components/parcel/CheckInLocker";
-import CheckInCompleted from "@/components/parcel/CheckInCompleted";
+import CheckInCode from "./components/CheckInCode";
+import CheckInDetails from "./components/CheckInDetails";
+import CheckInSelectLocker from "./components/CheckInSelectLocker";
+import CheckInLocker from "./components/CheckInLocker";
+import CheckInCompleted from "./components/CheckInCompleted";
 
 export default {
   name: "CheckInStepper",

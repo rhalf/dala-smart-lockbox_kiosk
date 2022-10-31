@@ -2,7 +2,7 @@
   <v-stepper v-model="stepState" dark flat class="transparent">
     <v-stepper-header class="elevation-0">
       <v-stepper-step :complete="stepState > 1" step="1">
-        <label :class="getClass(1)">Scan Pick-Up Code</label>
+        <label :class="getClass(1)">Pick-Up Code</label>
       </v-stepper-step>
       <v-divider></v-divider>
       <v-stepper-step :complete="stepState > 2" step="2">
@@ -26,10 +26,10 @@
       <v-stepper-content step="1">
         <v-row>
           <v-col>
-            <check-out-code
+            <CheckOutCode
               @onParcelCode="onParcelCodeHandler"
               :enable="stepState == 1"
-            ></check-out-code>
+            ></CheckOutCode>
           </v-col>
         </v-row>
       </v-stepper-content>
@@ -37,7 +37,7 @@
       <v-stepper-content step="2">
         <v-row>
           <v-col>
-            <check-out-details></check-out-details>
+            <CheckOutDetails></CheckOutDetails>
           </v-col>
         </v-row>
         <v-spacer></v-spacer>
@@ -60,10 +60,10 @@
       <v-stepper-content step="3">
         <v-row>
           <v-col>
-            <check-out-otp
+            <CheckOutOtp
               @onParcelOtp="onParcelOtpHandler()"
               :enable="stepState == 3"
-            ></check-out-otp>
+            ></CheckOutOtp>
           </v-col>
         </v-row>
         <v-spacer></v-spacer>
@@ -86,7 +86,7 @@
       <v-stepper-content step="4">
         <v-row>
           <v-col>
-            <check-out-locker :enable="stepState == 4"></check-out-locker>
+            <CheckOutLocker :enable="stepState == 4"></CheckOutLocker>
           </v-col>
         </v-row>
         <v-row>
@@ -120,7 +120,7 @@
       <v-stepper-content step="5">
         <v-row>
           <v-col>
-            <check-out-completed :enable="stepState == 5"></check-out-completed>
+            <CheckOutCompleted :enable="stepState == 5"></CheckOutCompleted>
           </v-col>
         </v-row>
         <v-row><v-col></v-col></v-row>
@@ -130,17 +130,17 @@
 </template>
 
 <script>
-import CheckOutCode from "@/components/parcel/CheckOutCode";
-import CheckOutDetails from "@/components/parcel/CheckOutDetails";
-import CheckOutOtp from "@/components/parcel/CheckOutOtp";
-import CheckOutLocker from "@/components/parcel/CheckOutLocker";
-import CheckOutCompleted from "@/components/parcel/CheckOutCompleted";
+import CheckOutCode from "./components/CheckOutCode";
+import CheckOutDetails from "./components/CheckOutDetails";
+import CheckOutOtp from "./components/CheckOutOtp";
+import CheckOutLocker from "./components/CheckOutLocker";
+import CheckOutCompleted from "./components/CheckOutCompleted";
 import { mapActions, mapGetters } from "vuex";
 
 import ssoApi from "@/api/ssoApi";
 
 export default {
-  name: "CheckOutStepper",
+  name: "Stepper",
   components: {
     CheckOutCode,
     CheckOutDetails,
@@ -161,7 +161,6 @@ export default {
     ...mapGetters("verification", ["pickupCode"]),
   },
   methods: {
-    ...mapActions("otp", ["fetchOtp"]),
     ...mapActions("loading", ["setLoading"]),
     ...mapActions("dialog", ["setError", "setInfo"]),
     ...mapActions("verification", ["setMessageId", "setOrderId"]),

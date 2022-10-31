@@ -3,7 +3,7 @@
     <v-container>
       <v-row>
         <v-col>
-          <label class="pa-10 display-2">Check-In Completed</label>
+          <label class="pa-10 display-2">Check-Out Completed</label>
         </v-col>
       </v-row>
       <v-row>
@@ -14,10 +14,10 @@
             color="primary--text"
             x-large
             light
-            @click="addMoreHandler()"
+            @click="getMoreHandler()"
           >
             <v-icon left>mdi-check</v-icon>
-            Add More
+            Get More
           </v-btn>
         </v-col>
         <v-col cols="auto">
@@ -37,7 +37,7 @@
       <v-row>
         <v-col>
           <p class="headline">
-            Press <strong>"ADD MORE"</strong> if you want to check-in new
+            Press <strong>"GET MORE"</strong> if you want to check-out new
             parcel.
           </p>
           <p class="headline">
@@ -72,10 +72,9 @@
 
 <script>
 import BaseSheet from "@/components/common/BaseSheet";
-
 import { mapActions } from "vuex";
 export default {
-  name: "CheckInCompleted",
+  name: "CheckOutCompleted",
   components: { BaseSheet },
   props: {
     enable: Boolean,
@@ -93,22 +92,21 @@ export default {
     ...mapActions("order", ["setOrder"]),
     ...mapActions("locker", ["setLocker", "setLockerPassed"]),
 
-    async addMoreHandler() {
+    async getMoreHandler() {
       this.setOrder(null);
       this.setLocker(null);
       this.setLockerPassed(false);
-      await this.$router.push("/home");
-      await this.$router.push("/check-in");
-      // this.$router.go(this.$router.currentRoute);
+      await this.$router.push({ name: "Home" });
+      await this.$router.push({ name: "CheckOut" });
       clearInterval(this.timeIntervalHandler);
     },
 
-    endNowHandler() {
+    async endNowHandler() {
       this.setOrder(null);
       this.setLocker(null);
       this.setLockerPassed(false);
-      this.$router.push("/home");
-      // this.$router.go(0);
+      await this.$router.push({ name: "Home" });
+
       clearInterval(this.timeIntervalHandler);
     },
 
@@ -120,7 +118,7 @@ export default {
         if (this.timeValue < 0) {
           this.endNowHandler();
         }
-      }, 1500);
+      }, 1000);
     },
   },
   beforeDestroy() {
@@ -137,18 +135,4 @@ export default {
 };
 </script>
 
-<style scoped>
-.vertical-scroll {
-  overflow-x: hidden;
-  overflow-y: scroll;
-  white-space: nowrap;
-  padding: 0.5rem;
-
-  -ms-overflow-style: none; /* Internet Explorer 10+ */
-  scrollbar-width: none; /* Firefox */
-}
-
-.vertical-scroll::-webkit-scrollbar {
-  display: none; /* Safari and Chrome */
-}
-</style>
+<style scoped></style>

@@ -45,8 +45,14 @@ export default {
   },
   methods: {
     ...mapActions("loading", ["setLoading"]),
+    ...mapActions("order", ["setOrder"]),
+    ...mapActions("locker", ["setLocker", "setLockerPassed"]),
   },
   mounted() {
+    this.setOrder(null);
+    this.setLocker(null);
+    this.setLockerPassed(false);
+
     this.setLoading({ visible: true });
     ssoApi
       .readBoards()

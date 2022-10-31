@@ -5,7 +5,6 @@ import loading from "./modules/loading";
 import dialog from "./modules/dialog";
 import verification from "./modules/verification";
 import locker from "./modules/locker";
-import otp from "./modules/otp";
 import order from "./modules/order";
 import cu48b from "./modules/cu48b";
 import token from "./modules/token";
@@ -20,7 +19,6 @@ export default new Vuex.Store({
     locker,
     order,
     verification,
-    otp,
     cu48b,
     token,
     connection,
