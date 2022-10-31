@@ -21,7 +21,7 @@ jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
     environment:
-      name: production
+      name: main
       url: https://dala-smart-lockbox.web.app/
     steps:
       - uses: actions/checkout@v2
