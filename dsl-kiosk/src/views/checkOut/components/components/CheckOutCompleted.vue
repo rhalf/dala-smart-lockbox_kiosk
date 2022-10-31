@@ -46,9 +46,7 @@
           </p>
         </v-col>
       </v-row>
-      <v-row>
-        <!-- <v-col><v-divider></v-divider> </v-col> -->
-      </v-row>
+      <v-row> </v-row>
       <v-row>
         <v-col>
           <v-progress-circular
@@ -106,7 +104,6 @@ export default {
       this.setLocker(null);
       this.setLockerPassed(false);
       await this.$router.push({ name: "Home" });
-
       clearInterval(this.timeIntervalHandler);
     },
 
