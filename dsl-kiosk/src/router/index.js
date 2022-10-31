@@ -4,8 +4,7 @@ import VueRouter from "vue-router";
 import HomeView from "@/views/HomeView";
 import CheckInView from "@/views/checkIn/CheckInView";
 import CheckOutView from "@/views/checkOut/CheckOutView";
-import LockerView from "@/views/lockerViewer/LockerView";
-import TransactionView from "@/views/TransactionViewer/TransactionView";
+import LockersView from "@/views/lockerView/LockersView";
 
 Vue.use(VueRouter);
 
@@ -16,23 +15,23 @@ const routes = [
   },
   {
     path: "/home",
+    name: "Home",
     component: HomeView,
   },
   {
     path: "/check-in",
+    name: "CheckIn",
     component: CheckInView,
   },
   {
     path: "/check-out",
+    name: "CheckOut",
     component: CheckOutView,
   },
   {
-    path: "/locker-viewer",
-    component: LockerView,
-  },
-  {
-    path: "/transaction-viewer",
-    component: TransactionView,
+    path: "/lockers",
+    name: "Lockers",
+    component: LockersView,
   },
 ];
 

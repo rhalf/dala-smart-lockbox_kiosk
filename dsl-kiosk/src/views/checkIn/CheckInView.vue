@@ -1,23 +1,27 @@
 <template>
   <div>
     <v-fade-transition mode="out-in">
-      <rider-sign-in v-if="!rider"></rider-sign-in>
-      <check-in-stepper v-if="rider"></check-in-stepper>
+      <Stepper></Stepper>
     </v-fade-transition>
   </div>
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import Stepper from "./components/Stepper";
 
-import CheckInStepper from "./CheckInStepper";
-import RiderSignIn from "../../components/rider/RiderSignIn";
+import { mapActions } from "vuex";
 
 export default {
   name: "CheckInView",
-  components: { RiderSignIn, CheckInStepper },
-  computed: {
-    ...mapGetters("rider", ["rider"]),
+  components: { Stepper },
+  methods: {
+    ...mapActions("order", ["setOrder"]),
+    ...mapActions("locker", ["setLocker", "setLockerPassed"]),
+  },
+  mounted() {
+    this.setOrder(null);
+    this.setLocker(null);
+    this.setLockerPassed(false);
   },
 };
 </script>

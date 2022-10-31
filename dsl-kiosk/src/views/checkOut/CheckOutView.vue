@@ -1,15 +1,26 @@
 <template>
   <v-fade-transition mode="out-in">
-    <check-out-stepper></check-out-stepper>
+    <Stepper></Stepper>
   </v-fade-transition>
 </template>
 
 <script>
-import CheckOutStepper from "../checkOut/CheckOutStepper";
+import Stepper from "./components/Stepper";
+
+import { mapActions } from "vuex";
 
 export default {
   name: "CheckOutView",
-  components: { CheckOutStepper },
+  components: { Stepper },
+  methods: {
+    ...mapActions("order", ["setOrder"]),
+    ...mapActions("locker", ["setLocker", "setLockerPassed"]),
+  },
+  mounted() {
+    this.setOrder(null);
+    this.setLocker(null);
+    this.setLockerPassed(false);
+  },
 };
 </script>
 

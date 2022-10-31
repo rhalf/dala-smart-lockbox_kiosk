@@ -1,4 +1,4 @@
-import adminApi from "../../../api/adminApi";
+import ssoApi from "@/api/ssoApi";
 
 export default {
   async setLockerPassed(context, payload) {
@@ -8,27 +8,26 @@ export default {
     await context.commit("SET_LOCKER", payload);
   },
 
-
   async setLockerOrder({ commit }, payload) {
     try {
       console.log("commit", commit);
-      const response = await adminApi.checkInParcel(payload);
+      const response = await ssoApi.checkInParcel(payload);
       return response;
     } catch {
       return null;
     }
   },
 
-  async openLocker({ commit }, payload) {
-    console.log("commit", commit);
-    return await adminApi.lockerOpen(payload);
-  },
-  async closeLocker({ commit }, payload) {
-    console.log("commit", commit);
-    return await adminApi.lockerClose(payload);
-  },
-  async openStateLocker({ commit }, payload) {
-    console.log("commit", commit);
-    return await adminApi.lockerOpenState(payload);
-  },
+  //   async openLocker({ commit }, payload) {
+  //     console.log("commit", commit);
+  //     return await ssoApi.lockerOpen(payload);
+  //   },
+  //   async closeLocker({ commit }, payload) {
+  //     console.log("commit", commit);
+  //     return await ssoApi.lockerClose(payload);
+  //   },
+  //   async openStateLocker({ commit }, payload) {
+  //     console.log("commit", commit);
+  //     return await ssoApi.lockerOpenState(payload);
+  //   },
 };
