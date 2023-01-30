@@ -22,7 +22,7 @@ export default {
   props: {
     height: {
       type: Number,
-      default: 525,
+      default: 500,
     },
     scrollable: {
       type: Boolean,
