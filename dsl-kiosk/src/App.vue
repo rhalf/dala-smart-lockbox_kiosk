@@ -114,7 +114,7 @@ html {
   -ms-overflow-style: none; /* for Internet Explorer, Edge */
   scrollbar-width: none; /* for Firefox */
   overflow-y: hidden;
-  zoom: 140%;
+  zoom: 130%;
 }
 
 html::-webkit-scrollbar {
